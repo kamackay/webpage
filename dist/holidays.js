@@ -22,7 +22,8 @@ router.all("/*", (request, response, next) => {
         const urlS = request.url.split("/");
         _1.default.log(urlS);
         const urlInfo = [];
-        urlS.filter(url => url !== "").forEach(url => {
+        urlS.filter((url) => url !== "")
+            .forEach((url) => {
             urlInfo.push(url);
         });
         if (urlInfo.length >= 1 && urlInfo[0].length <= 2) {

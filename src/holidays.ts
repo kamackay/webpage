@@ -13,9 +13,10 @@ router.all("/*", (request, response, next) => {
 		_.log(urlS);
 		const urlInfo: string[] = [];
 
-		urlS.filter(url => url !== "").forEach(url => {
-			urlInfo.push(url);
-		});
+		urlS.filter((url) => url !== "")
+			.forEach((url) => {
+				urlInfo.push(url);
+			});
 		if (urlInfo.length >= 1 && urlInfo[0].length <= 2) {
 			const month = parseInt(urlInfo[0], 10);
 			_.log(`All holidays in the ${month}th month`);

@@ -60,16 +60,14 @@ class HelperObject {
         });
         return s;
     }
-    // TODO figure this hot shit out
-    /*
-    public combineObj(a: object, b: object, overwrite: boolean) {
-        this.keys(a).forEach((k: string) => {
+    combineObj(a, b, overwrite) {
+        this.keys(a).forEach((k) => {
             if (overwrite || !a[k] !== undefined) {
                 a[k] = b[k];
             }
         });
         return a;
-    }/**/
+    } /**/
     padNumStr(s, n = 2) {
         n = n || 2;
         while (s.length < n) {

@@ -35,6 +35,7 @@ app.all(["/version", "/version/*"], (req, res, next) => {
     const o = { version: _1.default.version };
     res.json(o);
     _1.default.log(o);
+    next();
 });
 app.listen(5000, () => {
     _1.default.log("Client now running on port 5000 (" + _1.default.getDateStr() + ")\n");

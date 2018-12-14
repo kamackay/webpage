@@ -1,6 +1,5 @@
 import bodyParser from "body-parser";
 import express from "express";
-import math from "mathjs";
 const app = express();
 app.use(bodyParser.json());
 const router = express.Router();

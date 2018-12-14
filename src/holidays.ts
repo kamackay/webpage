@@ -1,9 +1,9 @@
 import express from "express";
 import _ from "./_";
 const app = express();
-import math from "mathjs";
 const router = express.Router();
 import * as staticData from "./data/holidays.json";
+import { Holiday, SimpleDate } from "./model/holiday";
 
 // router.post('/', holidayReq);
 router.all("/*", (request, response, next) => {
@@ -13,7 +13,7 @@ router.all("/*", (request, response, next) => {
 		_.log(urlS);
 		const urlInfo: string[] = [];
 
-		urlS.filter((url) => url !== "").forEach((url) => {
+		urlS.filter(url => url !== "").forEach(url => {
 			urlInfo.push(url);
 		});
 		if (urlInfo.length >= 1 && urlInfo[0].length <= 2) {
@@ -32,7 +32,9 @@ router.all("/*", (request, response, next) => {
 				urlInfo.length >= 1 && urlInfo[0].length === 4
 					? parseInt(urlInfo[0], 10)
 					: new Date().getFullYear();
-			for (let i = 0; i < 12; i++) { h = h.concat(getHolidays(i, year)); }
+			for (let i = 0; i < 12; i++) {
+				h = h.concat(getHolidays(i, year));
+			}
 			_.log("All Holidays in " + year.toString(), h);
 			_.sendJSON(response, h, start);
 		}
@@ -43,10 +45,12 @@ router.all("/*", (request, response, next) => {
 	}
 });
 
-function getHolidays(month: number, year: number): any[] {
-	const o = [];
+function getHolidays(month: number, year: number): Holiday[] {
+	const o: Holiday[] = [];
 	(staticData as any).holidays.forEach((h: any) => {
-		if (h.date.month === month) { o.push(h); }
+		if (h.date.month === month) {
+			o.push(h);
+		}
 	});
 	const easter = getEaster(year);
 	if (easter.month === month) {
@@ -74,7 +78,7 @@ class Temp {
 	public d: number;
 }
 
-function getEaster(year: number) {
+function getEaster(year: number): SimpleDate {
 	const temp = new Temp();
 	temp.c = Math.floor(year / 100);
 	temp.n = year - 19 * Math.floor(year / 19);

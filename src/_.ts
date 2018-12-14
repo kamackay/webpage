@@ -58,8 +58,6 @@ class HelperObject {
 		return s;
 	}
 
-	// TODO figure this hot shit out
-	/*
 	public combineObj(a: object, b: object, overwrite: boolean) {
 		this.keys(a).forEach((k: string) => {
 			if (overwrite || !a[k] !== undefined) {
@@ -94,7 +92,7 @@ class HelperObject {
 		);
 	}
 
-	public convertToString(n: number) {
+	public convertToString(n: number): string {
 		return "" + n;
 	}
 

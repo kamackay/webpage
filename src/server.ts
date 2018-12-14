@@ -17,26 +17,27 @@ const app = express();
 const router = express.Router();
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
 });
 app.use(bodyParser.urlencoded({
-    extended: true,
+	extended: true,
 }));
 app.use(bodyParser.json());
 _.keys(modules).forEach((key: string) => {
-    app.use("/" + key, modules[key]);
-    _.log('Loaded Module "' + key + '"');
+	app.use("/" + key, modules[key]);
+	_.log('Loaded Module "' + key + '"');
 });
 app.all(["/version", "/version/*"], (req, res, next) => {
-    const o = { version: _.version };
-    res.json(o);
-    _.log(o);
+	const o = { version: _.version };
+	res.json(o);
+	_.log(o);
+	next();
 });
 
 app.listen(5000, () => {
-    _.log("Client now running on port 5000 (" + _.getDateStr() + ")\n");
+	_.log("Client now running on port 5000 (" + _.getDateStr() + ")\n");
 });
 
 export default app;

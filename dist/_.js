@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const js_beautify_1 = __importDefault(require("js-beautify"));
 class HelperObject {
     constructor() {
-        this.version = "1.0.2";
+        this.version = "1.1.0";
         this.encode = encodeURIComponent;
     }
     err(err) {
@@ -51,7 +51,7 @@ class HelperObject {
                     return s(s(o));
             }
         };
-        console.log(...args.map(t));
+        console.log(this.getDateStr() + " - ", ...args.map(t));
     }
     serialize(o) {
         let s = "?";

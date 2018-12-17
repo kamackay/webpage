@@ -1,6 +1,5 @@
 import express from "express";
 import _ from "./_";
-const app = express();
 const router = express.Router();
 import * as staticData from "./data/holidays.json";
 import { Holiday, SimpleDate } from "./model/holiday";
@@ -10,7 +9,6 @@ router.all("/*", (request, response, next) => {
 	const start = _.getTime();
 	try {
 		const urlS = request.url.split("/");
-		_.log(urlS);
 		const urlInfo: string[] = [];
 
 		urlS.filter((url) => url !== "")
@@ -19,14 +17,12 @@ router.all("/*", (request, response, next) => {
 			});
 		if (urlInfo.length >= 1 && urlInfo[0].length <= 2) {
 			const month = parseInt(urlInfo[0], 10);
-			_.log(`All holidays in the ${month}th month`);
 			const year =
 				urlInfo.length >= 2
 					? parseInt(urlInfo[1], 10)
 					: new Date().getFullYear();
 			const hols = getHolidays(month, year);
 			_.sendJSON(response, hols, start);
-			_.log(hols);
 		} else {
 			let h: object[] = [];
 			const year =
@@ -36,7 +32,6 @@ router.all("/*", (request, response, next) => {
 			for (let i = 0; i < 12; i++) {
 				h = h.concat(getHolidays(i, year));
 			}
-			_.log("All Holidays in " + year.toString(), h);
 			_.sendJSON(response, h, start);
 		}
 		next();

@@ -12,7 +12,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const _1 = __importDefault(require("./_"));
-const app = express_1.default();
 const router = express_1.default.Router();
 const staticData = __importStar(require("./data/holidays.json"));
 // router.post('/', holidayReq);
@@ -20,7 +19,6 @@ router.all("/*", (request, response, next) => {
     const start = _1.default.getTime();
     try {
         const urlS = request.url.split("/");
-        _1.default.log(urlS);
         const urlInfo = [];
         urlS.filter((url) => url !== "")
             .forEach((url) => {
@@ -28,13 +26,11 @@ router.all("/*", (request, response, next) => {
         });
         if (urlInfo.length >= 1 && urlInfo[0].length <= 2) {
             const month = parseInt(urlInfo[0], 10);
-            _1.default.log(`All holidays in the ${month}th month`);
             const year = urlInfo.length >= 2
                 ? parseInt(urlInfo[1], 10)
                 : new Date().getFullYear();
             const hols = getHolidays(month, year);
             _1.default.sendJSON(response, hols, start);
-            _1.default.log(hols);
         }
         else {
             let h = [];
@@ -44,7 +40,6 @@ router.all("/*", (request, response, next) => {
             for (let i = 0; i < 12; i++) {
                 h = h.concat(getHolidays(i, year));
             }
-            _1.default.log("All Holidays in " + year.toString(), h);
             _1.default.sendJSON(response, h, start);
         }
         next();

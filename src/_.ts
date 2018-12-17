@@ -1,8 +1,9 @@
 import { Response } from "express";
 import jsFormatter from "js-beautify";
+import JsObject from "./model/JsObject";
 
 class HelperObject {
-	public readonly version = "1.0.2";
+	public readonly version = "1.1.0";
 	public readonly encode = encodeURIComponent;
 
 	public err(err: Error): void {
@@ -47,7 +48,7 @@ class HelperObject {
 					return s(s(o));
 			}
 		};
-		console.log(...args.map(t));
+		console.log(this.getDateStr() + " - ", ...args.map(t));
 	}
 
 	public serialize(o: any) {
@@ -58,7 +59,7 @@ class HelperObject {
 		return s;
 	}
 
-	public combineObj(a: object, b: object, overwrite: boolean) {
+	public combineObj(a: JsObject, b: JsObject, overwrite: boolean) {
 		this.keys(a).forEach((k: string) => {
 			if (overwrite || !a[k] !== undefined) {
 				a[k] = b[k];
@@ -100,7 +101,7 @@ class HelperObject {
 		return Object.keys(obj);
 	}
 
-	public sendJSON(resp: Response, obj: {[k: string]: any}, startTime: number = null) {
+	public sendJSON(resp: Response, obj: JsObject, startTime: number = null) {
 		obj.appVersion = this.version;
 		resp.json(obj);
 		if (startTime) {

@@ -10,4 +10,4 @@ declare class Holiday {
 	public name: string;
 }
 
-export {SimpleDate, Holiday};
+export { SimpleDate, Holiday };

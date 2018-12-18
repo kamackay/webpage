@@ -1,14 +1,16 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import * as React from "react";
 import ResumeState from "src/model/ResumeState";
+import "../../bootstrap.min.css";
+import "./Resume.css";
 
 const styles = {
 	card: {
 		minWidth: 275,
-		width: "fit-content",
+		width: "fit-content"
 	},
 	title: {
-		fontSize: 14
+		color: "black",
 	}
 };
 
@@ -24,11 +26,9 @@ class Resume extends React.Component<any, ResumeState> {
 	public render() {
 		return (
 			<div className="container">
-				<Card style={styles.card}>
-					<CardContent>
-						<Typography variant="h1" style={styles.title}>Resume</Typography>
-					</CardContent>
-				</Card>
+				<Typography variant="h2" style={styles.title}>
+					Keith MacKay's Resume
+				</Typography>
 			</div>
 		);
 	}

@@ -1,3 +1,4 @@
+import { Card, Paper } from '@material-ui/core';
 import * as React from "react";
 import { Holiday } from "src/model/Holiday";
 import ListState from "src/model/ListState";
@@ -28,18 +29,15 @@ class Holidays extends React.Component<any, ListState> {
 	public render() {
 		const { holidays } = this.state;
 
-		// tslint:disable-next-line:no-console
-		console.log(JSON.stringify(holidays));
-
 		return (
-			<div className="App">
+			<Paper className="App">
 				<h1>List of Holidays this year</h1>
 				{/* Check to see if any items are found*/}
 				{holidays && holidays.length ? (
 					<div>
 						{/* Render the list of items */}
 						{holidays.map((item: Holiday) => {
-							return <div key={item.name}><a href={item.link}>{item.name}</a></div>;
+							return <Card key={item.name}><a href={item.link}>{item.name}</a></Card>;
 						})}
 					</div>
 				) : (
@@ -47,7 +45,7 @@ class Holidays extends React.Component<any, ListState> {
 						<h2>No Holidays Found</h2>
 					</div>
 				)}
-			</div>
+			</Paper>
 		);
 	}
 }

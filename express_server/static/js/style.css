@@ -1,0 +1,29 @@
+body {
+    overflow: hidden;
+}
+
+#contents {
+    display: inline-block;
+}
+
+#codeContainer * {
+    z-index: 2;
+}
+
+#exTab1 .tab-content {
+    color: white;
+    background-color: #009688;
+    padding: 5px 15px;
+}
+
+#exTab1 .nav-pills > li > a {
+    border-radius: 0;
+}
+
+div.tab-content.clearfix {
+    max-width: 90%;
+}
+
+ul.nav.nav-pills>li.active>a {
+    background-color: #009688;
+}

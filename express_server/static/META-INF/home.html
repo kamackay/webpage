@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Keith MacKay">
+<meta name="google-signin-client_id" content="1064860895382-p406vdpi0j8kd4u4c84l8bkk0apljp9q.apps.googleusercontent.com">
+<link rel="icon" href="http://keithmackay.com/favicon.ico">
+<title>Homepage</title>
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/bootstrap.css">
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/material.css">
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/snackbar.css">
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/style.css">
+<link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+<script type="text/javascript" src="http://keithmackay.com/devfiles/jquery.js"></script>
+<script type="text/javascript" src="http://keithmackay.com/devfiles/bootstrap.js"></script>
+<script type="text/javascript" src="http://keithmackay.com/devfiles/material.js"></script>
+<script type="text/javascript" src="http://keithmackay.com/devfiles/snackbar.js"></script>
+<script type="text/javascript" src="http://keithmackay.com/devfiles/script.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- ciJWXgNmFokhL2JV0JFvwpNx -->
+<style>
+body{overflow:hidden;background-color:rgba(150,150,150,1);}
+body.signed-out>.container>.row{margin-top:20px;text-align:center;}
+body.signed-out .g-signin2{margin-right:auto;margin-left:auto;text-align:center;display:inline-block;}
+body.signed-in #signInDiv {display:none;}
+body.signed-out #page{display:none;}
+#page{position:fixed;overflow:auto;top:0px;left:0px;height:100vh;width:100vw;}
+#page #shortcuts{
+	position:absolute;display:block;margin-top:50vh;height:40vh;width:80vw;margin-left:10vw;
+	left:0px;top:0px;
+	border-radius:5px;
+	padding:10px;padding-top:20px;
+	background-color:rgba(255,255,255,.5);
+	border:black solid thin;overflow-y:auto;overflow-x:hidden;
+}
+#shortcuts>.row>.col-xs-6{text-align:center;min-height:100px;}
+#shortcuts>.row>.col-xs-6>a{font-size:20px;min-height:60px;padding-top:15px;text-decoration:none;}
+#shortcuts>.row>.col-xs-6>a>img{max-height:30px;display:inline;margin-bottom:5px;}
+#shortcuts>.row>.col-xs-6>a:hover{background-color:rgba(0,150,136,.75);box-shadow:0 8px 17px 0 rgba(0,0,0,.5);color:white;}
+@font-face {
+	font-family: source;
+	src: url(http://keithmackay.com/fonts/ubuntu.ttf) format("truetype");
+}
+#clock{text-align:center;font-size:3em;font-family:source;}
+#clockPar{background-color:rgba(255,255,255,.5);padding:10px;width:75vw;margin-left:auto;margin-right:auto;margin-top:5vh;border-radius:10px;box-shadow:0 8px 17px 0 rgba(0,0,0,.5);}
+#searchInput{display:block;float:none;width:50%;margin-left:auto;margin-right:auto;
+background-color:rgba(255,255,255,.5);padding:15px;color:black;border-radius:1px;
+box-shadow:2px 4px 17px 0 rgba(0,0,0,.5);font-family:source;font-size:20px;margin-bottom:25px;border-width:2px;
+border-color:rgba(127,127,127,.25);
+}
+
+/**** Placeholder Stuff ******/
+::-webkit-input-placeholder {color: rgba(127,127,127,.75);}
+:-moz-placeholder{color:rgba(127,127,127,.75);}
+::-moz-placeholder{color:rgba(127,127,127,.75);}
+:-ms-input-placeholder{color:rgba(127,127,127,.75);}
+</style>
+<script type="text/javascript">
+	(function(){
+		$.material.init();
+		$(document).ready(function (){
+			setInterval(function(){
+				try{
+				$('#clock').html(timeAsString());
+				} catch(err){}
+			}, 1);
+			$('#searchInput').on('keypress', function (e){
+				switch (e.which){
+				case 13:
+					//search
+					break;
+				}
+			});
+		});
+	})();
+	function padInt(num, len) {
+	    var int = num + "";
+	    while (int.length < len) int = '0' + int;
+	    return int;
+	}
+
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+	  const token = googleUser.getAuthResponse().id_token;
+	  var email = profile.getEmail();
+	  if (email === 'kamackay@ncsu.edu'){
+		  $.ajax({url:'./signIn', 
+			  method:'POST', data:serialize({token:token}), 
+			  complete: function(data){ }
+		  });
+		  $.ajax({url:'./getData', 
+			  method:'POST', data: serialize({
+				  username: 'kamackay'
+			  }), 
+			  complete: function (data){
+				  loadUserData(data.responseJSON);
+			  }});
+		  $('body').addClass('signed-in').removeClass('signed-out');
+		  toast('Hello, Keith');
+	  } else toast('This application is currently is development, please check back another time');
+	}
+	
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+      $('body').addClass('signed-out');
+      $('body').removeClass('signed-in');
+    });
+  }
+  
+  function loadUserData(userData){
+	  const links = userData.links;
+	  const shCutsEl=$('#shortcuts');
+	  var i = 0;
+	  links.forEach(function (link){
+		  if (i % 4 == 0)
+			  shCutsEl.append('<div class="row"></div>');
+		  var elId = "thumb" + i;
+		  shCutsEl.find('.row').last().append('<div class="col-xs-6 col-md-3"><a id="'+elId+'" href="'+link.url
+				  +'" class="thumbnail"><img src="http://www.google.com/s2/favicons?domain='+ link.url.replace('http://', '').replace('https://', '')
+						  +'" />'+'&nbsp;'+link.title+'&nbsp;&nbsp;</a></div>');
+		  i++;
+	  });
+	  $('#page').append('<img id="pageBack" style="height:100vh;width:100vw;z-index:-1;position:fixed;top:0px;" src="'+userData.background+'" />');
+  }
+  function timeAsString(){
+	  var time = new Date(); 
+	  return ((time.getHours() - 1) % 12) + 1 + ':' + padInt(time.getMinutes(), 2) + ':' + padInt(time.getSeconds(), 2) + ' ' + (time.getHours() > 12 ? 'PM' : 'AM');
+  }
+</script>
+</head>
+<body class="signed-out">
+	<div class="container">
+		<div id="signInDiv" class="row well">
+			<h4><i>You must be signed in to use this application</i></h4>
+			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="75" data-longtitle="true"></div>
+		</div>
+		<div id="page" class="unselectable">
+			<div class="row" id="clockPar">
+				<h1 id="clock" class="hack"></h1>
+				<input id="searchInput" class="" placeholder="Search..." type="text" autofocus />
+			</div>
+			<div id="shortcuts"></div>
+		</div>
+	</div>
+</body>
+</html>

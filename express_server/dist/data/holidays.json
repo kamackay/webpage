@@ -11,10 +11,26 @@
         {
             "date": {
                 "month": 11,
+                "day": 30
+            },
+            "name": "New Year's Eve",
+            "link": "https://en.wikipedia.org/wiki/New_Year's_Eve"
+        },
+        {
+            "date": {
+                "month": 11,
                 "day": 24
             },
             "name": "Christmas",
             "link": "https://en.wikipedia.org/wiki/Christmas"
+        },
+        {
+            "date": {
+                "month": 11,
+                "day": 23
+            },
+            "name": "Christmas Eve",
+            "link": "https://en.wikipedia.org/wiki/Christmas_Eve"
         },
         {
             "date": {

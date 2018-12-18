@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Keith MacKay">
+	<link rel="icon" href="../images/json.ico">
+	<title>JSON Formatter</title>
+	<link rel="stylesheet" href="../devfiles/bootstrap.css">
+	<link rel="stylesheet" href="../devfiles/material.css">
+	<link rel="stylesheet" href="../devfiles/ripples.css">
+	<link rel="stylesheet" href="../devfiles/style.css">
+	<link rel="stylesheet" href="../devfiles/tether.css">
+	<link rel="stylesheet" href="../devfiles/snackbar.css">
+	<link rel="stylesheet" href="../devfiles/jquery-ui.css">
+	<link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+	<script type="text/javascript" src="../devfiles/jquery.js"></script>
+	<script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+	<script type="text/javascript" src="../devfiles/ripples.js"></script>
+	<script type="text/javascript" src="../devfiles/material.js"></script>
+	<script type="text/javascript" src="../devfiles/tether.js"></script>
+	<script type="text/javascript" src="../devfiles/snackbar.js"></script>
+	<script type="text/javascript" src="../devfiles/beautify.js"></script>
+	<script type="text/javascript" src="../devfiles/script.js"></script>
+	<style>
+	body{overflow:hidden;}
+	.hack, .hack *{
+		font-family:Hack;
+	}
+	#jsonCode{
+		min-height:65vh;
+		max-width:100%;
+		max-height:70vh;
+	}
+	</style>
+	<script type="text/javascript">
+		(function (){
+			window.keys = {code: 'CodeKey'};
+			$(document).ready(function (){
+				$('#jsonCode').val(getData(window.keys.code)||'');
+				$(document).on('keydown', function (event){
+					switch (event.which){
+						case 83:
+							if (event.ctrlKey) event.preventDefault();
+							break;
+					}
+					storeData(window.keys.code, $('#jsonCode').val());
+				});
+			});
+		})();
+	
+		function format(){
+			const el = document.getElementById('jsonCode');
+			var str = el.value;
+			try {
+				var obj = JSON.parse(str);
+				el.value = JSON.stringify(obj, undefined, 4);
+			} catch(err){
+				toast('JSON improperly formatted');
+				console.log(err);
+			}
+		}
+		
+		function minify(){
+			const el = document.getElementById('jsonCode');
+			var str = el.value;
+			try{
+				var obj = JSON.parse(str);
+				el.value = JSON.stringify(obj);
+			} catch (err){
+				toast('JSON improperly formatted');
+				console.log(err);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="page" class="container">
+		<h1><img src="http://keithmackay.com/favicon.ico" style="max-height:50px;" /> JSON Formatter</h1>
+		<div class="well label-floating">
+			<label class="control-label unselectable" for="jsonCode">Input
+				JSON To be formatted</label>
+			<textarea class="form-control hack" id="jsonCode"></textarea>
+			<div class="btn-group btn-group-justified btn-group-raised">
+				<a onclick="format()" class="btn btn-primary">Format</a>
+				<a onclick="minify()" class="btn btn-primary">Minify</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+div.page {
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.material-icons {
+    font-size: inherit;
+}
+
+body {
+    /**/
+    overflow-y: hidden;
+    overflow-x: hidden;
+    /**/
+}
+
+.calculator,
+#calculator {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    height: 98vh;
+}
+
+.calculator .btn.btn-num {
+    color: white;
+    background-color: #444444;
+    font-family: 'Hack';
+    /*border-bottom: thin #009688 solid;
+    border-right: thin #009688 solid;/**/
+    margin: 0px;
+}
+
+.calculator .btn.btn-nonnum {
+    margin: 0px;
+    background-color: #009688;
+    /*border-bottom: thin #444444 solid;
+    border-right: thin #444444 solid;/**/
+}
+
+.calculator .btn.btn-nonnum:hover {
+    background-color: #009688;
+}
+
+.calculator * {
+    padding: 0px;
+    margin: 0px;
+}
+
+.calculator > .numbers > * {
+    display: inline-block;
+}
+
+.calculator > .numbers {
+    font-size: 0px;
+    margin: 0px;
+}
+
+.calculator .btn.btn-num:hover {
+    background-color: #444444;
+}
+
+.calculator .btn {
+    border-radius: 0px;
+    text-transform: none;
+}
+
+.calculator row * {
+    display: inline-block;
+}
+
+.calculator .numbers {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+.calculator .numbers .btn * {
+    max-height: inherit;
+    vertical-align: middle;
+}
+
+.calculator .numbers .btn {
+    font-size: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    height: 100px;
+}
+
+.numbers .btn > img {
+    height: 50%;
+}
+
+.calculator .numbers .smaller * {
+    padding: 0px;
+}
+
+.calculator .console {
+    overflow-x: hidden;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-top: #444444 solid;
+    border-right: #444444 solid;
+    border-left: #444444 solid;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    font-size: 40px;
+    font-family: 'Hack';
+    text-align: right;
+    background-color: lightgray;
+    padding: 10px;
+}
+
+#bottomButtons {
+    width: 100%;
+    max-height: 10vh;
+    margin-top: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.btn-toolbar div {
+    display: inline;
+}
+
+#bottomButtons *.btn {
+    padding: 10px;
+    font-size: 20px;
+}
+
+#console {
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    min-height: 150px;
+}
+
+#numberIn {
+    margin-right: auto;
+    display: inline-block;
+    background-color: transparent;
+    text-align: right;
+    border: none;
+    border-bottom: thin black solid;
+    width: 100%;
+    height: 45px;
+    font-size: 30px;
+    overflow-x: auto;
+}
+
+#numberStore {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    vertical-align: bottom;
+    /*border: thin black solid;/**/
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor:pointer;
+}
+
+.btn.togglebutton {
+    padding: 5px;
+    text-transform: none;
+    color: white;
+}
+
+.btn.togglebutton * {
+    color: white;
+    word-wrap: break-word;
+    font-family: sans-serif;
+    white-space: normal;
+    font-size: inherit;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/icon.ico">
+    <title>Calendar</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Keith MacKay">
+    <link rel="icon" href="./cal.ico">
+    <link rel="stylesheet" href="../devfiles/bootstrap.css">
+    <link rel="stylesheet" href="../devfiles/tether.css">
+    <link rel="stylesheet" href="../devfiles/material.css">
+    <link rel="stylesheet" href="../devfiles/ripples.css">
+    <link rel="stylesheet" href="../devfiles/style.css">
+    <link rel="stylesheet" href="../devfiles/snackbar.css">
+    <link rel="stylesheet" href="../devfiles/jquery-ui.theme.css">
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+    <script type="text/javascript" src="../devfiles/jquery.js"></script>
+    <script type="text/javascript" src="../devfiles/jquery-ui.js"></script>
+    <script type="text/javascript" src="../devfiles/tether.js"></script>
+    <script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+    <script type="text/javascript" src="../devfiles/ripples.js"></script>
+    <script type="text/javascript" src="../devfiles/material.js"></script>
+    <script type="text/javascript" src="../devfiles/clock.js"></script>
+    <script type="text/javascript" src="../devfiles/snackbar.js"></script>
+    <script type="text/javascript" src="../devfiles/script.js"></script>
+    <script type="text/javascript" src="../devfiles/mousewheel.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <!--../devfiles/-->
+</head>
+
+<body>
+    <div class="well" id="left">
+        <h3 id="today" class="unselectable"></h3>
+        <div id="selectDate" style="display:none;">
+            <div class="btn-group">
+                <a href="#" id="monthDropdown" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                    <span id="selectedMonth"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu materialDrop">
+                    <li><a onclick="setMonth(0)" onclick="setMonth(0">January</a></li>
+                    <li><a onclick="setMonth(1)">February</a></li>
+                    <li><a onclick="setMonth(2)">March</a></li>
+                    <li><a onclick="setMonth(3)">April</a></li>
+                    <li><a onclick="setMonth(4)">May</a></li>
+                    <li><a onclick="setMonth(5)">June</a></li>
+                    <li><a onclick="setMonth(6)">July</a></li>
+                    <li><a onclick="setMonth(7)">August</a></li>
+                    <li><a onclick="setMonth(8)">September</a></li>
+                    <li><a onclick="setMonth(9)">October</a></li>
+                    <li><a onclick="setMonth(10)">November</a></li>
+                    <li><a onclick="setMonth(11)">December</a></li>
+                </ul>
+            </div>
+            <input class="form-control" type="text" name="selectedYear" maxlength="4" id="selectedYear">
+            <span class="caret hidden"></span>
+            <button onclick="init()" class="btn btn-raised btn-primary">Go</button>
+            <button id="closeMonthSelect" onclick="$('#selectDate').hide();$('#today').show();" class="btn btn-raised btn-danger"><i class="material-icons">close</i></button>
+        </div>
+        <div class="btn-toolbar" style="padding-left:25px" id="navButtons">
+            <div onclick="todaysMonth();" class="btn btn-info btn-raised" title="Next">Today</div>
+            <div onclick="lastMonth();" class="btn btn-info btn-raised navBack" title="Back"><i class="material-icons">navigate_before</i></div>
+            <div onclick="nextMonth();" class="btn btn-info btn-raised navForward" title="Next" style=""><i class="material-icons">navigate_next</i></div>
+        </div>
+    </div>
+    <div id="settings" class="form-group">
+        <span class="togglebutton">
+        <label>
+            <input type="checkbox" id="showAnim" onclick="toggleAnimations();" checked><span class="toggle"></span>Animations
+        </label>
+        <span class="togglebutton">
+        <label>
+            <input type="checkbox" id="showHolidays" onclick="toggleHolidays();" checked><span class="toggle"></span>Holidays
+        </label>
+    </div>
+    <div class="container" id="cal">
+        <div id="month"></div>
+    </div>
+    <div id="snackbar-container"></div>
+</body>
+
+</html>

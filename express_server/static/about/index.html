@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../favicon.ico">
+    <title>About</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Keith MacKay">
+    <link rel="stylesheet" href="../devfiles/bootstrap.css">
+    <link rel="stylesheet" href="../devfiles/tether.css">
+    <link rel="stylesheet" href="../devfiles/material.css">
+    <link rel="stylesheet" href="../devfiles/ripples.css">
+    <link rel="stylesheet" href="../devfiles/style.css">
+    <link rel="stylesheet" href="../devfiles/snackbar.css">
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+    <script type="text/javascript" src="../devfiles/jquery.js"></script>
+    <script type="text/javascript" src="../devfiles/tether.js"></script>
+    <script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+    <script type="text/javascript" src="../devfiles/ripples.js"></script>
+    <script type="text/javascript" src="../devfiles/material.js"></script>
+    <script type="text/javascript" src="../devfiles/snackbar.js"></script>
+    <script type="text/javascript" src="../devfiles/script.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" defer>
+    	(function (){
+    		$.ajax({url:'../backend.get', type:'POST', data: serialize({type: 'version'}), complete: function (data){    			
+    			if (data.responseJSON) document.getElementById('version1').innerHTML = data.responseJSON;
+    		}});
+    	})();
+    </script>
+    <style>
+        body{background-color:rgba(150,150,150,1);}
+        #version1{font-weight:bold;font-family:Hack;}
+        #page>h1{font-size:45px;}
+        body>div.container{background-color:rgba(255,255,255,.6);}
+        body>div.container:not(#page){margin-top:2vh;}
+        #page{margin-bottom:2vh;max-height:90vh;overflow:auto;}
+        #page *{font-size:18px;}
+        #page img{max-height: 18px;display:inline-block;}
+    </style>
+</head>
+<body>
+    <div class="container"><h1>Welcome!</h1></div>
+    <div id="page" class="container">
+        <p><a href="http://keithmackay.com/">keithmackay.com</a> is currently running on version <span id="version1"></span></p>
+        <p>DNS Provided by <a href="" onclick="openInNewTab('https://domains.google.com')"><img src="http://keithmackay.com/images/Google-Logo.png" /> Domains <i class="material-icons">launch</i></a></p>
+        <hr>
+        <p>Initially, the page was hosted on <a href="" onclick="openInNewTab('https://pages.github.com')">Github Pages <i class="material-icons">launch</i></a> as a purely static JavaScript-based application. This application is currently still available at <a href="" onclick="openInNewTab('http://static.keithmackay.com')">static.keithmackay.com <i class="material-icons">launch</i></a></p>
+        <p>Around September of 2016, the project was converted to a Java Servlet Application, which is being hosted from an AWS instance</p>
+        <hr>
+        <p>A RESTful like service is available under <a href="" onclick="openInNewTab('http://keithmackay.com/rest/')">keithmackay.com/rest <i class="material-icons">launch</i></a></p>
+        <hr>
+		<div class="well">
+			<h3>Other Frameworks in use:</h3>
+			<ul>
+				<li><a href="https://jquery.com/">jQuery</a></li>
+				<li><a href="http://getbootstrap.com/">Twitter Bootstrap</a></li>
+				<li><a href="https://github.com/FezVrasta">Federico Zivolo's</a> <a href="http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html">Bootstrap Material Design</a></li>
+				<li><a href="http://tether.io/">Tether</a></li>
+				<li><a href="http://steven.codes/typerjs/">Typer.js</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

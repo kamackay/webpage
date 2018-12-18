@@ -1,0 +1,333 @@
+div#contents,
+div.full,
+*.full-page {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+}
+
+.unselectable,
+.unselectable * {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+img.icon {
+	max-height: 25px;
+	vertical-align: middle;
+}
+
+li.no-bullets a,
+ul.no-bullets {
+	list-style-type: none
+}
+
+div#keithapps-log {
+	border: thin solid #000;
+	min-height: 50px;
+	min-width: 100%;
+	padding: 20px;
+	margin-bottom: 50px
+}
+
+.invisible {
+	opacity: 0;
+}
+
+div.full {
+	position: relative;
+}
+
+@font-face {
+	font-family: myfont;
+	src: url(http://keithmackay.com/fonts/roboto.ttf) format("truetype");
+}
+
+#body .roboto *,
+.roboto,
+.roboto * {
+	font-family: myfont, sans-serif;
+}
+
+.product-sans * {
+	font-family: myfont, sans-serif;
+}
+
+.panel-fitheight {
+	height: 100%;
+}
+
+iframe.page {
+	width: 100%;
+	border: none;
+}
+
+iframe.page-hidden {
+	height: 0px;
+}
+
+.list-group .list-link {
+	cursor: pointer;
+	border-radius: 8px;
+}
+
+.list-group .list-link * {
+	word-wrap: break-word;
+}
+
+.list-group-item {
+	padding-top: 20px;
+}
+
+h1.centered,
+h2.centered,
+h3.centered {
+	text-align: center;
+}
+
+h1.large {
+	font-size: 75px;
+}
+
+h1.header {
+	font-size: 75px;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#keithapps-log {
+	position: fixed;
+	height: 10%;
+	top: 90%;
+}
+
+hr {
+	height: 1px;
+	color: black;
+	background: black;
+}
+
+img.full {
+	height: 100%;
+	position: fixed;
+	display: block;
+	top: 0px;
+}
+
+img.full-stretch {
+	width: 100%;
+	height: 100%;
+}
+
+.link {
+	cursor: pointer;
+}
+
+.fix {
+	position: fixed;
+}
+
+.well {
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+	border-radius: 2px;
+	border: 0;
+	padding: 15px;
+	margin: 5px;
+}
+
+.btn {
+	text-transform: none;
+}
+
+#settings {
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	margin: 1vw;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+#settings * {
+	color: #222222;
+}
+
+#settings>span {
+	margin-left: 15px;
+}
+
+.tooltip {
+	z-index: 999999;
+}
+
+.tooltip>.tooltip-inner {
+	border: 1px solid #000000;
+	padding: 10px;
+	font-size: 15px;
+	z-index: 999999999;
+}
+
+.tooltip.top>.tooltip-arrow {
+	border-top: 5px solid #009688;
+}
+
+.tooltip.bottom>.tooltip-arrow {
+	border-bottom: 5px solid #009688;
+}
+
+#leftBar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 4vw;
+	min-width: 50px;
+	height: 100vh;
+	background-color: #aaaaaa;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-top: 10px;
+	z-index: 5555;
+}
+
+#leftBar>.option {
+	cursor: pointer;
+	font-size: 30px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, .19);
+	border-radius: 100px;
+	background-color: white;
+	margin: 5px;
+	margin-bottom: 15px;
+}
+
+ul.dropdown-menu.materialDrop li>a:hover,
+div ul.dropdown-menu.materialDrop li>a:hover {
+	color: '#1D62AC';
+}
+
+#popupFormDiv>i:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.spinner {
+	-webkit-animation: rotator 1.4s linear infinite;
+	animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+@keyframes rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+.path {
+	stroke-dasharray: 187;
+	stroke-dashoffset: 0;
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+	animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+	0% {
+		stroke: #4285F4;
+	}
+	25% {
+		stroke: #DE3E35;
+	}
+	50% {
+		stroke: #F7C223;
+	}
+	75% {
+		stroke: #1B9A59;
+	}
+	100% {
+		stroke: #4285F4;
+	}
+}
+
+@keyframes colors {
+	0% {
+		stroke: #4285F4;
+	}
+	25% {
+		stroke: #DE3E35;
+	}
+	50% {
+		stroke: #F7C223;
+	}
+	75% {
+		stroke: #1B9A59;
+	}
+	100% {
+		stroke: #4285F4;
+	}
+}
+
+@-webkit-keyframes dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+@keyframes dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+button.btn,
+*.btn,
+div.btn,
+a.btn {
+	word-break: normal;
+	word-wrap: break-word;
+	white-space: normal;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../images/favicon.ico">
+    <title>Test</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Keith MacKay">
+    <link rel="icon" href="../images/xml.ico">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/bootstrap.css">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/tether.css">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/material.css">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/ripples.css">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/style.css">
+    <link rel="stylesheet" href="http://keithmackay.com/devfiles/snackbar.css">
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/jquery.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/tether.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/bootstrap.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/ripples.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/material.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/snackbar.js"></script>
+    <script type="text/javascript" src="../devfiles/script.js"></script>
+    <script type="text/javascript" src="http://keithmackay.com/devfiles/mousewheel.js"></script>
+    <!--<script type="text/javascript" src="./progressbar.js"></script><!---->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" defer>
+    (function (){
+        $(document).ready(function() {
+/*            setTimeout(function (){
+                const data = serialize({type: 'verify', secret:prompt("Enter Developer Code:")});
+                console.log(data);
+                $.ajax({url:'../backend.get', data:data, type:'PUT', complete:function (data){
+                    console.log('cool');
+                }, error:function (jqXHR, textStatus, errorThrown){console.log([jqXHR, textStatus, errorThrown]);redirectTo('../')} });
+                document.body.style.backgroundImage = "url(../images/platinum-back.png)";
+            }, 50);/**/           
+        });
+        $.material.init();
+    })();
+    </script>
+    <script type="text/javascript" src="./script.js"></script>
+    <style>
+        body{
+            overflow: hidden;
+        }
+        #page{background-color:rgba(255, 255, 255, .4);min-height:25vh; max-height:90vh;overflow-y:auto;}
+        #page .btn input{cursor:pointer; }
+        #page .btn {width:80%; float:right;}
+    </style>
+</head>
+<body>
+	<div id="page" class="container">
+		<h1>Test Stuff</h1>
+		<div class="form-group well row">
+			<label for="inputFile" class="col-md-2 control-label">File</label>
+			<div class="col-md-10 btn btn-raised btn-primary">
+				<input type="text" readonly class="form-control" placeholder="Browse...">
+				<input type="file" id="inputFile" onchange="readFile()">
+			</div>
+		</div>
+	</div>
+</body>
+</html>

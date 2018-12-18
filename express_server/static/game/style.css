@@ -1,0 +1,46 @@
+@font-face {
+    font-family: minecraft;
+    src: url(./Minecraft.ttf) format("truetype")
+}
+
+body {
+    background-color: #999999;
+}
+
+* {
+    cursor: none;
+}
+
+h1,
+h3,
+h4 {
+    font-family: 'minecraft';
+}
+
+#contents {
+    text-align: center;
+    padding-top: 50px;
+}
+
+#contents .for-game {
+    display: none;
+}
+
+#gameData {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    padding-top: 10px;
+    padding-right: 10px;
+    margin: 0px;
+    display: block;
+    z-index: 1000;
+}
+
+#gameData * {
+    z-index: 1000;
+    color: #33ff33;
+    font-family: 'minecraft';
+    padding: 5px;
+    margin: 0px;
+}

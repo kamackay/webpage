@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Keith MacKay">
+    <meta name="description" content="Fonts available at keithmackay.com">
+    <link rel="icon" href="../favicon.ico">
+    <title>Audio - Keith MacKay</title>
+    <link rel="stylesheet" href="../devfiles/bootstrap.css">
+    <link rel="stylesheet" href="../devfiles/tether.css">
+    <link rel="stylesheet" href="../devfiles/material.css">
+    <link rel="stylesheet" href="../devfiles/ripples.css">
+    <link rel="stylesheet" href="../devfiles/style.css">
+    <link rel="stylesheet" href="../devfiles/snackbar.css">
+    <link rel="stylesheet" href="../devfiles/searchbar.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body{
+            overflow: hidden;
+        }
+        #page{background-color:rgba(255, 255, 255, .4);}
+        #fileList{
+            max-height: 90vh;
+            overflow-y: auto;
+            display:inline-block;
+            width:100%;
+        }
+        #fileList .tile:nth-child(even){background-color:#CCC;border-radius:5px;}
+        #fileList .tile{
+            display: block;
+            padding: 7px;
+            width:100%;
+        }
+    </style>
+    <script type="text/javascript" src="../devfiles/jquery.js"></script>
+    <script type="text/javascript" src="../devfiles/jquery-color.js"></script>
+    <script type="text/javascript" src="../devfiles/tether.js"></script>
+    <script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+    <script type="text/javascript" src="../devfiles/material.js"></script>
+    <script type="text/javascript" src="../devfiles/snackbar.js"></script>
+    <script type="text/javascript" src="../devfiles/ripples.js"></script>
+    <script type="text/javascript" src="../devfiles/searchbar.js"></script>
+    <script type="text/javascript" src="../devfiles/script.js" ></script>
+    <script type="text/javascript">
+    (function (){
+        $(document).ready(function() {
+            setTimeout(function (){
+                const data = serialize({type:'files', folder:'/audio/', ext:'mp3,wav,ogg,flac'});
+                console.log(data);
+                $.ajax({url:'../backend.get', data:data, type:'PUT', complete:function (data){
+                    if (data.responseJSON){
+                        const list = $('#fileList');
+                        data.responseJSON.forEach(function (file){
+                        	list.append('<span class="tile"><a href="..'+file+'">'+file+'</a></span>')
+                        });
+                    } else console.log('GET Failed?', data);
+                }});
+                document.body.style.backgroundImage = "url(../images/platinum-back.png)";
+            }, 100);     
+            setTimeout(openSearch, 1500);
+        });
+    })();
+    </script>
+</head> 
+
+<body style="overflow: hidden;">
+	<div id="page" class="container">
+		<div class="col-md-4"><h1>Images Available</h1></div>
+		<div id="searchCont" class="col-md-7 form-group">
+			<a class="btn btn-raised" onclick="toggleSearch()"><i class="material-icons">search</i></a> 
+			<input class="form-control" id="searchInput" type="text">
+		</div>
+		<div class="well well-lg" id="fileList"></div>
+	</div>
+</body>
+
+</html>

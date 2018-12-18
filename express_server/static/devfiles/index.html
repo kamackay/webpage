@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../images/xml.ico">
+    <title>Dev Files</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Keith MacKay">
+    <link rel="stylesheet" href="../devfiles/bootstrap.css">
+    <link rel="stylesheet" href="../devfiles/tether.css">
+    <link rel="stylesheet" href="../devfiles/material.css">
+    <link rel="stylesheet" href="../devfiles/ripples.css">
+    <link rel="stylesheet" href="../devfiles/style.css">
+    <link rel="stylesheet" href="../devfiles/snackbar.css">
+    <link rel="stylesheet" href="../devfiles/searchbar.css">
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+    <script type="text/javascript" src="../devfiles/jquery.js"></script>
+    <script type="text/javascript" src="../devfiles/jquery-color.js"></script>
+    <script type="text/javascript" src="../devfiles/tether.js"></script>
+    <script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+    <script type="text/javascript" src="../devfiles/ripples.js"></script>
+    <script type="text/javascript" src="../devfiles/material.js"></script>
+    <script type="text/javascript" src="../devfiles/snackbar.js"></script>
+    <script type="text/javascript" src="../devfiles/script.js"></script>
+    <script type="text/javascript" src="../devfiles/searchbar.js"></script>
+    <!--<script type="text/javascript" src="./progressbar.js"></script><!---->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" defer>
+        (function (){
+            $(document).ready(function() {
+                $.material.init();
+                setTimeout(function (){
+                	const data = serialize({type:'files', folder:'/devfiles/',ext:'js,css,json,ico'});
+                    console.log(data);
+                    $.ajax({url:'../backend.get', data:data, type:'PUT', complete:function (data){
+                        if (data.responseJSON){
+                            const list = $('#fileList');
+                            data.responseJSON.forEach(function (file){
+                                list.append('<a href="..'+file+'" class="tile">'+file+'</a>')
+                            });
+                        } else console.log('GET Failed?', data);
+                    }});
+                    document.body.style.backgroundImage = "url(../images/platinum-back.png)";
+                }, 50);
+                setTimeout(openSearch, 1500);
+                $('#searchInput').on('input', search);
+            });
+        })();
+        function search(e){
+        	const search = $('#searchInput').val().toLowerCase();
+            $.each($('body').find($('#page').find('.tile')), function (i, n){
+                const t = $(this);
+                if (t.attr('href')){
+            	const s = t.attr('href').toLowerCase();
+            	if (s.includes(search)) t.removeClass('hidden');
+            	else t.addClass('hidden');
+                }
+            });
+        }
+    </script>
+    <style>
+        body{
+            overflow: hidden;
+        }
+        #page{background-color:rgba(255, 255, 255, .4);}
+        #fileList{
+            max-height: 85vh;
+            overflow-y: auto;
+            display:inline-block;
+            width:100%;
+        }
+        #fileList .tile{
+            display: block;
+            padding: 7px;
+            width:100%;
+            border-bottom: thin black solid;
+            cursor: pointer;
+        }
+        #fileList .tile:hover{
+            background-color:rgba(0,150,136,.75);
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div id="page" class="container">
+        <div class="col-md-4"><h1>Files Available</h1></div>
+            <div id="searchCont" class="col-md-7 form-group">
+                <a class="btn btn-raised" onclick="toggleSearch()"><i class="material-icons">search</i></a>
+                <input class="form-control" id="searchInput" type="text">
+            </div>
+        <div class="well well-lg" id="fileList"></div>
+    </div>
+</body>
+</html>

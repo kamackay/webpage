@@ -1,0 +1,98 @@
+body {
+    overflow: hidden;
+}
+
+div#contents {
+    width: 100%;
+    height: 100%;
+}
+
+ul.navbar-nav li {
+    text-align: center;
+    border: solid thin;
+    border-color: lightgray;
+}
+
+ul.navbar-nav li:hover {
+    background-color: #ADD8E6;
+}
+
+div#clock-contents {
+    margin-top: 55px;
+}
+
+div#keithapps-digitalClock {
+    text-align: center;
+    font-size: 200px;
+    cursor: default;
+}
+
+#keithapps-clock {}
+
+div.keithapps-tabs {
+    height: 50px;
+    padding: 0px;
+    margin: 0px;
+}
+
+div.keithapps-tabs div {
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    border: lightgray thin solid;
+    color: black;
+    background-color: lightgray;
+}
+
+div.keithapps-tabs div:hover {
+    cursor: pointer;
+    background-color: #ADD8E6;
+}
+
+div.keithapps-tabs div a {
+    font-weight: normal;
+    padding: 10px 15px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    color: #666;
+    cursor: pointer;
+}
+
+div.keithapps-tabs div a:hover {
+    text-decoration: none;
+}
+
+div.keithapps-tabs div.active {
+    border: grey thin solid;
+    color: white;
+    background-color: transparent;
+}
+
+div.keithapps-tabs div.active a {
+    color: white;
+}
+
+.keithapps-clockNum {
+    display: inline-block;
+    line-height: normal;
+    position: absolute;
+    padding-top: 0px;
+    margin-top: 0px;
+    cursor: default;
+}
+
+#showDate {
+    position: fixed;
+    top: 60px;
+    left: 2%;
+}
+
+.togglebutton label {
+    opacity: 1;
+    color: rgba(0, 0, 0, .5);
+}

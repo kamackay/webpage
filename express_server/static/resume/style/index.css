@@ -1,0 +1,485 @@
+.play_store_button {
+    height: 60px;
+    cursor: pointer;
+}
+
+.github_button_background {
+    width: 200px;
+    height: 35px;
+}
+
+.github_button_text {
+    font-family: "Roboto", sans-serif;
+    vertical-align: middle;
+    font-size: 20px;
+    color: black;
+}
+
+.github_button_image {
+    vertical-align: middle;
+}
+
+body {
+    padding-top: 0px;
+    padding-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.dropdown-menu li a:hover {
+    background-color: lightgray;
+    color: red;
+}
+
+
+/**/
+
+.dropdown:hover {
+    background-color: lightgray;
+    color: red;
+}
+
+
+/**/
+
+.dropdown:hover #dropdown-text {
+    background-color: lightgray;
+    color: red;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu:hover .dropdown {
+    background-color: lightgray;
+    color: red;
+}
+
+a,p,h1,.dropdown,h2,span {
+    font-family: "Roboto", sans-serif;
+    color: black;
+}
+
+.snackbar * {
+    color: white;
+}
+
+
+/**/
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.dropdown-header {
+    font-size: 15px;
+    background-color: #F0F0F0
+}
+
+.nav-tabs .dropdown-menu,
+.nav-pills .dropdown-menu,
+.navbar .dropdown-menu {
+    margin-top: 0;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.logo {
+    height: 100px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.header-text-1 {
+    color: white;
+}
+
+.header-button-1:hover #header-text-1 {
+    color: red;
+    background-color: lightgray;
+}
+
+.header-button-2:hover #header-text-2 {
+    color: red;
+    background-color: lightgray;
+}
+
+.header-button-2:hover #header-text-2 {
+    color: red;
+    background-color: lightgray;
+}
+
+.header-button-3:hover #header-text-3 {
+    color: red;
+    background-color: lightgray;
+}
+
+.centerImage {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 500px;
+    bottom: 0;
+}
+
+.doc3 {
+    margin: auto 10px;
+    width: auto;
+    height: 2000px;
+}
+
+#navbar-brand:hover {
+    color: white;
+    cursor: default;
+}
+
+.navbar {
+    background-color: darkgray;
+    border-color: red;
+}
+
+.smaller-lead {
+    font-size: 15px;
+}
+
+.carousel-caption {
+    background-color: rgba(200, 200, 200, .5);
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    background-color: (250, 250, 250, 1);
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: darkgray;
+    height: 4%;
+    top: 96%;
+}
+
+footer p {
+    height: 100%;
+}
+
+#pagecontents {
+    padding-top: 50px;
+}
+
+.col-md-4 h4 {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#abilities ul>li {
+    min-height: 30px;
+    padding: 3px 0
+}
+
+#abilities ul>li:hover {
+    background: #f2f2f2
+}
+
+#abilities ul>li .ability-title {
+    display: inline-block;
+    width: 60%
+}
+
+#abilities ul>li .ability-score {
+    float: right
+}
+
+#abilities ul>li .ability-score .glyphicon {
+    color: #dfe0e0;
+    font-size: 14px;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s
+}
+
+#abilities ul>li .ability-score .glyphicon.filled {
+    color: #ffd700;
+}
+
+#abilities ul>li:hover .ability-score .glyphicon {
+    margin-left: 2px;
+}
+
+@media (max-width:767px) {
+    .jumbotron:before {
+        bottom: 100px;
+        left: 20px;
+        right: 20px;
+        top: 20px
+    }
+    .jumbotron .container {
+        top: 20%;
+        padding-top: 0
+    }
+    .jumbotron .scroll-down {
+        width: 100%;
+        right: 0
+    }
+    .navbar {
+        left: 0;
+        width: 100%
+    }
+    .navbar .nav>li {
+        height: 60px
+    }
+    .navbar .nav>li a {
+        height: 60px;
+        text-align: center;
+        padding-top: 20px;
+        font-weight: 600;
+        color: #fff
+    }
+    .fixed .navbar {
+        top: 0
+    }
+    .container {
+        padding: 60px 20px;
+        min-width: 280px
+    }
+    .hidden-phone {
+        display: none
+    }
+    #profile .row * {
+        text-align: center
+    }
+    #experiences .experience .experience-details>span {
+        display: block;
+        margin-bottom: 6px
+    }
+    #experiences .experience .experience-details .seperator {
+        display: none
+    }
+    #interests .left {
+        float: none
+    }
+    #interests .right {
+        float: none
+    }
+    #interests>* {
+        text-align: center
+    }
+    #interests img {
+        width: 50%;
+        height: auto;
+        float: none!important
+    }
+    #interests .interest-content {
+        padding: 20px 0
+    }
+    #contact {
+        padding-bottom: 60px
+    }
+    #contact a .icon {
+        float: left;
+        margin-right: 10px
+    }
+}
+
+@media only screen and (orientation:portrait) and (max-width:767px) {
+    .jumbotron {
+        -webkit-background-size: auto 150%;
+        background-attachment: scroll
+    }
+}
+
+@media only screen and (orientation:landscape) and (max-width:767px) {
+    .jumbotron {
+        -webkit-background-size: 150% auto;
+        background-attachment: scroll
+    }
+    .jumbotron .lead {
+        display: none
+    }
+}
+
+.jumbotron {
+    background: no-repeat right top fixed url(http://keithmackay.com/images/belltower.png);
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/belltower.jpg', sizingMethod='scale')";
+    filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='../images/belltower.jpg', sizingMethod='scale');
+    margin-bottom: 0;
+    padding: 0
+}
+
+.jumbotron .overlay {
+    background-color: rgba(34, 34, 150, .75);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .75;
+    z-index: 2
+}
+
+.jumbotron .container {
+    position: relative;
+    top: 28%;
+    z-index: 4;
+    text-align: center
+}
+
+.jumbotron .container>* {
+    text-align: center;
+}
+
+.jumbotron .container h1 {
+    padding-bottom: 20px;
+    padding: 20px;
+    border-bottom: 1px solid #fff;
+    border-bottom-color: rgba(255, 255, 255, .35);
+    background-color: rgba(255, 255, 255, .75);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.jumbotron .container .lead {
+    font-size: 28px
+}
+
+.jumbotron .scroll-down {
+    height: 80px;
+    width: 110px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    background-color: #222;
+    text-align: center;
+    z-index: 6
+}
+
+.jumbotron .scroll-down .glyphicon {
+    color: #fff;
+    font-size: 30px;
+    padding-right: 2px;
+    padding-top: 20px;
+    animation-name: wiggle;
+    animation-duration: 1.2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+.jumbotron .scroll-down:hover .glyphicon {
+    padding-top: 25px
+}
+
+.jumbotron h1 {
+    font-size: 100px;
+    cursor: default;
+}
+
+.jumbotron ol.breadcrumb li {
+    color: black;
+    font-weight: 150;
+    font-size: 20px;
+    cursor: default;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.jumbotron ol.breadcrumb {
+    background-color: rgba(255, 255, 255, .25);
+    display: inline-block;
+}
+
+a {
+    cursor: pointer;
+}
+
+.text-display {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, .75);
+    color: black;
+}
+
+.btn-lower {
+    text-transform: none;
+}
+
+.list-group-item-text {
+    word-wrap: break-word;
+}
+
+.project-view {
+    padding: 10px;
+    border-radius: 8px;
+    min-height: 300px;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.project-view > .project-icon {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.project-view > .project-icon > img {
+    max-height: 40px;
+}
+
+.project-view > .project-title {
+    display: inline;
+    font-size: 35px;
+}
+
+.project-view:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+
+.project-view > .project-desc {
+    padding-top: 10px;
+    opacity: .9;
+}
+
+#displayRow {
+    padding-top: 25px;
+}
+
+img.link {
+    cursor: pointer;
+    max-width: 100%;
+    margin: 10px;
+    padding: 10px;
+}
+
+span.ability-score {
+    cursor: default;
+}
+
+button.btn {
+    word-break: normal;
+    word-wrap: break-word;
+    white-space: normal;
+}
+#feedback{
+	display:none; /* Because it's really inappropriate */
+	margin:20px;
+}
+
+#feedback *:not(h2){font-size:16px;}
+#feedback ul>li{font-style:italic;padding-bottom:10px;}
+#feedback ul>li>span{font-style:normal;}

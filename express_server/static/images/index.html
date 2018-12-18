@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Keith MacKay">
+	<meta name="description" content="Fonts available at keithmackay.com">
+	<link rel="icon" href="../favicon.ico">
+	<title>Images - Keith MacKay</title>
+	<link rel="stylesheet" href="../devfiles/bootstrap.css">
+	<link rel="stylesheet" href="../devfiles/tether.css">
+	<link rel="stylesheet" href="../devfiles/material.css">
+	<link rel="stylesheet" href="../devfiles/ripples.css">
+	<link rel="stylesheet" href="../devfiles/style.css">
+	<link rel="stylesheet" href="../devfiles/snackbar.css">
+	<link rel="stylesheet" href="../devfiles/searchbar.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="../devfiles/jquery.js"></script>
+	<script type="text/javascript" src="../devfiles/jquery-color.js"></script>
+	<script type="text/javascript" src="../devfiles/tether.js"></script>
+	<script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+	<script type="text/javascript" src="../devfiles/material.js"></script>
+	<script type="text/javascript" src="../devfiles/snackbar.js"></script>
+	<script type="text/javascript" src="../devfiles/ripples.js"></script>
+	<script type="text/javascript" src="../devfiles/script.js" ></script>
+	<script type="text/javascript" src="../devfiles/searchbar.js" ></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+	<style>
+	   #page {margin-top:8px;margin-bottom:8px;background-color:rgba(255,255,255,.4);}
+       #imageList {max-height:90vh;overflow-y:scroll;width:100%;word-wrap:break-word;background-image:url(../images/transparent.png);}
+       #imageList>.tile {cursor:pointer;border-radius:10px;padding-top:10px;padding-bottom:10px;display: block;max-width:75%;margin-left:auto;margin-right:auto;}
+       #imageList .tile:hover{border:thin solid rgba(100,100,100,.75);box-shadow:4px 4px 9px 8px rgba(0,0,0,.5);background-color:rgba(255,255,255,.4);}
+       #imageList>.tile>img{max-height:200px;max-width:500px;}
+	</style>
+	<script type="text/javascript">
+	(function (){
+		$.material.init();
+		try{if (isMobileDevice()) alert('Careful, this page uses ALOT of data (more than 100 MB)');}catch(e){}
+		$(document).ready(function() {
+			setTimeout(function (){
+				const data = encodeURI('type=files&folder=/images/&ext=png,jpg,gif,ico,svg,jpeg');
+				console.log(data);
+				$.ajax({url:'../backend.get', data:data, type:'PUT', complete:function (data){
+                    if (data.responseJSON){
+                    	var imgCount = 0;
+                        const list = $('#imageList');
+                        data.responseJSON.forEach(function (image){
+                        	imgCount++;
+                            list.append('<div onclick="openInNewTab(\'..'+image+'\')" title="'+image+'" class="tile"><h3>'
+                            		+image+'</h3><img src="../'+image+'"/></div>')
+                        });
+                        $('#titleHead').append('&nbsp;(' + imgCount + ')');
+                    } else console.log('GET Failed?', data);
+                }});
+				document.body.style.backgroundImage = "url(./platinum-back.png)";
+				$(document).ready(function (){
+					$('#page').fadeIn();
+				});
+			}, 100);			
+		});
+	})();
+	</script>
+	<script type="text/javascript" src="./script.js"></script>
+</head>
+
+<body style="overflow:hidden;">
+	<div class="container" id="page" style="display:none;">
+		<div class="row" style="margin-bottom:10px;">
+			<div class="col-md-5 col-sm-1"><h1 id="titleHead">Images Available</h1></div>
+			<div id="searchCont" class="col-md-5 col-sm-1 form-group">
+				<a class="btn btn-raised" onclick="toggleSearch()"><i class="material-icons">search</i></a>
+				<input class="form-control" id="searchInput" type="text">
+			</div>
+		</div>
+		<div class="well well-lg" id="imageList" style="text-align:center;"></div>
+	</div>
+</body>
+
+</html>

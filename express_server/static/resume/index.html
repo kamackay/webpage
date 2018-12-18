@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Keith MacKay">
+<meta name="description" content="Keith MacKay's Webpage-based Resume">
+<meta name="keywords" content="Keith MacKay, Interactive Resume, Web developer, Interactive CV, Resume, CV, NCSU, Software Engineer">
+<link rel="icon" href="../images/favicon.ico">
+<title>Keith MacKay's Resume</title>
+<link rel="stylesheet" href="../devfiles/bootstrap.css">
+<link rel="stylesheet" href="../devfiles/material.css">
+<link rel="stylesheet" href="../devfiles/ripples.css">
+<link rel="stylesheet" href="../devfiles/style.css">
+<link rel="stylesheet" href="../devfiles/tether.css">
+<link rel="stylesheet" href="../devfiles/snackbar.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="../devfiles/jquery.js"></script>
+<script type="text/javascript" src="../devfiles/bootstrap.js"></script>
+<script type="text/javascript" src="../devfiles/material.js"></script>
+<script type="text/javascript" src="../devfiles/ripples.js"></script>
+<script type="text/javascript" src="../devfiles/tether.js"></script>
+<script type="text/javascript" src="../devfiles/blocs.js"></script>
+<script type="text/javascript" src="../devfiles/snackbar.js"></script>
+<script type="text/javascript" src="../devfiles/typer.js"></script>
+<script type="text/javascript" src="../devfiles/script.js"></script>
+<!---->
+<script type="text/javascript" src="script/script.js"></script>
+<link href="style/index.css" rel="stylesheet">
+<link rel="stylesheet" href="style/animate.css">
+
+<link href="carousel.css" rel="stylesheet">
+
+<style>
+	.experience .experience-details>li{
+		padding-bottom: 10px;
+	}
+</style>
+<script type="text/javascript">
+	function showCalendarPreview() {
+	    openInNewTab('../calendar/');
+	}
+	
+	function showJSPreview() {
+	    openInNewTab('../js/');
+	}
+	
+	function showResumePreview() {
+	    //You're already there
+	}
+	
+	function showClockPreview() {
+	    openInNewTab('../clock/');
+	}
+	
+	function showCalcPreview() {
+	    openInNewTab('../calc/');
+	}
+            </script>
+</head>
+
+<body>
+	<!-- <nav class="navbar navbar-default navbar-fixed-top invisible">
+		<div class="container">
+			<div id="header"></div>
+		</div>
+	</nav>-->
+	<div id="top" class="jumbotron" data-position="center center">
+		<div class="container">
+			<h1 class="mg-lg animated fadeInUp animDelay1" data-textsize="100"
+				onclick="">
+				<span style="color: red;">Keith</span> <span>MacKay</span> <img
+					id="keithImg" style="height: 200px; border-radius: 20px;"
+					src="../images/keith.png" />
+			</h1>
+			<h3
+				class="text-display text-center mg-lg animated fadeInUp animDelay2">
+				For when you need <span
+					data-typer-targets="an Android,a jQuery,an HTML,a C#,a Java,a JavaScript,a JSP,an SQL,a Python,a .NET,a PHP"></span>
+				Developer
+			</h3>
+			<br> <span>
+				<ol id="ncsuLogo"
+					class="breadcrumb mg-lg animated bounceInUp animDelay2">
+					<li><img class="img-responsive animated zoomIn"
+						src="../images/ncsu_logo.png"
+						style="height: 100px;" onclick="showClock();" /></li>
+				</ol>
+			</span>
+		</div>
+		<div class="overlay"></div>
+	</div>
+	<div class="container" id="pagecontents">
+
+		<div class="experiences">
+			<h2>Education</h2>
+			<div class="experience row">
+				<div class="col-md-4">
+					<h4>North Carolina State University</h4>
+					<p class="experience-period">Class of 2016</p>
+				</div>
+				<div class="col-md-8">
+					<p>
+						<strong>Bachelor - Computer Science</strong> <span
+							class="hidden-phone"></span> <span class="experience-details">
+							<br>Focus on Java and Linux based environments. Many
+							electives that went outside of normal Computer Science Scope,
+							including:
+							<ul>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=46');">Introduction
+										to Artifical Intelligence</a></li>
+								<li><a onclick="openInNewTab('https://liquidnarrative.csc.ncsu.edu/classes/game-development/csc-281-foundations-of-interactive-game-design/')">Introduction to Interactive
+										Video Game Design</a></li>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=8500023');">Database
+										Management</a></li>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=2000007');">Human-Computer
+										Interaction</a></li>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=15000032');">Network
+										Security</a></li>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=15');">Introduction
+										to Numerical Methods</a></li>
+								<li data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>"><a
+									onclick="openInNewTab('https://www.csc.ncsu.edu/courses/outcomes.php?uniq_id=11500025');">Computer
+										Graphics</a></li>
+							</ul> <span class="location"> <span
+								class="glyphicon glyphicon-map-marker"></span> Raleigh, North
+								Carolina
+						</span>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="experience row">
+				<div class="col-md-4">
+					<h4>Jay M Robinson High School</h4>
+					<p class="experience-period">August 2008 - May 2012</p>
+				</div>
+				<div class="col-md-8">
+					<p>
+						<strong>High school</strong> <span class="hidden-phone"> </span> <br>
+						<span class="experience-details"> <span class="location">
+								<span class="glyphicon glyphicon-map-marker"></span> Concord,
+								North Carolina
+						</span>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h2>Work</h2>
+
+		<div class="experience row">
+			<div class="col-md-4" data-toggle="tooltip" data-animation="true" data-html="true" title="<i class='material-icons'>launch<i>">
+				<img class="link" onclick="openInNewTab('https://ipipeline.com');"
+					src="../images/ipipeline.png" />
+				<p class="experience-period">December 2013 - August 2016</p>
+			</div>
+			<div class="col-md-8">
+				<p>
+					<strong>Software Development Intern / Software
+						Configuration Specialist</strong> <span class="hidden-phone"> </span> <br>
+				<ul class="experience-details">
+					<li>Maintained Online Life Insurance Application for Single
+						Client with Javascript / C# Backend Debugging</li>
+					<li>Worked with .NET Framework Desktop applications for Config
+						File management, helped implement Automated Deployment</li>
+					<li>Developed Command Line Application to reduce redundancies
+						in configuration files</li>
+				</ul>
+				<span class="location"> <span
+					class="glyphicon glyphicon-map-marker"></span> Huntersville, North
+					Carolina
+				</span>
+				</p>
+			</div>
+		</div>
+		<div id="abilities" class="container">
+			<h2>Abilities</h2>
+			<hr>
+			<h3>Skills</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="no-bullets">
+						<li class="mg-lg animated fadeInUp animDelay02"><span
+							class="ability-title">CSS(3)</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay04"><span
+							class="ability-title">HTML(5)</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">Java</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">Android</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">C#</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">JavaScript / jQuery</span> <span
+							class="ability-score"> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+					</ul>
+				</div>
+				<div class="col-md-6">
+					<ul class="no-bullets">
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">Angular</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star"></span> <span
+								class="glyphicon glyphicon-star"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">Python</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star"></span> <span
+								class="glyphicon glyphicon-star"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">PHP</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star"></span> <span
+								class="glyphicon glyphicon-star"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">JSP</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">SQL (MySQL, Microsoft SQL)</span> <span
+							class="ability-score"> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="text-center project-referal">
+				<button class="btn btn-raised" data-toggle="tooltip" data-html="true"
+					title="<i class='material-icons'>launch<i>" onclick="openInNewTab('https://github.com/kamackay?tab=repositories');">
+					<img src="../images/GitHubIcon.png"
+						class="icon"> See projects on Github
+				</button>
+			</div>
+			<hr>
+			<h3>Tools</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="no-bullets">
+						<li class="mg-lg animated fadeInUp animDelay02"><span
+							class="ability-title">Git/GitHub</span> <span
+							class="ability-score"> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay02"><span
+							class="ability-title">TFS</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay04"><span
+							class="ability-title">Windows</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay02"><span
+							class="ability-title">Linux</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+					</ul>
+				</div>
+				<div class="col-md-6">
+					<ul class="no-bullets">
+						<li class="mg-lg animated fadeInUp animDelay06"><span
+							class="ability-title">Intellij</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star"></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay02"><span
+							class="ability-title">Eclipse</span> <span class="ability-score">
+								<span class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+						<li class="mg-lg animated fadeInUp animDelay04"><span
+							class="ability-title">Visual Studio </span> <span
+							class="ability-score"> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star filled"></span> <span
+								class="glyphicon glyphicon-star "></span>
+						</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="feedback" class="container">
+			<h2>Comments</h2>
+			<hr>
+			<ul class="no-bullets" id="feedbackList"></ul>
+		</div>
+		<div class="well">
+			<div class="row">
+				<h1 class="centered large">Projects</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-4 project-view" onclick="showClockPreview();" data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>">
+					<span class="project-icon"><img
+						src="../images/clock-128.ico" alt="Clock Icon"></span>
+					<h2 class="project-title">Animated Clock</h2>
+					<p class="project-desc">
+						Webpage containing clocks, which can be displayed in multiple
+						modes <br> <br>Click to show a live preview <br>
+					</p>
+					<button onclick="openInNewTab('../clock/')"
+						class="btn btn-raised btn-info">Visit live version</button>
+				</div>
+				<div class="col-md-4 project-view" onclick="showResumePreview();">
+					<span class="project-icon"><img
+						src="../images/resume.png" alt="Icon"></span>
+					<h2 class="project-title">Resume Webpage</h2>
+					<p class="project-desc">
+						This resume, which uses a number of javascript libraries <br>
+						<br>Click to show a live preview (Inception)
+					</p>
+				</div>
+				<div class="col-md-4 project-view" onclick="showCalcPreview();" data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>">
+					<span class="project-icon"><img
+						src="../images/calculator.ico" alt="Icon"></span>
+					<h2 class="project-title">Calculator</h2>
+					<p class="project-desc">
+						Online Calculator <br> <br>Click to show a live preview
+					</p>
+					<br>
+					<button onclick="openInNewTab('../calc/')"
+						class="btn btn-raised btn-info">Visit live version</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 project-view" onclick="showJSPreview();" data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>">
+					<span class="project-icon"><img
+						src="../images/javascript.png" alt="Icon"></span>
+					<h2 class="project-title">Javascript Environment</h2>
+					<p class="project-desc">
+						Online Live Javascript Environment with interactive terminal <br>
+						<br>Click to show a live preview
+					</p>
+					<br>
+					<button onclick="openInNewTab('../js/')"
+						class="btn btn-raised btn-info">Visit live version</button>
+				</div>
+				<div class="col-md-4 project-view" onclick="showCalendarPreview();" data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>">
+					<span class="project-icon"><img
+						src="../images/calendar.ico" alt="Icon"></span>
+					<h2 class="project-title">Calendar</h2>
+					<p class="project-desc">
+						Animated Web Calendar <br> <br>Click to show a live
+						preview
+					</p>
+					<br>
+					<button onclick="openInNewTab('../calendar/')"
+						class="btn btn-raised btn-info">Visit live version</button>
+				</div>
+				<div class="col-md-4 project-view"
+					onclick="openInNewTab('https://play.google.com/store/apps/developer?id=Keith+MacKay')" data-toggle="tooltip" data-html="true"
+									title="<i class='material-icons'>launch<i>">
+					<span class="project-icon"><img
+						src="../images/android_droid.png" alt="Icon"></span>
+					<h2 class="project-title">Android Projects</h2>
+					<p class='project-desc'>Several Android Projects currently live
+						on the Play Store</p>
+				</div>
+			</div>
+			<div class="row" id="displayRow"></div>
+		</div>
+		<hr id="resume-doc">
+		<div class="well well-lg">
+			<div align="left">
+				<h1 align="left">
+					Official Resume Document:&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-raised btn-lower"
+						onclick="openInNewTab('https://docs.google.com/document/d/1ikNvJ2xforZmuJJPRIPLtuRBk7CnA9cbdq741Zb5KtA/edit')">
+						<img src="../images/docs.png" style="height: 40px;" /><b
+							style="font-size: 15px; vertical-align: middle;">Embedded
+							from Google Docs Here <i class="material-icons">launch</i></b>
+					</button>
+				</h1>
+			</div>
+			<iframe id="resumeiFrame" frameBorder="0"
+				style="height: 1000px; width: 100%;"
+				src="https://docs.google.com/document/d/1ikNvJ2xforZmuJJPRIPLtuRBk7CnA9cbdq741Zb5KtA/pub?embedded=true"></iframe>
+			<a class="btn btn-raised btn-primary btn-lg btn-block"
+				href="./KeithMacKay_Resume.pdf"
+				download="KeithMacKay_Resume.pdf"><i class="material-icons">get_app</i>
+				Download</a>
+		</div>
+		<hr class="">
+	</div>
+</body>
+
+</html>

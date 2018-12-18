@@ -1,0 +1,29 @@
+div.bs-component>div.navbar.navbar-default {
+    background-color: #ffe60c;
+    color: black;
+}
+
+div.bs-component>div.navbar.navbar-default * {
+    color: black;
+}
+
+div.navbar.navbar-default ul.nav.navbar-nav>li.active {
+    background-color: grey;
+}
+
+#downloadElectrum,
+#downloadElectrum * {
+    font-size: 40px;
+}
+
+a.btn.btn-raised.btn-primary {
+    background-color: #aaaaaa;
+    color: #ffe60c;
+}
+
+#electrum a.btn.btn-raised.btn-primary:hover,
+#electrum a.btn.btn-raised.btn-primary:focus,
+#electrum a.btn.btn-raised.btn-primary:active {
+    background-color: #ffe60c;
+    color: #888888;
+}

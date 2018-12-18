@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Keith MacKay">
+<link rel="icon" href="http://keithmackay.com/favicon.ico">
+<title>JSON Response</title>
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/bootstrap.css">
+<link rel="stylesheet" href="http://keithmackay.com/devfiles/material.css">
+<link rel='stylesheet' href='//cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css'>
+<style>pre{outline: 1px solid #ccc;padding:5px;margin:5px;} .string {color:green;}document.getElementById('page').appendChild(document.createElement('pre')).number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+.hack{font-family: Hack;}
+#page>pre{margin-bottom:5px;height:97vh;overflow-y:auto;} body{overflow-y:hidden;}
+</style>
+<script type="text/javascript">
+	const jsonStr = '##DATA##';
+	(function (){
+		function s(json) {
+		    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+		        var cls = 'number';
+		        if (/^"/.test(match)) {
+		            if (/:$/.test(match)) {
+		                cls = 'key';
+		            } else {
+		                cls = 'string';
+		            }
+		        } else if (/true|false/.test(match)) {
+		            cls = 'boolean';
+		        } else if (/null/.test(match)) {
+		            cls = 'null';
+		        }
+		        return '<span class="' + cls + '">' + match + '</span>';
+		    });
+		}
+		setTimeout(function (){
+		  var el = document.getElementById('page').appendChild(document.createElement('pre'));
+		  el.innerHTML = s(JSON.stringify(JSON.parse(jsonStr), undefined, 4));
+		  el.classList.add('well');
+		  el.classList.add('hack');
+		}, 100);
+	})();
+</script>
+</head>
+<body>
+	<div id="page" class="container"></div>
+</body>
+</html>

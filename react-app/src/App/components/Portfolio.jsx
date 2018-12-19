@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Element } from "react-scroll";
 
 class Portfolio extends Component {
 	render() {
@@ -30,20 +31,23 @@ class Portfolio extends Component {
 		}
 
 		return (
-			<section id="portfolio">
-				<div className="row">
-					<div className="twelve columns collapsed">
-						<h1>Check Out Some of My Works.</h1>
+			<div>
+				<Element name="portfolio" />
+				<section id="portfolio">
+					<div className="row">
+						<div className="twelve columns collapsed">
+							<h1>Check Out Some of My Works.</h1>
 
-						<div
-							id="portfolio-wrapper"
-							className="bgrid-quarters s-bgrid-thirds cf"
-						>
-							{projectData}
+							<div
+								id="portfolio-wrapper"
+								className="bgrid-quarters s-bgrid-thirds cf"
+							>
+								{projectData}
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		);
 	}
 }

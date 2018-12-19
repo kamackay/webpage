@@ -39,9 +39,10 @@ class Resume extends KeithComponent<ResumeState> {
 	constructor(props: string[]) {
 		super(props);
 		this.state = {
+			faviconUrl: "images/resume.ico",
 			title: "Keith MacKay - Resume",
 			loading: true,
-			resumeData: new ResumeData()
+			resumeData: new ResumeData(),
 		};
 	}
 
@@ -83,7 +84,7 @@ class Resume extends KeithComponent<ResumeState> {
 			cache: false,
 			success: (data: ResumeData) => {
 				setState({ resumeData: data });
-				setTimeout(() => setState({ loading: false }), 2500);
+				setTimeout(() => setState({ loading: false }), 1);
 			},
 			error(xhr, status, err) {
 				// tslint:disable-next-line:no-console

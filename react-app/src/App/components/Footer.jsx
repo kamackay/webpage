@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-scroll";
 
 class Footer extends Component {
 	render() {
@@ -40,13 +41,15 @@ class Footer extends Component {
 						</ul>
 					</div>
 					<div id="go-top">
-						<a
+						<Link
 							className="smoothscroll"
-							title="Back to Top"
-							href="#home"
+							title="Back To Top"
+							to="home"
+							smooth={true}
+							style={{ cursor: "pointer" }}
 						>
 							<i className="icon-up-open" />
-						</a>
+						</Link>
 					</div>
 				</div>
 			</footer>

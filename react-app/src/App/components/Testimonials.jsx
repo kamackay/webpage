@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Element } from "react-scroll";
 
 class Testimonials extends Component {
 	render() {
@@ -18,23 +19,25 @@ class Testimonials extends Component {
 		}
 
 		return (
-			<section id="testimonials">
-				<div className="text-container">
-					<div className="row">
-						<div className="two columns header-col">
-							<h1>
-								<span>Client Testimonials</span>
-							</h1>
-						</div>
-
-						<div className="ten columns flex-container">
-							<ul className="slides testimonials-list">
-								{testimonialsData}
-							</ul>
+			<div>
+				<Element name="testimonials" />
+				<section id="testimonials">
+					<div className="text-container">
+						<div className="row">
+							<div className="two columns header-col">
+								<h1>
+									<span>Client Testimonials</span>
+								</h1>
+							</div>
+							<div className="ten columns flex-container">
+								<ul className="slides testimonials-list">
+									{testimonialsData}
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		);
 	}
 }

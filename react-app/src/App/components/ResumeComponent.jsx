@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { Element } from "react-scroll";
 
 const percentColors = [
-	{ pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
+	{ pct: 0.0, color: { r: 0xaa, g: 0x00, b: 0 } },
 	{ pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
-	{ pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }
+	{ pct: 1.0, color: { r: 0x00, g: 0xff, b: 0x00 } }
 ];
+
+const bullet = "•";
 
 class ResumeComponent extends Component {
 	getSkillImage(skill, size) {
@@ -34,10 +37,7 @@ class ResumeComponent extends Component {
 			g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
 			r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper)
 		};
-		const s = "rgba(" + [color.r, color.g, color.b].join(",") + ", .75)";
-		// tslint:disable-next-line:no-console
-		console.log(s);
-		return s;
+		return `rgba(${[color.r, color.g, color.b].join(",")},.85)`;
 		// or output as hex if preferred
 	}
 
@@ -62,12 +62,25 @@ class ResumeComponent extends Component {
 							<em className="date">{education.graduated}</em>
 						</p>
 						<p>{education.description}</p>
+						<p>
+							{education.classes ? education.classes
+								.map(className => (
+									<span key={"class-" + className}>
+										{className}
+									</span>
+								))
+								.reduce((prev, curr) => [
+									prev,
+									` ${bullet} `,
+									curr
+								]): null}
+						</p>
 					</div>
 				);
 			});
 			workData = this.props.data.work.map(work => {
 				return (
-					<div key={work.company}>
+					<div key={"company-" + work.company + Math.random()}>
 						<h3>{work.company}</h3>
 						<p className="info">
 							{work.title}
@@ -102,49 +115,52 @@ class ResumeComponent extends Component {
 		}
 
 		return (
-			<section id="resume">
-				<div className="row education">
-					<div className="three columns header-col">
-						<h1>
-							<span>Education</span>
-						</h1>
-					</div>
+			<div>
+				<Element name="resume" />
+				<section id="resume">
+					<div className="row education">
+						<div className="three columns header-col">
+							<h1>
+								<span>Education</span>
+							</h1>
+						</div>
 
-					<div className="nine columns main-col">
-						<div className="row item">
-							<div className="twelve columns">
-								{educationData}
+						<div className="nine columns main-col">
+							<div className="row item">
+								<div className="twelve columns">
+									{educationData}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div className="row work">
-					<div className="three columns header-col">
-						<h1>
-							<span>Work</span>
-						</h1>
+					<div className="row work">
+						<div className="three columns header-col">
+							<h1>
+								<span>Work</span>
+							</h1>
+						</div>
+
+						<div className="nine columns main-col">{workData}</div>
 					</div>
 
-					<div className="nine columns main-col">{workData}</div>
-				</div>
+					<div className="row skill">
+						<div className="three columns header-col">
+							<h1>
+								<span>Skills</span>
+							</h1>
+						</div>
 
-				<div className="row skill">
-					<div className="three columns header-col">
-						<h1>
-							<span>Skills</span>
-						</h1>
-					</div>
+						<div className="nine columns main-col">
+							<p>{skillMessage}</p>
 
-					<div className="nine columns main-col">
-						<p>{skillMessage}</p>
-
-						<div className="bars">
-							<ul className="skills">{skillsData}</ul>
+							<div className="bars">
+								<ul className="skills">{skillsData}</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		);
 	}
 }

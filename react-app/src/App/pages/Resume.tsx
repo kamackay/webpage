@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import * as $ from "jquery";
 import * as React from "react";
 import * as Spinner from "react-spinkit";
 import { ResumeData } from "src/model/ResumeData";
@@ -8,8 +8,8 @@ import About from "../components/About.jsx";
 import Contact from "../components/Contact.jsx";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
-import KeithComponent from '../components/KeithComponent';
-import Portfolio from '../components/Portfolio.jsx';
+import KeithComponent from "../components/KeithComponent";
+import Portfolio from "../components/Portfolio.jsx";
 import ResumeComponent from "../components/ResumeComponent.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import "./Resume.css";
@@ -42,12 +42,19 @@ class Resume extends KeithComponent<ResumeState> {
 			faviconUrl: "images/resume.ico",
 			title: "Keith MacKay - Resume",
 			loading: true,
-			resumeData: new ResumeData(),
+			resumeData: new ResumeData()
 		};
 	}
 
 	public componentDidMount() {
-		this.getResumeData();
+		const setState = this.setState.bind(this);
+		// Wait for all resources to be loaded
+		window.addEventListener("load", () => {
+			this.getResumeData((data: ResumeData) => {
+				setState({ resumeData: data });
+				setTimeout(() => setState({ loading: false }), 100);
+			});
+		});
 	}
 
 	public render() {
@@ -76,16 +83,12 @@ class Resume extends KeithComponent<ResumeState> {
 		);
 	}
 
-	private getResumeData() {
-		const setState = this.setState.bind(this);
+	private getResumeData(callback: (data: ResumeData) => void) {
 		$.ajax({
 			url: "/resumeData.json",
 			dataType: "json",
 			cache: false,
-			success: (data: ResumeData) => {
-				setState({ resumeData: data });
-				setTimeout(() => setState({ loading: false }), 1);
-			},
+			success: callback,
 			error(xhr, status, err) {
 				// tslint:disable-next-line:no-console
 				console.log(err);

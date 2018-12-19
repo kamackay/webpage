@@ -53,28 +53,30 @@
 			"classes": ["Network Security", "Operating Systems", "Human-Computer Interaction", "Computer Graphics", "Introduction to Artificial Intelligence", "Database Management", "Interactive Video Game Design", "Numerical Methods"]
 		}],
 		"work": [{
-				"company": "iPipeline",
-				"title": "Lead Development Intern",
-				"years": "December 2013 - November 2015",
-				"description": "",
-				"img": "images/ipipeline.png"
-			}, {
-				"company": "iPipeline",
-				"title": "Software Configuration Specialist",
-				"years": "May 2016 - August 2016",
-				"description": ""
-			}, {
-				"company": "Honeywell",
-				"title": "Junior Software Engineer",
-				"years": "January 2017 - December 2017",
-				"description": ""
-			}, {
-				"company": "Q-Free",
-				"title": "Junior Software Engineer",
-				"years": "December 2017 - Present",
-				"description": ""
-			}
-		],
+			"company": "iPipeline",
+			"title": "Lead Development Intern",
+			"years": "December 2013 - November 2015",
+			"description": "",
+			"img": "images/ipipeline.png"
+		}, {
+			"company": "iPipeline",
+			"title": "Software Configuration Specialist",
+			"years": "May 2016 - August 2016",
+			"description": "",
+			"img": "images/ipipeline.png"
+		}, {
+			"company": "Honeywell",
+			"title": "Junior Software Engineer",
+			"years": "January 2017 - December 2017",
+			"description": "",
+			"img": "images/honeywell.png"
+		}, {
+			"company": "Q-Free",
+			"title": "Junior Software Engineer",
+			"years": "December 2017 - Present",
+			"description": "",
+			"img": "images/q-free.jpg"
+		}],
 		"skills": [{
 				"name": "Git",
 				"level": "80%",
@@ -137,31 +139,7 @@
 				"title": "Canadian Wanderlust",
 				"category": "My Travel Blog for my post-university travels",
 				"image": "canadian-wanderlust.jpg",
-				"url": "https://www.canadianwanderlust.com"
-			},
-			{
-				"title": "Fury Fighting Gear",
-				"category": "(offline now) A fighting gear company I started",
-				"image": "fury-fighting-gear.jpg",
-				"url": "http://www.timbakerdev.com"
-			},
-			{
-				"title": "Original Thai Food",
-				"category": "Website I built for a restaurant I like in Thailand",
-				"image": "original-thai-food.jpg",
-				"url": "http://www.timbakerdev.com/originalthaifood.github.io"
-			},
-			{
-				"title": "Resume Website",
-				"category": "A React based resume website template",
-				"image": "resume-website.jpg",
-				"url": "#"
-			},
-			{
-				"title": "Smirkspace",
-				"category": "(MVP Only) A React and Meteor based chat University project.",
-				"image": "smirkspace.jpg",
-				"url": "http://www.smirkspace.com"
+				"url": ""
 			}
 		]
 	},

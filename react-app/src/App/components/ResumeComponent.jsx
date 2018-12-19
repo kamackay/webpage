@@ -63,17 +63,19 @@ class ResumeComponent extends Component {
 						</p>
 						<p>{education.description}</p>
 						<p>
-							{education.classes ? education.classes
-								.map(className => (
-									<span key={"class-" + className}>
-										{className}
-									</span>
-								))
-								.reduce((prev, curr) => [
-									prev,
-									` ${bullet} `,
-									curr
-								]): null}
+							{education.classes
+								? education.classes
+										.map(className => (
+											<span key={"class-" + className}>
+												{className}
+											</span>
+										))
+										.reduce((prev, curr) => [
+											prev,
+											` ${bullet} `,
+											curr
+										])
+								: null}
 						</p>
 					</div>
 				);
@@ -81,7 +83,18 @@ class ResumeComponent extends Component {
 			workData = this.props.data.work.map(work => {
 				return (
 					<div key={"company-" + work.company + Math.random()}>
-						<h3>{work.company}</h3>
+						<span>
+							<h3 style={{ display: "inline-block" }}>
+								{work.company}
+							</h3>
+							<img
+								src={work.img}
+								style={{
+									marginLeft: "25px",
+									maxHeight: "50px"
+								}}
+							/>
+						</span>
 						<p className="info">
 							{work.title}
 							<span>&bull;</span>{" "}

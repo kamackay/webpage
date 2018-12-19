@@ -4,14 +4,14 @@ import * as Spinner from "react-spinkit";
 import { ResumeData } from "src/model/ResumeData";
 import ResumeState from "src/model/ResumeState";
 import "../../bootstrap.min.css";
-import About from "../components/About";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import About from "../components/About.jsx";
+import Contact from "../components/Contact.jsx";
+import Footer from "../components/Footer.jsx";
+import Header from "../components/Header.jsx";
 import KeithComponent from '../components/KeithComponent';
-import Portfolio from "../components/Portfolio";
-import ResumeComponent from "../components/ResumeComponent";
-import Testimonials from "../components/Testimonials";
+import Portfolio from '../components/Portfolio.jsx';
+import ResumeComponent from "../components/ResumeComponent.jsx";
+import Testimonials from "../components/Testimonials.jsx";
 import "./Resume.css";
 
 const styles = {

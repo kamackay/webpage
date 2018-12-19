@@ -1,7 +1,36 @@
 import React, { Component } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { Element } from "react-scroll";
+import { Snackbar, Button, IconButton } from "@material-ui/core";
+
+const styles = theme => ({
+	close: {
+		padding: theme.spacing.unit / 2
+	}
+});
+let setState;
 
 class Contact extends Component {
+	constructor(props) {
+		super(props);
+		setState = this.setState.bind(this);
+	}
+	state = {
+		snackbarOpen: false
+	};
+
+	handleClick() {
+		this.setState({ snackbarOpen: true });
+	}
+
+	handleClose(event, reason) {
+		if (reason === "clickaway") {
+			return;
+		}
+
+		setState({ snackbarOpen: false });
+	}
+
 	render() {
 		if (this.props.data) {
 			var name = this.props.data.name;
@@ -32,12 +61,7 @@ class Contact extends Component {
 
 					<div className="row">
 						<div className="eight columns">
-							<form
-								action=""
-								method="post"
-								id="contactForm"
-								name="contactForm"
-							>
+							<form action="" id="contactForm" name="contactForm">
 								<fieldset>
 									<div>
 										<label htmlFor="contactName">
@@ -97,9 +121,17 @@ class Contact extends Component {
 									</div>
 
 									<div>
-										<button className="submit">
+										<Button
+											type="button"
+											variant="contained"
+											color="primary"
+											onClick={e => {
+												e.stopPropagation();
+												this.handleClick();
+											}}
+										>
 											Submit
-										</button>
+										</Button>
 										<span id="image-loader">
 											<img
 												alt=""
@@ -168,6 +200,34 @@ class Contact extends Component {
 							</div>
 						</aside>
 					</div>
+					<Snackbar
+						anchorOrigin={{
+							horizontal: "left",
+							vertical: "bottom"
+						}}
+						open={this.state.snackbarOpen}
+						autoHideDuration={6000}
+						onClose={this.handleClose}
+						ContentProps={{
+							"aria-describedby": "message-id"
+						}}
+						message={
+							<span id="message-id">
+								Feature not currently working
+							</span>
+						}
+						action={[
+							<IconButton
+								key="close"
+								aria-label="Close"
+								color="inherit"
+								style={{}}
+								onClick={this.handleClose}
+							>
+								<CloseIcon />
+							</IconButton>
+						]}
+					/>
 				</section>
 			</div>
 		);

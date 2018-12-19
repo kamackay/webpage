@@ -46,15 +46,9 @@
 	"resume": {
 		"skillmessage": "Some of my strongest development skills and my confidence level with them",
 		"education": [{
-				"school": "University?",
-				"degree": "Masters in Beer tasting",
-				"graduated": "April 2007",
-				"description": "Describe your experience at school, what you learned, what useful skills you have acquired etc."
-			},
-			{
-				"school": "School #1 Maybe College?",
-				"degree": "What did you study 101",
-				"graduated": "March 2003",
+				"school": "North Carolina State University",
+				"degree": "BS in Computer Science",
+				"graduated": "December 2016",
 				"description": "Describe your experience at school, what you learned, what useful skills you have acquired etc."
 			}
 		],
@@ -74,31 +68,42 @@
 		"skills": [{
 				"name": "Git",
 				"level": "80%",
-				"img": ""
+				"img": "images/git.png"
 			},
 			{
 				"name": "Java",
-				"level": "90%"
+				"level": "90%",
+				"img": "images/java.png"
 			},
 			{
 				"name": "JavaScript",
-				"level": "50%"
+				"level": "50%",
+				"img": "images/js.jpg"
 			},
 			{
 				"name": "Python",
-				"level": "80%"
+				"level": "80%",
+				"img": "images/python.png"
 			},
 			{
 				"name": "CSS",
-				"level": "175%"
+				"level": "1750%",
+				"img": "images/css.png"
 			},
 			{
-				"name": "C#",
-				"level": "50%"
+				"name": "C# / .NET",
+				"level": "50%",
+				"img": "images/csharp.png"
 			},
 			{
 				"name": "MongoDB",
-				"level": "50%"
+				"level": "50%",
+				"img": "images/mongodb.png"
+			},
+			{
+				"name": "React",
+				"level": "10%",
+				"img": "images/react.png"
 			}
 		]
 	},

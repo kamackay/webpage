@@ -1249,4 +1249,5 @@ footer .social-links li:first-child {
 
 .skills .css {
 	position: absolute;
+	left: 0px !important;	
 }

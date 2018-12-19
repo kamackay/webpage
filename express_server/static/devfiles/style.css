@@ -46,7 +46,7 @@ div.full {
 
 @font-face {
 	font-family: myfont;
-	src: url(http://keithmackay.com/fonts/roboto.ttf) format("truetype");
+	src: url(../fonts/roboto.ttf) format("truetype");
 }
 
 #body .roboto *,

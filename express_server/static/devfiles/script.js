@@ -150,7 +150,7 @@ function notSupported() {
 }
 
 function showWatermark(anim = true) {
-	$('body').append('<div onclick="openInNewTab(\'http://keithmackay.com\')" id="watermark" style="position: fixed; top: -100%;left: 200%;width: 200px; opacity: .5; cursor: pointer;"><img style="width: 200px;" src="http://keithmackay.com/images/watermark.png" alt="watermark"/></div>')
+	$('body').append('<div onclick="openInNewTab(\'..\')" id="watermark" style="position: fixed; top: -100%;left: 200%;width: 200px; opacity: .5; cursor: pointer;"><img style="width: 200px;" src="../images/watermark.png" alt="watermark"/></div>')
 	var place = function (time = 10) {
 		$('#watermark').animate({
 			left: $(window).width() - 200,
@@ -332,7 +332,7 @@ $(document).ready(function () {
 	// try {
 	// 	const options = {
 	// 		url: (window.keith && window.keith.main ? '.' : '..')+'/backend.get', type: 'POST', data: serialize({ type: 'version' }), complete: function (data) {
-	// 			if (data.responseJSON) $('body').append('<span onclick="openInNewTab(\'http://keithmackay.com/about/\')" style="font-size:10px;padding:5px;background-color:rgba(255,255,255,.5);position:fixed;bottom:0px;right:0px;cursor:default;margin:0px;" class="well unselectable version">Version: ' + data.responseJSON + '</span>');
+	// 			if (data.responseJSON) $('body').append('<span onclick="openInNewTab(\'../about/\')" style="font-size:10px;padding:5px;background-color:rgba(255,255,255,.5);position:fixed;bottom:0px;right:0px;cursor:default;margin:0px;" class="well unselectable version">Version: ' + data.responseJSON + '</span>');
 	// 		}
 	// 	};
 	// 	if (settings.showVersion) $.ajax(options);

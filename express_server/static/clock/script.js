@@ -97,13 +97,13 @@ function clearClock() {
 function showAnalog(both = false) {
     try {
         $('#clock-contents').html('<div id="keithapps-clock" style="position: fixed;">' +
-            '<img id="keithapps-clockImg" style="position: absolute; height: 100%;" src="http://keithmackay.com/images/clock-circle2N.png" />' + '</div>');
+            '<img id="keithapps-clockImg" style="position: absolute; height: 100%;" src="../images/clock-circle2N.png" />' + '</div>');
         var clockEl = $("#keithapps-clock");
         clockEl.fadeOut(0);
         if ($('#keithapps-secondParent')) $('#keithapps-secondParent').remove();
-        clockEl.append('<div id="keithapps-secondParent" style="height: 100%; width: 100%; position: absolute;">' + '<img id="keithapps-clockSecond" src="http://keithmackay.com/images/clock-hand2.png" style="position: absolute; height: 50%; top: 5px;" />' + '</div>');
-        clockEl.append('<div id="keithapps-minuteParent" style="height: 100%; width: 100%; position: absolute; ">' + '<img id="keithapps-clockMinute" src="http://keithmackay.com/images/clock-hand2.png" style="position: absolute; height: 50%; padding-top: 10%; top: 5px; z-index: 0;" />' + '</div>');
-        clockEl.append('<div id="keithapps-hourParent" style="height: 100%; width: 100%; position: absolute; z-index: 100">' + '<img id="keithapps-clockHour" src="http://keithmackay.com/images/clock-handRed2.png" style="position: absolute; height: 50%; padding-top: 18%; top: 5px; " />' + '</div>');
+        clockEl.append('<div id="keithapps-secondParent" style="height: 100%; width: 100%; position: absolute;">' + '<img id="keithapps-clockSecond" src="../images/clock-hand2.png" style="position: absolute; height: 50%; top: 5px;" />' + '</div>');
+        clockEl.append('<div id="keithapps-minuteParent" style="height: 100%; width: 100%; position: absolute; ">' + '<img id="keithapps-clockMinute" src="../images/clock-hand2.png" style="position: absolute; height: 50%; padding-top: 10%; top: 5px; z-index: 0;" />' + '</div>');
+        clockEl.append('<div id="keithapps-hourParent" style="height: 100%; width: 100%; position: absolute; z-index: 100">' + '<img id="keithapps-clockHour" src="../images/clock-handRed2.png" style="position: absolute; height: 50%; padding-top: 18%; top: 5px; " />' + '</div>');
         var secondHand = $('#keithapps-clockSecond');
         var minuteHand = $('#keithapps-clockMinute');
         var hourHand = $('#keithapps-clockHour');

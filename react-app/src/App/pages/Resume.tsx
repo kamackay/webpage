@@ -1,16 +1,18 @@
 import * as $ from "jquery";
 import * as React from "react";
 import * as Spinner from "react-spinkit";
-import { PortfolioData } from 'src/model/PortfolioProps';
+import { AboutData } from "src/model/AboutModel";
+import { ContactData } from "src/model/ContactModel";
+import { PortfolioData } from "src/model/PortfolioProps";
 import { ResumeData } from "src/model/ResumeData";
 import ResumeState from "src/model/ResumeState";
 import "../../bootstrap.min.css";
-import About from "../components/About.jsx";
-import Contact from "../components/Contact.jsx";
+import About from "../components/About";
+import Contact from "../components/Contact";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
-import KeithComponent from '../components/KeithComponent';
-import Portfolio from '../components/Portfolio';
+import KeithComponent from "../components/KeithComponent";
+import Portfolio from "../components/Portfolio";
 import ResumeComponent from "../components/ResumeComponent.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import "./Resume.css";
@@ -74,11 +76,13 @@ class Resume extends KeithComponent<string[], ResumeState> {
 		return (
 			<div className="App">
 				<Header data={this.state.resumeData.main} />
-				<About data={this.state.resumeData.main} />
+				<About data={this.state.resumeData.main as AboutData} />
 				<ResumeComponent data={this.state.resumeData.resume} />
-				<Portfolio data={this.state.resumeData.portfolio as PortfolioData} />
+				<Portfolio
+					data={this.state.resumeData.portfolio as PortfolioData}
+				/>
 				<Testimonials data={this.state.resumeData.testimonials} />
-				<Contact data={this.state.resumeData.main} />
+				<Contact data={this.state.resumeData.main as ContactData} />
 				<Footer data={this.state.resumeData.main} />
 			</div>
 		);

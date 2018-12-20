@@ -1,48 +1,36 @@
-import React, { Component } from "react";
+import { Button, IconButton, Snackbar } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import * as React from "react";
 import { Element } from "react-scroll";
-import { Snackbar, Button, IconButton } from "@material-ui/core";
+import { ContactProps, ContactState } from "src/model/ContactModel";
+import KeithComponent from "./KeithComponent";
 
-const styles = theme => ({
-	close: {
-		padding: theme.spacing.unit / 2
-	}
-});
-let setState;
+// if (this.props.data) {
+// 	var name = this.props.data.name;
+// 	var street = this.props.data.address.street;
+// 	var city = this.props.data.address.city;
+// 	var state = this.props.data.address.state;
+// 	var zip = this.props.data.address.zip;
+// 	var phone = this.props.data.phone;
+// 	var email = this.props.data.email;
+// 	var message = this.props.data.contactmessage;
+// }
 
-class Contact extends Component {
-	constructor(props) {
+class Contact extends KeithComponent<ContactProps, ContactState> {
+	constructor(props: ContactProps) {
 		super(props);
-		setState = this.setState.bind(this);
-	}
-	state = {
-		snackbarOpen: false
-	};
-
-	handleClick() {
-		this.setState({ snackbarOpen: true });
-	}
-
-	handleClose(event, reason) {
-		if (reason === "clickaway") {
-			return;
-		}
-
-		setState({ snackbarOpen: false });
+		this.state = {
+			snackbarOpen: false,
+			name: props.data.name,
+			address: props.data.address,
+			phone: props.data.phone,
+			email: props.data.email,
+			message: props.data.message
+		};
 	}
 
-	render() {
-		if (this.props.data) {
-			var name = this.props.data.name;
-			var street = this.props.data.address.street;
-			var city = this.props.data.address.city;
-			var state = this.props.data.address.state;
-			var zip = this.props.data.address.zip;
-			var phone = this.props.data.phone;
-			var email = this.props.data.email;
-			var message = this.props.data.contactmessage;
-		}
-
+	public render() {
+		const { name, message, address, phone, email } = this.state;
 		return (
 			<div>
 				<Element name="contact" />
@@ -71,10 +59,9 @@ class Contact extends Component {
 										<input
 											type="text"
 											defaultValue=""
-											size="35"
+											size={35}
 											id="contactName"
 											name="contactName"
-											onChange={this.handleChange}
 										/>
 									</div>
 
@@ -86,10 +73,9 @@ class Contact extends Component {
 										<input
 											type="text"
 											defaultValue=""
-											size="35"
+											size={35}
 											id="contactEmail"
 											name="contactEmail"
-											onChange={this.handleChange}
 										/>
 									</div>
 
@@ -100,10 +86,9 @@ class Contact extends Component {
 										<input
 											type="text"
 											defaultValue=""
-											size="35"
+											size={35}
 											id="contactSubject"
 											name="contactSubject"
-											onChange={this.handleChange}
 										/>
 									</div>
 
@@ -113,8 +98,8 @@ class Contact extends Component {
 											<span className="required">*</span>
 										</label>
 										<textarea
-											cols="50"
-											rows="15"
+											cols={50}
+											rows={15}
 											id="contactMessage"
 											name="contactMessage"
 										/>
@@ -125,10 +110,7 @@ class Contact extends Component {
 											type="button"
 											variant="contained"
 											color="primary"
-											onClick={e => {
-												e.stopPropagation();
-												this.handleClick();
-											}}
+											onClick={this.handleClick}
 										>
 											Submit
 										</Button>
@@ -156,10 +138,13 @@ class Contact extends Component {
 								<p className="address">
 									{name}
 									<br />
-									{street} <br />
-									{city}, {state} {zip}
+									{address.street} <br />
+									{address.city}, {address.state}{" "}
+									{address.zip}
 									<br />
 									<span>{phone}</span>
+									<br />
+									<a href={`mailto:${email}`}>{email}</a>
 								</p>
 							</div>
 
@@ -231,6 +216,14 @@ class Contact extends Component {
 				</section>
 			</div>
 		);
+	}
+
+	private handleClick() {
+		this.setState({ ...this.state, snackbarOpen: true });
+	}
+
+	private handleClose(event: React.MouseEvent<HTMLElement>) {
+		this.setState({ ...this.state, snackbarOpen: false });
 	}
 }
 

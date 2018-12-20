@@ -8,8 +8,12 @@ class KeithComponent<
 > extends React.Component<P, S> {
 	public setState(state: S) {
 		super.setState(state);
-		document.title = this.state.title;
-		this.setFavicon(this.state.faviconUrl);
+		if (this.state.title) {
+			document.title = this.state.title!;
+		}
+		if (this.state.faviconUrl) {
+			this.setFavicon(this.state.faviconUrl!);
+		}
 	}
 
 	public setFavicon(url: string) {
@@ -20,6 +24,11 @@ class KeithComponent<
 		link.rel = "shortcut icon";
 		link.href = url;
 		document.getElementsByTagName("head")[0].appendChild(link);
+	}
+
+	protected updateState(state: S) {
+		const newState = { ...this.state, state } as S;
+		this.setState(newState);
 	}
 }
 

@@ -1,21 +1,38 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Element } from "react-scroll";
+import { AboutProps, AboutState } from "src/model/AboutModel";
+import KeithComponent from "./KeithComponent";
 
-class About extends Component {
-	render() {
+class About extends KeithComponent<AboutProps, AboutState> {
+	constructor(props: AboutProps) {
+		super(props);
 		if (this.props.data) {
-			var name = this.props.data.name;
-			var profilepic = "images/" + this.props.data.image;
-			var bio = this.props.data.bio;
-			var street = this.props.data.address.street;
-			var city = this.props.data.address.city;
-			var state = this.props.data.address.state;
-			var zip = this.props.data.address.zip;
-			var phone = this.props.data.phone;
-			var email = this.props.data.email;
-			var resumeDownload = this.props.data.resumedownload;
+			this.state = {
+				name: this.props.data.name,
+				profilePic: "images/" + this.props.data.image,
+				bio: this.props.data.bio,
+				address: {
+					street: this.props.data.address.street,
+					city: this.props.data.address.city,
+					state: this.props.data.address.state,
+					zip: this.props.data.address.zip
+				},
+				phone: this.props.data.phone,
+				email: this.props.data.email,
+				resumeDownload: this.props.data.resumeDownload
+			};
 		}
+	}
 
+	public render() {
+		const {
+			profilePic,
+			bio,
+			address,
+			phone,
+			resumeDownload,
+			email
+		} = this.state;
 		return (
 			<div>
 				<Element name="about" />
@@ -24,8 +41,8 @@ class About extends Component {
 						<div className="three columns">
 							<img
 								className="profile-pic"
-								src={profilepic}
-								alt="Tim Baker Profile Pic"
+								src={profilePic}
+								alt="Keith MacKay Profile Pic"
 							/>
 						</div>
 						<div className="nine columns main-col">
@@ -39,9 +56,10 @@ class About extends Component {
 										<span>{name}</span>
 										<br />
 										<span>
-											{street}
+											{address.street}
 											<br />
-											{city} {state}, {zip}
+											{address.city} {address.state},{" "}
+											{address.zip}
 										</span>
 										<br />
 										<span>{phone}</span>

@@ -1,6 +1,6 @@
-import KeithState from "./KeithState";
-import KeithProps from "./KeithProps";
-import Address from "./Address";
+import KeithState from "../KeithState";
+import KeithProps from "../KeithProps";
+import Address from "../Address";
 
 declare class ContactState extends KeithState {
 	snackbarOpen: boolean;

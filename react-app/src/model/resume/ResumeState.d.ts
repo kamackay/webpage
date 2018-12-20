@@ -1,6 +1,6 @@
-import JsObject from "./JsObject";
+import JsObject from "../JsObject";
 import { ResumeData } from "./ResumeData";
-import KeithState from "./KeithState";
+import KeithState from "../KeithState";
 
 declare class ResumeState extends KeithState {
 	loading: boolean;

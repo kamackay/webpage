@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Element } from "react-scroll";
-import { AboutProps, AboutState } from "src/model/AboutModel";
+import { AboutProps, AboutState } from "src/model/resume/AboutModel";
 import KeithComponent from "./KeithComponent";
 
 class About extends KeithComponent<AboutProps, AboutState> {

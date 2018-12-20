@@ -1,4 +1,4 @@
-import KeithState from "./KeithState";
+import KeithState from "../KeithState";
 
 declare class PortfolioState extends KeithState {}
 

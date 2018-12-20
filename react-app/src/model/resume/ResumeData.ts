@@ -1,4 +1,4 @@
-import JsObject from "./JsObject";
+import JsObject from "../JsObject";
 
 class ResumeData {
 	public main?: JsObject;

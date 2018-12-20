@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-scroll";
-import { FooterProps, FooterState } from "src/model/FooterModel";
+import { FooterProps, FooterState } from "src/model/resume/FooterModel";
 import KeithComponent from "./KeithComponent";
 
 class Footer extends KeithComponent<FooterProps, FooterState> {

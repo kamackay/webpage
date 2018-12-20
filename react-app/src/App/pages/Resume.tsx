@@ -1,22 +1,26 @@
 import * as $ from "jquery";
 import * as React from "react";
+import { Element } from "react-scroll";
+import { scroller } from "react-scroll";
 import * as Spinner from "react-spinkit";
-import { AboutData } from "src/model/AboutModel";
-import { ContactData } from "src/model/ContactModel";
-import { FooterData } from "src/model/FooterModel";
-import { HeaderData } from 'src/model/HeaderModel';
-import { PortfolioData } from "src/model/PortfolioProps";
-import { ResumeData } from "src/model/ResumeData";
-import ResumeState from "src/model/ResumeState";
+import { AboutData } from "src/model/resume/AboutModel";
+import { ContactData } from "src/model/resume/ContactModel";
+import { FooterData } from "src/model/resume/FooterModel";
+import { HeaderData } from "src/model/resume/HeaderModel";
+import { PortfolioData } from "src/model/resume/PortfolioProps";
+import { ResumeCompData } from "src/model/resume/ResumeCompModel";
+import { ResumeData } from "src/model/resume/ResumeData";
+import ResumeState from "src/model/resume/ResumeState";
+import { TestimonialsData } from "src/model/resume/TestimonialsModel";
 import "../../bootstrap.min.css";
-import About from "../components/About";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import KeithComponent from "../components/KeithComponent";
-import Portfolio from "../components/Portfolio";
-import ResumeComponent from "../components/ResumeComponent.jsx";
-import Testimonials from "../components/Testimonials.jsx";
+import About from "../components/resume/About";
+import Contact from "../components/resume/Contact";
+import Footer from "../components/resume/Footer";
+import Header from "../components/resume/Header";
+import KeithComponent from "../components/resume/KeithComponent";
+import Portfolio from "../components/resume/Portfolio";
+import ResumeComponent from "../components/resume/ResumeComponent";
+import Testimonials from "../components/resume/Testimonials";
 import "./Resume.css";
 
 const styles = {
@@ -57,7 +61,18 @@ class Resume extends KeithComponent<string[], ResumeState> {
 		window.addEventListener("load", () => {
 			this.getResumeData((data: ResumeData) => {
 				setState({ resumeData: data });
-				setTimeout(() => setState({ loading: false }), 100);
+				setTimeout(() => setState({ loading: false }), 1);
+				setTimeout(() => {
+					const url = window.location.href;
+					const urlId = url.substring(url.lastIndexOf("#") + 1);
+					if (urlId) {
+						scroller.scrollTo(urlId, {
+							duration: 1000,
+							delay: 0,
+							smooth: "easeInOutQuart"
+						});
+					}
+				}, 100);
 			});
 		});
 	}
@@ -77,13 +92,20 @@ class Resume extends KeithComponent<string[], ResumeState> {
 
 		return (
 			<div className="App">
+				<Element name="home" />
 				<Header data={this.state.resumeData.main as HeaderData} />
 				<About data={this.state.resumeData.main as AboutData} />
-				<ResumeComponent data={this.state.resumeData.resume} />
+				<ResumeComponent
+					data={this.state.resumeData.resume as ResumeCompData}
+				/>
 				<Portfolio
 					data={this.state.resumeData.portfolio as PortfolioData}
 				/>
-				<Testimonials data={this.state.resumeData.testimonials} />
+				<Testimonials
+					data={
+						this.state.resumeData.testimonials as TestimonialsData
+					}
+				/>
 				<Contact data={this.state.resumeData.main as ContactData} />
 				<Footer data={this.state.resumeData.main as FooterData} />
 			</div>

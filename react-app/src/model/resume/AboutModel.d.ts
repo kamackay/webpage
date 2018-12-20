@@ -1,6 +1,6 @@
-import KeithProps from "./KeithProps";
-import KeithState from "./KeithState";
-import Address from "./Address";
+import KeithProps from "../KeithProps";
+import KeithState from "../KeithState";
+import Address from "../Address";
 
 declare class AboutData {
 	name: string;

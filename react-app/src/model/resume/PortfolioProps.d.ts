@@ -1,5 +1,5 @@
-import KeithProps from "./KeithProps";
-import JsObject from "./JsObject";
+import KeithProps from "../KeithProps";
+import JsObject from "../JsObject";
 
 declare class Project {
 	image: string;

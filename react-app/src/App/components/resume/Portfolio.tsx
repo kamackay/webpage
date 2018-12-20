@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Element } from "react-scroll";
-import PortfolioProps from 'src/model/PortfolioProps';
-import PortfolioState from 'src/model/PortfolioState';
+import PortfolioProps from 'src/model/resume/PortfolioProps';
+import PortfolioState from 'src/model/resume/PortfolioState';
 import KeithComponent from './KeithComponent';
 
 class Portfolio extends KeithComponent<PortfolioProps, PortfolioState> {

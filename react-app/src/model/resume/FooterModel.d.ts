@@ -1,5 +1,5 @@
-import KeithState from "./KeithState";
-import KeithProps from "./KeithProps";
+import KeithState from "../KeithState";
+import KeithProps from "../KeithProps";
 import Social from "./Social";
 
 declare class FooterProps extends KeithProps {

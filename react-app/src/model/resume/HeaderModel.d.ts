@@ -1,7 +1,7 @@
-import KeithState from "./KeithState";
-import KeithProps from "./KeithProps";
+import KeithState from "../KeithState";
+import KeithProps from "../KeithProps";
 import Social from "./Social";
-import Address from "./Address";
+import Address from "../Address";
 
 declare class HeaderProps extends KeithProps {
 	data: HeaderData;

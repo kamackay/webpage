@@ -2,7 +2,7 @@ import { Button, IconButton, Snackbar } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import * as React from "react";
 import { Element } from "react-scroll";
-import { ContactProps, ContactState } from "src/model/ContactModel";
+import { ContactProps, ContactState } from "src/model/resume/ContactModel";
 import KeithComponent from "./KeithComponent";
 
 class Contact extends KeithComponent<ContactProps, ContactState> {

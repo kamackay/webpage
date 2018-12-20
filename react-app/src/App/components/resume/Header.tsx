@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Scroll from "react-scroll";
 import getArticleFor from "src/lib/IndefiniteArticle";
-import { HeaderProps, HeaderState } from "src/model/HeaderModel";
+import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
 import KeithComponent from "./KeithComponent";
 
 class Header extends KeithComponent<HeaderProps, HeaderState> {
@@ -31,7 +31,6 @@ class Header extends KeithComponent<HeaderProps, HeaderState> {
 
 		return (
 			<header id="home">
-				<Scroll.Element name="home" />
 				<nav id="nav-wrap">
 					<a
 						className="mobile-btn"
@@ -52,7 +51,7 @@ class Header extends KeithComponent<HeaderProps, HeaderState> {
 						<li className="current">
 							<Scroll.Link
 								className="smoothscroll"
-								to="home"
+								to="top"
 								smooth={true}
 								style={{ cursor: "pointer" }}
 							>

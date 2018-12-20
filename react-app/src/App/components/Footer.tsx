@@ -1,19 +1,26 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Link } from "react-scroll";
+import { FooterProps, FooterState } from "src/model/FooterModel";
+import KeithComponent from "./KeithComponent";
 
-class Footer extends Component {
-	render() {
-		if (this.props.data) {
-			var networks = this.props.data.social.map(network => {
-				return (
-					<li key={network.name}>
-						<a href={network.url}>
-							<i className={network.className} />
-						</a>
-					</li>
-				);
-			});
-		}
+class Footer extends KeithComponent<FooterProps, FooterState> {
+	constructor(props: FooterProps) {
+		super(props);
+		this.state = {
+			social: props.data.social
+		};
+	}
+
+	public render() {
+		const networks = this.state.social.map(network => {
+			return (
+				<li key={network.name}>
+					<a href={network.url}>
+						<i className={network.className} />
+					</a>
+				</li>
+			);
+		});
 
 		return (
 			<footer>

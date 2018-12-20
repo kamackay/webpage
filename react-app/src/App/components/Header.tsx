@@ -1,27 +1,33 @@
-import React, { Component } from "react";
+import * as React from "react";
 import * as Scroll from "react-scroll";
+import getArticleFor from "src/lib/IndefiniteArticle";
+import { HeaderProps, HeaderState } from "src/model/HeaderModel";
+import KeithComponent from "./KeithComponent";
 
-const scroll = Scroll.animateScroll;
-const stopScroll = e => e.stopPropagation();
+class Header extends KeithComponent<HeaderProps, HeaderState> {
+	constructor(props: HeaderProps) {
+		super(props);
+		this.state = {
+			name: props.data.name,
+			occupation: props.data.occupation,
+			description: props.data.description,
+			address: props.data.address,
+			social: props.data.social
+		};
+	}
 
-class Header extends Component {
-	render() {
-		if (this.props.data) {
-			var name = this.props.data.name;
-			var occupation = this.props.data.occupation;
-			var description = this.props.data.description;
-			var city = this.props.data.address.city;
-			var state = this.props.data.address.state;
-			var networks = this.props.data.social.map(network => {
-				return (
-					<li key={network.name}>
-						<a href={network.url}>
-							<i className={network.className} />
-						</a>
-					</li>
-				);
-			});
-		}
+	public render() {
+		const { name, occupation, description, address, social } = this.state;
+
+		const networks = social.map(network => {
+			return (
+				<li key={network.name}>
+					<a href={network.url}>
+						<i className={network.className} />
+					</a>
+				</li>
+			);
+		});
 
 		return (
 			<header id="home">
@@ -111,14 +117,15 @@ class Header extends Component {
 					style={{
 						left: "100px",
 						position: "absolute",
-						top: "100px",
+						top: "100px"
 					}}
 				>
 					<div className="banner-text header-cont-div">
 						<h1 className="responsive-headline">I'm {name}.</h1>
 						<h3>
-							I'm a {city}, {state} based{" "}
-							<span>{occupation}</span>. {description}.
+							I'm {getArticleFor(address.city)} {address.city},{" "}
+							{address.state} based <span>{occupation}</span>.{" "}
+							{description}.
 						</h3>
 						<hr />
 						<ul className="social">{networks}</ul>
@@ -131,7 +138,7 @@ class Header extends Component {
 						to="about"
 						title="Explore"
 						smooth={true}
-						style={{cursor: "pointer"}}
+						style={{ cursor: "pointer" }}
 					>
 						<i className="icon-down-circle" />
 					</Scroll.Link>

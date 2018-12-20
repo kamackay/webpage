@@ -157,7 +157,7 @@ class ResumeComponent extends Component {
 						<div className="nine columns main-col">{workData}</div>
 					</div>
 
-					<div className="row skill">
+					<div className="row skill" id="skillRow">
 						<div className="three columns header-col">
 							<h1>
 								<span>Skills</span>

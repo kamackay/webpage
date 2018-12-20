@@ -1,23 +1,29 @@
-import React, { Component } from "react";
+import * as React from 'react';
 import { Element } from "react-scroll";
+import PortfolioProps from 'src/model/PortfolioProps';
+import PortfolioState from 'src/model/PortfolioState';
+import KeithComponent from './KeithComponent';
 
-class Portfolio extends Component {
-	render() {
+class Portfolio extends KeithComponent<PortfolioProps, PortfolioState> {
+
+	private projectData: any;
+
+	public render() {
 		if (this.props.data) {
-			var projectData = this.props.data.projects.map(projects => {
-				var projectImage = "images/portfolio/" + projects.image;
+			this.projectData = this.props.data.projects.map(project => {
+				const projectImage = "images/portfolio/" + project.image;
 				return (
 					<div
-						key={projects.title}
+						key={project.title}
 						className="columns portfolio-item"
 					>
 						<div className="item-wrap">
-							<a href={projects.url} title={projects.title}>
-								<img alt={projects.title} src={projectImage} />
+							<a href={project.url} title={project.title}>
+								<img alt={project.title} src={projectImage} />
 								<div className="overlay">
 									<div className="portfolio-item-meta">
-										<h5>{projects.title}</h5>
-										<p>{projects.category}</p>
+										<h5>{project.title}</h5>
+										<p>{project.category}</p>
 									</div>
 								</div>
 								<div className="link-icon">
@@ -42,7 +48,7 @@ class Portfolio extends Component {
 								id="portfolio-wrapper"
 								className="bgrid-quarters s-bgrid-thirds cf"
 							>
-								{projectData}
+								{this.projectData}
 							</div>
 						</div>
 					</div>

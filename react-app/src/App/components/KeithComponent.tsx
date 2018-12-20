@@ -1,7 +1,11 @@
 import * as React from "react";
+import KeithProps from "src/model/KeithProps";
 import KeithState from "src/model/KeithState";
 
-class KeithComponent<S extends KeithState> extends React.Component<any, S> {
+class KeithComponent<
+	P extends KeithProps,
+	S extends KeithState
+> extends React.Component<P, S> {
 	public setState(state: S) {
 		super.setState(state);
 		document.title = this.state.title;

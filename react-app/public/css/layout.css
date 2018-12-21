@@ -1252,16 +1252,22 @@ footer .social-links li:first-child {
 	left: 0px !important;
 }
 
-#skillRow::after {
-	position: absolute;
-	z-index: -1;
+#skills {
+	background: #1F1F1F url(../images/skills-bg.jpg) no-repeat center center;
+	background-size: cover !important;
+	-webkit-background-size: cover !important;
+	background-attachment: fixed;
+	position: relative;
+	min-height: 200px;
 	width: 100%;
+	overflow: hidden;
+	padding: 25px;
+}
+
+#skills>.skillWrapper {
 	height: 100%;
-	background-image: url(../images/stock-clouds3.jpg);
-	background-size: cover;
-	opacity: 0.7;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, .75);
+	padding: 10px;
+	border-radius: 15px;
 }

@@ -1,3 +1,4 @@
+import { Card } from "@material-ui/core";
 import * as React from "react";
 import { Element } from "react-scroll";
 import {
@@ -13,7 +14,7 @@ const percentColors = [
 	{ pct: 1.0, color: { r: 0x00, g: 0xff, b: 0x00 } }
 ];
 
-// const bullet = "•";
+const bullet = " • ";
 
 class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
 	constructor(p: ResumeCompProps) {
@@ -40,11 +41,17 @@ class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
 					<p>{ed.description}</p>
 					<p>
 						{ed.classes
-							? ed.classes.map(className => (
-									<span key={"class-" + className}>
-										{className}
-									</span>
-							  ))
+							? ed.classes
+									.map(className => (
+										<span key={"class-" + className}>
+											{className}
+										</span>
+									))
+									.reduce(
+										(p, n) =>
+											p === null ? [n] : [p, bullet, n],
+										null
+									)
 							: null}
 					</p>
 				</div>
@@ -126,21 +133,31 @@ class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
 						<div className="nine columns main-col">{workData}</div>
 					</div>
 
-					<div className="row skill" id="skillRow">
-						<div className="three columns header-col">
-							<h1>
-								<span>Skills</span>
-							</h1>
-						</div>
+					<div className="row skill" id="skills">
+						<div className="skillWrapper">
+							<div className="three columns header-col">
+								<h1>
+									<span>Skills</span>
+								</h1>
+							</div>
 
-						<div className="nine columns main-col">
-							<p>{skillMessage}</p>
+							<div className="nine columns main-col">
+								<h4>{skillMessage}</h4>
 
-							<div className="bars">
-								<ul className="skills">{skillsData}</ul>
+								<div className="bars">
+									<ul className="skills">{skillsData}</ul>
+								</div>
 							</div>
 						</div>
 					</div>
+					<Card>
+						<iframe
+							id="resumeiFrame"
+							frameBorder="0"
+							style={{ height: "1000px", width: "80%" }}
+							src="https://docs.google.com/document/d/1ikNvJ2xforZmuJJPRIPLtuRBk7CnA9cbdq741Zb5KtA/pub?embedded=true"
+						/>
+					</Card>
 				</section>
 			</div>
 		);

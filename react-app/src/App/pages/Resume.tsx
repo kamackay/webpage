@@ -43,9 +43,9 @@ const styles = {
 	}
 };
 
-class Resume extends KeithComponent<string[], ResumeState> {
+class Resume extends KeithComponent<any, ResumeState> {
 	// Initialize the state
-	constructor(props: string[]) {
+	constructor(props: any) {
 		super(props);
 		this.state = {
 			faviconUrl: "images/resume.ico",
@@ -66,11 +66,15 @@ class Resume extends KeithComponent<string[], ResumeState> {
 					const url = window.location.href;
 					const urlId = url.substring(url.lastIndexOf("#") + 1);
 					if (urlId) {
-						scroller.scrollTo(urlId, {
-							duration: 1000,
-							delay: 0,
-							smooth: "easeInOutQuart"
-						});
+						try {
+							scroller.scrollTo(urlId, {
+								duration: 1000,
+								delay: 0,
+								smooth: "easeInOutQuart"
+							});
+						} catch (e) {
+							// NO-OP
+						}
 					}
 				}, 100);
 			});

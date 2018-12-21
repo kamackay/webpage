@@ -79,6 +79,10 @@ class Resume extends KeithComponent<any, ResumeState> {
 				}, 100);
 			});
 		});
+		setTimeout(() => {
+			// If the page still hasn't rendered after 10 seconds, just go ahead and try
+			setState({ ...this.state, loading: false });
+		}, 10000);
 	}
 
 	public render() {

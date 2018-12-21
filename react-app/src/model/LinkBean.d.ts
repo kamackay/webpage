@@ -1,6 +1,8 @@
 declare class LinkBean {
-	name: string;
 	url: string;
+	name: string;
+	subheader: string;
+	img: string;
 }
 
 export default LinkBean;

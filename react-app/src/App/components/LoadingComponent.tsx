@@ -7,17 +7,20 @@ abstract class LoadingComponent<
 	P extends LoadingProps,
 	S extends LoadingState
 > extends KeithComponent<P, S> {
-
 	public loadingElement = (
 		<div
 			className="container loading"
 			style={{
-				textAlign: "center"
+				backgroundColor: "transparent",
+				textAlign: "center",
 			}}
 		>
 			<span
 				style={{
+					backgroundColor: "transparent",
+					width: "100px",
 					paddingTop: "250px",
+					height: "100px",
 					display: "block",
 					marginLeft: "auto",
 					marginRight: "auto"
@@ -35,7 +38,7 @@ abstract class LoadingComponent<
 			setTimeout(() => {
 				setState({ ...this.state, loading: false });
 				onLoad();
-			}, 500);
+			}, this.getLoadTime());
 		});
 		setTimeout(() => {
 			// If the page still hasn't rendered after 10 seconds, just go ahead and try
@@ -56,6 +59,10 @@ abstract class LoadingComponent<
 		}
 
 		return this.renderPostLoad();
+	}
+
+	protected getLoadTime(): number {
+		return 500;
 	}
 }
 

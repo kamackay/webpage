@@ -132,8 +132,8 @@ class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
 
 						<div className="nine columns main-col">{workData}</div>
 					</div>
-
-					<div className="row skill" id="skills">
+					<Element name="skills" />
+					<div className="row skill" id="skillDiv">
 						<div className="skillWrapper">
 							<div className="three columns header-col">
 								<h1>

@@ -1252,7 +1252,7 @@ footer .social-links li:first-child {
 	left: 0px !important;
 }
 
-#skills {
+#skillDiv {
 	background: #1F1F1F url(../images/skills-bg.jpg) no-repeat center center;
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
@@ -1264,7 +1264,7 @@ footer .social-links li:first-child {
 	padding: 25px;
 }
 
-#skills>.skillWrapper {
+#skillDiv>.skillWrapper {
 	height: 100%;
 	width: 100%;
 	background: rgba(255, 255, 255, .75);

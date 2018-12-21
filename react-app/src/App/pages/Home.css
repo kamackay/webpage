@@ -1,0 +1,11 @@
+.card-link:hover {
+	background-color: #4FC3F7;
+}
+
+html, body {
+	background-color: #eee;
+}
+
+.App h2 {
+	background: transparent;
+}

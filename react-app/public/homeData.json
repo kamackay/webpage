@@ -1,0 +1,20 @@
+[{
+		"name": "Resume",
+		"subheader": "Webpage of my skills and experience",
+		"url": "./resume",
+		"img": "images/resumeScreenshot.jpg"
+	},
+	{
+		"name": "JSON Formatter",
+		"subheader": "Helper to format JSON documents",
+		"url": "./json",
+		"img": "images/json.png"
+
+	},
+	{
+		"name": "Other",
+		"subheader": "TODO: Other stuff",
+		"url": "./",
+		"img": "images/resumeScreenshot.jpg"
+	}
+]

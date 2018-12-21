@@ -30,6 +30,11 @@ class KeithComponent<
 		const newState = { ...this.state, state } as S;
 		this.setState(newState);
 	}
+
+	protected log(...args: any[]){
+		// tslint:disable-next-line:no-console
+		console.log(...args);
+	}
 }
 
 export default KeithComponent;

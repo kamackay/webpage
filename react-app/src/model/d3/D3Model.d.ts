@@ -3,6 +3,7 @@ import Point from "../Point";
 
 declare class D3State extends LoadingState {
 	currentLocation?: Point;
+	circleSize: number;
 	running: boolean;
 	lastClick?: Point;
 	updateInterval: number;

@@ -6,13 +6,21 @@ import Point from "src/model/Point";
 import Optional from "typescript-optional";
 import "../../bootstrap.min.css";
 import LoadingComponent from "../components/LoadingComponent";
-import "./Home.css";
+import "./D3Page.css";
+
+const classes = {
+	formBar: {
+		paddingRight: 5,
+		paddingLeft: 5
+	}
+};
 
 class D3Page extends LoadingComponent<D3Props, D3State> {
 	constructor(p: D3Props) {
 		super(p);
 		this.state = {
 			faviconUrl: "images/d3.png",
+			circleSize: 10,
 			loading: true,
 			running: true,
 			updateInterval: 1000 / 60,
@@ -43,7 +51,7 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 	}
 
 	public renderPostLoad() {
-		const { currentLocation, keepPath } = this.state;
+		const { currentLocation, keepPath, circleSize } = this.state;
 
 		if (currentLocation) {
 			if (!keepPath) {
@@ -55,14 +63,24 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 			d3.select("svg")
 				.append("circle")
 				.attr("r", 5)
-				.attr("cx", currentLocation.x)
-				.attr("cy", currentLocation.y)
+				.attr("cx", currentLocation.x - circleSize / 2)
+				.attr("cy", currentLocation.y - circleSize / 2)
+				.attr("r", circleSize)
 				.attr("fill", "red");
 		}
 		return (
 			<div>
-				<svg style={{ width: "500vw", height: "500vh" }} />
-				<span style={{ position: "fixed", right: 10, bottom: 10 }}>
+				<svg
+					style={{ width: "500vw", height: "500vh", cursor: "auto" }}
+				/>
+				<span
+					style={{
+						position: "fixed",
+						right: 10,
+						bottom: 10,
+						cursor: "auto"
+					}}
+				>
 					<form
 						style={{
 							background: "rgba(128, 128, 128, .5)",
@@ -70,7 +88,16 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 							padding: 20
 						}}
 					>
+						<Button
+							variant="outlined"
+							color="secondary"
+							style={classes.formBar}
+							onClick={this.clearPath}
+						>
+							Clear Path
+						</Button>
 						<FormControlLabel
+							style={classes.formBar}
 							control={
 								<Switch
 									checked={this.state.keepPath}
@@ -89,7 +116,11 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 							variant="filled"
 							label="Speed"
 							value={this.state.moveDelta * 1000}
-							style={{ paddingLeft: 10 }}
+							style={{
+								maxWidth: 100,
+								paddingLeft: 5,
+								paddingRight: 5
+							}}
 							onChange={this.speedChange}
 							type="number"
 							InputProps={{
@@ -155,6 +186,12 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 
 	private pause() {
 		this.setState({ ...this.state, running: !this.state.running });
+	}
+
+	private clearPath() {
+		d3.select("svg")
+			.selectAll("circle")
+			.remove();
 	}
 
 	private mouseMove(e: MouseEvent): any {

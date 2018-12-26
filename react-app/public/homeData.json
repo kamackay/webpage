@@ -12,6 +12,13 @@
 
 	},
 	{
+		"name": "D3 Page",
+		"subheader": "Hello World for D3",
+		"url": "./d3",
+		"img": "images/d3.png"
+
+	},
+	{
 		"name": "Other",
 		"subheader": "TODO: Other stuff",
 		"url": "./",

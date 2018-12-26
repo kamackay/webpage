@@ -8,6 +8,9 @@ class KeithComponent<
 > extends React.Component<P, S> {
 	public setState(state: S) {
 		super.setState(state);
+
+		this.log = this.log.bind(this);
+
 		if (this.state.title) {
 			document.title = this.state.title!;
 		}
@@ -31,7 +34,7 @@ class KeithComponent<
 		this.setState(newState);
 	}
 
-	protected log(...args: any[]){
+	protected log(...args: any[]) {
 		// tslint:disable-next-line:no-console
 		console.log(...args);
 	}

@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { Button, FormControlLabel, Switch, TextField } from "@material-ui/core";
 import * as d3 from "d3";
 import * as React from "react";
 import { D3Props, D3State } from "src/model/d3/D3Model";
@@ -9,16 +9,14 @@ import LoadingComponent from "../components/LoadingComponent";
 import "./Home.css";
 
 class D3Page extends LoadingComponent<D3Props, D3State> {
-	private speedRef = React.createRef<HTMLInputElement>();
-
 	constructor(p: D3Props) {
 		super(p);
 		this.state = {
 			faviconUrl: "images/d3.png",
 			loading: true,
 			running: true,
-			updateInterval: 10,
-			moveDelta: 0.001,
+			updateInterval: 1000 / 60,
+			moveDelta: 0.02,
 			keepPath: false
 		};
 
@@ -65,10 +63,16 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 			<div>
 				<svg style={{ width: "500vw", height: "500vh" }} />
 				<span style={{ position: "fixed", right: 10, bottom: 10 }}>
-					<form>
+					<form
+						style={{
+							background: "rgba(128, 128, 128, .5)",
+							borderRadius: 15,
+							padding: 20
+						}}
+					>
 						<FormControlLabel
 							control={
-								<Checkbox
+								<Switch
 									checked={this.state.keepPath}
 									value="keepPath"
 									onClick={() =>
@@ -81,17 +85,32 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 							}
 							label="Keep Path"
 						/>
-						<label>
-							Speed:
-							<input
-								type="number"
-								min="1"
-								max="100"
-								ref={this.speedRef}
-								value={this.state.moveDelta * 1000}
-								onChange={this.speedChange}
-							/>
-						</label>
+						<TextField
+							variant="filled"
+							label="Speed"
+							value={this.state.moveDelta * 1000}
+							style={{ paddingLeft: 10 }}
+							onChange={this.speedChange}
+							type="number"
+							InputProps={{
+								min: "0",
+								max: "100",
+								step: "1",
+								style: { fontSize: 15 }
+							}}
+							InputLabelProps={{
+								shrink: true,
+								style: { fontSize: 12 }
+							}}
+							margin="normal"
+						/>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={this.pause}
+						>
+							{this.state.running ? "Pause" : "Play"}
+						</Button>
 					</form>
 				</span>
 			</div>
@@ -102,8 +121,10 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 		return 1000;
 	}
 
-	private speedChange() {
-		const { value } = this.speedRef.current!;
+	private speedChange(
+		event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+	) {
+		const { value } = event.target;
 		this.setState({ ...this.state, moveDelta: parseInt(value, 10) / 1000 });
 	}
 
@@ -115,11 +136,13 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 						current.x - location.x,
 						current.y - location.y
 					];
+					const min = (x: number): number =>
+						Math.abs(x) <= 1 ? x : x * this.state.moveDelta;
 					this.setState({
 						...this.state,
 						currentLocation: {
-							x: current.x - vector[0] * this.state.moveDelta,
-							y: current.y - vector[1] * this.state.moveDelta
+							x: current.x - min(vector[0]),
+							y: current.y - min(vector[1])
 						}
 					});
 				},

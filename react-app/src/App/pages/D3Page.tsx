@@ -78,7 +78,7 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 						position: "fixed",
 						right: 10,
 						bottom: 10,
-						cursor: "auto"
+						cursor: "none"
 					}}
 				>
 					<form

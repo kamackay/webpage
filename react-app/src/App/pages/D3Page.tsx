@@ -71,21 +71,23 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 		return (
 			<div>
 				<svg
-					style={{ width: "500vw", height: "500vh", cursor: "auto" }}
+					style={{ width: "500vw", height: "500vh", cursor: "none" }}
 				/>
 				<span
 					style={{
 						position: "fixed",
 						right: 10,
 						bottom: 10,
-						cursor: "none"
+						cursor: "auto"
 					}}
 				>
 					<form
 						style={{
 							background: "rgba(128, 128, 128, .5)",
 							borderRadius: 15,
-							padding: 20
+							padding: 5,
+							paddingLeft: 15,
+							paddingRight: 15,
 						}}
 					>
 						<Button
@@ -113,13 +115,12 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 							label="Keep Path"
 						/>
 						<TextField
-							variant="filled"
+							variant="outlined"
 							label="Speed"
 							value={this.state.moveDelta * 1000}
 							style={{
-								maxWidth: 100,
-								paddingLeft: 5,
-								paddingRight: 5
+								...classes.formBar,
+								maxWidth: 80
 							}}
 							onChange={this.speedChange}
 							type="number"

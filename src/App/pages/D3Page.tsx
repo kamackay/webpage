@@ -16,7 +16,6 @@ import {
 	TextField
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import classnames from "classnames";
 import { D3Props, D3State } from "src/model/d3/D3Model";
 import Point from "src/model/Point";
 import Optional from "typescript-optional";
@@ -101,9 +100,6 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 					<CardHeader title="Options" />
 					<CardActions>
 						<IconButton
-							className={classnames(classes.expand, {
-								[classes.expandOpen]: this.state.optionsExpanded
-							})}
 							onClick={this.expandOptions}
 							aria-expanded={this.state.optionsExpanded}
 							aria-label="Show more"

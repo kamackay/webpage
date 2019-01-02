@@ -9,6 +9,7 @@ declare class D3State extends LoadingState {
 	updateInterval: number;
 	moveDelta: number;
 	keepPath: boolean;
+	optionsExpanded: boolean;
 }
 
 declare class D3Props extends LoadingProps {}

@@ -1,12 +1,26 @@
-import { Button, FormControlLabel, Switch, TextField } from "@material-ui/core";
+import "../../bootstrap.min.css";
+import "./D3Page.css";
+
 import * as d3 from "d3";
 import * as React from "react";
+
+import {
+	Button, 
+	Card,
+	CardActions,
+	CardHeader,
+	Collapse,
+	FormControlLabel,
+	IconButton,
+	Switch,
+	TextField
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import classnames from "classnames";
 import { D3Props, D3State } from "src/model/d3/D3Model";
 import Point from "src/model/Point";
 import Optional from "typescript-optional";
-import "../../bootstrap.min.css";
 import LoadingComponent from "../components/LoadingComponent";
-import "./D3Page.css";
 
 const classes = {
 	formBar: {
@@ -25,13 +39,15 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 			running: true,
 			updateInterval: 1000 / 60,
 			moveDelta: 0.02,
-			keepPath: false
+			keepPath: false,
+			optionsExpanded: false
 		};
 
 		this.log = this.log.bind(this);
 		this.pause = this.pause.bind(this);
 		this.setState = this.setState.bind(this);
 		this.stepTo = this.stepTo.bind(this);
+		this.expandOptions = this.expandOptions.bind(this);
 		this.speedChange = this.speedChange.bind(this);
 		this.mouseMove = this.mouseMove.bind(this);
 
@@ -68,12 +84,13 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 				.attr("r", circleSize)
 				.attr("fill", "red");
 		}
+		
 		return (
 			<div>
 				<svg
-					style={{ width: "500vw", height: "500vh", cursor: "none" }}
+					style={{ width: "500vw", height: "500vh", cursor: "auto" }}
 				/>
-				<span
+				<Card
 					style={{
 						position: "fixed",
 						right: 10,
@@ -81,70 +98,87 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 						cursor: "auto"
 					}}
 				>
-					<form
-						style={{
-							background: "rgba(128, 128, 128, .5)",
-							borderRadius: 15,
-							padding: 5,
-							paddingLeft: 15,
-							paddingRight: 15,
-						}}
-					>
-						<Button
-							variant="outlined"
-							color="secondary"
-							style={classes.formBar}
-							onClick={this.clearPath}
+					<CardHeader title="Options" />
+					<CardActions>
+						<IconButton
+							className={classnames(classes.expand, {
+								[classes.expandOpen]: this.state.optionsExpanded
+							})}
+							onClick={this.expandOptions}
+							aria-expanded={this.state.optionsExpanded}
+							aria-label="Show more"
 						>
-							Clear Path
-						</Button>
-						<FormControlLabel
-							style={classes.formBar}
-							control={
-								<Switch
-									checked={this.state.keepPath}
-									value="keepPath"
-									onClick={() =>
-										this.setState({
-											...this.state,
-											keepPath: !this.state.keepPath
-										})
-									}
-								/>
+							<ExpandMoreIcon />
+						</IconButton>
+					</CardActions>
+					<Collapse in={this.state.optionsExpanded}>
+						<form
+							style={
+								{
+									// background: "rgba(128, 128, 128, .5)",
+									// borderRadius: 15,
+									// padding: 5,
+									// paddingLeft: 15,
+									// paddingRight: 15
+								}
 							}
-							label="Keep Path"
-						/>
-						<TextField
-							variant="outlined"
-							label="Speed"
-							value={this.state.moveDelta * 1000}
-							style={{
-								...classes.formBar,
-								maxWidth: 80
-							}}
-							onChange={this.speedChange}
-							type="number"
-							InputProps={{
-								min: "0",
-								max: "100",
-								step: "1",
-								style: { fontSize: 15 }
-							}}
-							InputLabelProps={{
-								shrink: true,
-								style: { fontSize: 12 }
-							}}
-							margin="normal"
-						/>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={this.pause}
 						>
-							{this.state.running ? "Pause" : "Play"}
-						</Button>
-					</form>
-				</span>
+							<Button
+								variant="outlined"
+								color="secondary"
+								style={classes.formBar}
+								onClick={this.clearPath}
+							>
+								Clear Path
+							</Button>
+							<FormControlLabel
+								style={classes.formBar}
+								control={
+									<Switch
+										checked={this.state.keepPath}
+										value="keepPath"
+										onClick={() =>
+											this.setState({
+												...this.state,
+												keepPath: !this.state.keepPath
+											})
+										}
+									/>
+								}
+								label="Keep Path"
+							/>
+							<TextField
+								variant="outlined"
+								label="Speed"
+								value={this.state.moveDelta * 1000}
+								style={{
+									...classes.formBar,
+									maxWidth: 80
+								}}
+								onChange={this.speedChange}
+								type="number"
+								InputProps={{
+									min: "0",
+									max: "100",
+									step: "1",
+									style: { fontSize: 15 }
+								}}
+								InputLabelProps={{
+									shrink: true,
+									style: { fontSize: 12 }
+								}}
+								margin="normal"
+							/>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={this.pause}
+							>
+								{this.state.running ? "Pause" : "Play"}
+							</Button>
+						</form>
+					</Collapse>
+				</Card>
 			</div>
 		);
 	}
@@ -182,6 +216,13 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 					this.setState({ ...this.state, currentLocation: location });
 				}
 			);
+		});
+	}
+
+	private expandOptions() {
+		this.setState({
+			...this.state,
+			optionsExpanded: !this.state.optionsExpanded
 		});
 	}
 

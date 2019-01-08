@@ -1,4 +1,4 @@
-import { Button, Card, TextField, Typography } from "@material-ui/core";
+import { Button, Card, Typography } from "@material-ui/core";
 import * as React from "react";
 import { JSONFormatState } from "src/model/jsonFormatter/JSONFormatModel";
 import LoadingComponent from "../components/LoadingComponent";
@@ -26,26 +26,21 @@ class JSONFormatter extends LoadingComponent<any, JSONFormatState> {
 					JSON Formatter
 				</Typography>
 				<Card>
-					<TextField
+					<textarea
 						id="jsonCode"
 						value={this.state.value}
 						onChange={this.change}
 						style={{
 							width: "100%",
 							minHeight: "20vh",
-							maxHeight: "80vh"
+							maxHeight: "80vh",
+							fontSize: this.state.fontSize
 						}}
-						InputProps={{
-							style: { fontSize: this.state.fontSize }
-						}}
-						InputLabelProps={{
-							style: { fontSize: this.state.fontSize }
-						}}
-						label="JSON"
+						// label="JSON"
 						rows={this.state.rows}
 						placeholder="Enter JSON here"
-						multiline={true}
-						margin="normal"
+						// multiline={true}
+						// margin="normal"
 					/>
 					<div style={{ margin: 20 }}>
 						{this.getButton("Format", () => this.format(4))}
@@ -81,10 +76,10 @@ class JSONFormatter extends LoadingComponent<any, JSONFormatState> {
 		const { value } = this.state;
 		try {
 			const obj = JSON.parse(value);
-			this.setState({
-				...this.state,
+			this.updateState((current: JSONFormatState) => ({
+				...current,
 				value: JSON.stringify(obj, undefined, f)
-			});
+			}));
 		} catch (err) {
 			this.log(err);
 		}

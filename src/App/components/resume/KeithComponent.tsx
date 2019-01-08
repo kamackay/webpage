@@ -29,9 +29,8 @@ class KeithComponent<
 		document.getElementsByTagName("head")[0].appendChild(link);
 	}
 
-	protected updateState(state: S) {
-		const newState = { ...this.state, state } as S;
-		this.setState(newState);
+	protected updateState(updater: (current: S) => S) {
+		super.setState(updater);
 	}
 
 	protected log(...args: any[]) {

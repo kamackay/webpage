@@ -28,7 +28,7 @@ const classes = {
 	}
 };
 
-class D3Page extends LoadingComponent<D3Props, D3State> {
+export default class D3Page extends LoadingComponent<D3Props, D3State> {
 	constructor(p: D3Props) {
 		super(p);
 		this.state = {
@@ -52,7 +52,6 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 	}
 
 	public onLoad() {
-
 		setInterval(() => {
 			if (this.state.running) {
 				this.stepTo(this.state.lastClick);
@@ -242,4 +241,3 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 		this.setState({ ...this.state, lastClick: { x: e.pageX, y: e.pageY } });
 	}
 }
-export default D3Page;

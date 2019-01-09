@@ -2,7 +2,7 @@ import KeithProps from "../KeithProps";
 import KeithState from "../KeithState";
 import Address from "../Address";
 
-declare class AboutData {
+export class AboutData {
 	name: string;
 	image: string;
 	bio: string;
@@ -12,10 +12,11 @@ declare class AboutData {
 	resumeDownload: string;
 }
 
-declare class AboutProps extends KeithProps {
+export class AboutProps extends KeithProps {
 	data: AboutData;
 }
-declare class AboutState extends KeithState {
+
+export class AboutState extends KeithState {
 	name: string;
 	profilePic: string;
 	bio: string;
@@ -24,5 +25,3 @@ declare class AboutState extends KeithState {
 	email: string;
 	resumeDownload: string;
 }
-
-export { AboutProps, AboutState, AboutData };

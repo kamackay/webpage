@@ -6,7 +6,7 @@ import {
 	ResumeCompState,
 	Skill
 } from "src/model/resume/ResumeCompModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
 const percentColors = [
 	{ pct: 0.0, color: { r: 0xaa, g: 0x00, b: 0 } },
@@ -16,7 +16,10 @@ const percentColors = [
 
 const bullet = " • ";
 
-class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
+export default class ResumeComponent extends KeithComponent<
+	ResumeCompProps,
+	ResumeCompState
+> {
 	constructor(p: ResumeCompProps) {
 		super(p);
 		this.state = {
@@ -197,5 +200,3 @@ class ResumeComponent extends KeithComponent<ResumeCompProps, ResumeCompState> {
 		// or output as hex if preferred
 	}
 }
-
-export default ResumeComponent;

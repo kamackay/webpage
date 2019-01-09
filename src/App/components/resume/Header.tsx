@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as Scroll from "react-scroll";
-import getArticleFor from "src/lib/IndefiniteArticle";
+import { getArticleFor } from "src/lib/IndefiniteArticle";
 import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
-class Header extends KeithComponent<HeaderProps, HeaderState> {
+export default class Header extends KeithComponent<HeaderProps, HeaderState> {
 	constructor(props: HeaderProps) {
 		super(props);
 		this.state = {
@@ -146,5 +146,3 @@ class Header extends KeithComponent<HeaderProps, HeaderState> {
 		);
 	}
 }
-
-export default Header;

@@ -1,9 +1,9 @@
-import { Card, Paper } from '@material-ui/core';
+import { Card, Paper } from "@material-ui/core";
 import * as React from "react";
-import { Holiday } from "src/model/Holiday";
+import Holiday from "src/model/Holiday";
 import ListState from "src/model/ListState";
 
-class Holidays extends React.Component<any, ListState> {
+export default class Holidays extends React.Component<any, ListState> {
 	// Initialize the state
 	constructor(props: string[]) {
 		super(props);
@@ -37,7 +37,11 @@ class Holidays extends React.Component<any, ListState> {
 					<div>
 						{/* Render the list of items */}
 						{holidays.map((item: Holiday) => {
-							return <Card key={item.name}><a href={item.link}>{item.name}</a></Card>;
+							return (
+								<Card key={item.name}>
+									<a href={item.link}>{item.name}</a>
+								</Card>
+							);
 						})}
 					</div>
 				) : (
@@ -49,5 +53,3 @@ class Holidays extends React.Component<any, ListState> {
 		);
 	}
 }
-
-export default Holidays;

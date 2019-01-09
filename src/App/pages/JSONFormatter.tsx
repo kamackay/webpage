@@ -1,6 +1,6 @@
 import { Button, Card, Typography } from "@material-ui/core";
 import * as React from "react";
-import { JSONFormatState } from "src/model/jsonFormatter/JSONFormatModel";
+import JSONFormatState from "src/model/jsonFormatter/JSONFormatModel";
 import "./JSONFormatter.css";
 import Page from "./Page";
 

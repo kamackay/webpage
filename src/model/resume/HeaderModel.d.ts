@@ -3,11 +3,11 @@ import KeithProps from "../KeithProps";
 import Social from "./Social";
 import Address from "../Address";
 
-declare class HeaderProps extends KeithProps {
+export class HeaderProps extends KeithProps {
 	data: HeaderData;
 }
 
-declare class HeaderData {
+export class HeaderData {
 	name: string;
 	occupation: string;
 	description: string;
@@ -15,12 +15,10 @@ declare class HeaderData {
 	social: Social[];
 }
 
-declare class HeaderState extends KeithState {
+export class HeaderState extends KeithState {
 	name: string;
 	occupation: string;
 	description: string;
 	address: Address;
 	social: Social[];
 }
-
-export { HeaderProps, HeaderState, HeaderData };

@@ -1,11 +1,9 @@
 import JsObject from "../JsObject";
-import { ResumeData } from "./ResumeData";
 import KeithState from "../KeithState";
 import { LoadingState } from "../LoadingModel";
+import ResumeData from "./ResumeData";
 
-declare class ResumeState extends LoadingState {
+export default class ResumeState extends LoadingState {
 	loading: boolean;
 	resumeData: ResumeData;
 }
-
-export default ResumeState;

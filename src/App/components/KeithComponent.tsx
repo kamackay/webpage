@@ -2,7 +2,7 @@ import * as React from "react";
 import KeithProps from "src/model/KeithProps";
 import KeithState from "src/model/KeithState";
 
-class KeithComponent<
+export default class KeithComponent<
 	P extends KeithProps,
 	S extends KeithState
 > extends React.Component<P, S> {
@@ -49,5 +49,3 @@ class KeithComponent<
 		console.log(...args);
 	}
 }
-
-export default KeithComponent;

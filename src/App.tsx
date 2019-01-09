@@ -7,12 +7,13 @@ import JSONFormatter from "./App/pages/JSONFormatter";
 import RayTracer from "./App/pages/RayTracer";
 import Resume from "./App/pages/Resume";
 
-class App extends React.Component {
+export default class App extends React.Component {
 	public render() {
 		const AppObject = () => (
 			<div className="transparent">
 				<Switch>
 					<Route exact={true} path="/" component={Home} />
+					<Route path="/home" component={Home} />
 					<Route path="/resume" component={Resume} />
 					<Route path="/json" component={JSONFormatter} />
 					<Route path="/d3" component={D3Page} />
@@ -27,5 +28,3 @@ class App extends React.Component {
 		);
 	}
 }
-
-export default App;

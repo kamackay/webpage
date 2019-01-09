@@ -1,11 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 import { Element } from "react-scroll";
-import PortfolioProps from 'src/model/resume/PortfolioProps';
-import PortfolioState from 'src/model/resume/PortfolioState';
-import KeithComponent from './KeithComponent';
+import PortfolioProps from "src/model/resume/PortfolioProps";
+import PortfolioState from "src/model/resume/PortfolioState";
+import KeithComponent from "../KeithComponent";
 
-class Portfolio extends KeithComponent<PortfolioProps, PortfolioState> {
-
+export default class Portfolio extends KeithComponent<
+	PortfolioProps,
+	PortfolioState
+> {
 	private projectData: any;
 
 	public render() {
@@ -13,10 +15,7 @@ class Portfolio extends KeithComponent<PortfolioProps, PortfolioState> {
 			this.projectData = this.props.data.projects.map(project => {
 				const projectImage = "images/portfolio/" + project.image;
 				return (
-					<div
-						key={project.title}
-						className="columns portfolio-item"
-					>
+					<div key={project.title} className="columns portfolio-item">
 						<div className="item-wrap">
 							<a href={project.url} title={project.title}>
 								<img alt={project.title} src={projectImage} />
@@ -57,5 +56,3 @@ class Portfolio extends KeithComponent<PortfolioProps, PortfolioState> {
 		);
 	}
 }
-
-export default Portfolio;

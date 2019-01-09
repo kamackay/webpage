@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Element } from "react-scroll";
 import { AboutProps, AboutState } from "src/model/resume/AboutModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
-class About extends KeithComponent<AboutProps, AboutState> {
+export default class About extends KeithComponent<AboutProps, AboutState> {
 	constructor(props: AboutProps) {
 		super(props);
 		if (this.props.data) {
@@ -86,5 +86,3 @@ class About extends KeithComponent<AboutProps, AboutState> {
 		);
 	}
 }
-
-export default About;

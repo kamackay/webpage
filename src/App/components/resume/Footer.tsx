@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Link } from "react-scroll";
 import { FooterProps, FooterState } from "src/model/resume/FooterModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
-class Footer extends KeithComponent<FooterProps, FooterState> {
+export default class Footer extends KeithComponent<FooterProps, FooterState> {
 	constructor(props: FooterProps) {
 		super(props);
 		this.state = {
@@ -63,5 +63,3 @@ class Footer extends KeithComponent<FooterProps, FooterState> {
 		);
 	}
 }
-
-export default Footer;

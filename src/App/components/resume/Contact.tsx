@@ -3,7 +3,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import * as React from "react";
 import { Element } from "react-scroll";
 import { ContactProps, ContactState } from "src/model/resume/ContactModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
 export default class Contact extends KeithComponent<
 	ContactProps,

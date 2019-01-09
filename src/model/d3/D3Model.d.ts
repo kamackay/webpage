@@ -1,7 +1,7 @@
 import { LoadingProps, LoadingState } from "../LoadingModel";
 import Point from "../Point";
 
-declare class D3State extends LoadingState {
+export class D3State extends LoadingState {
 	currentLocation?: Point;
 	circleSize: number;
 	running: boolean;
@@ -12,6 +12,4 @@ declare class D3State extends LoadingState {
 	optionsExpanded: boolean;
 }
 
-declare class D3Props extends LoadingProps {}
-
-export { D3State, D3Props };
+export class D3Props extends LoadingProps {}

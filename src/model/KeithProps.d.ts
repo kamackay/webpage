@@ -1,4 +1,1 @@
-declare class KeithProps {
-}
-
-export default KeithProps;
+export default class KeithProps {}

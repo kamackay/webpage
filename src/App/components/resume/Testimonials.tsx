@@ -4,9 +4,9 @@ import {
 	TestimonialsProps,
 	TestimonialsState
 } from "src/model/resume/TestimonialsModel";
-import KeithComponent from "./KeithComponent";
+import KeithComponent from "../KeithComponent";
 
-class Testimonials extends KeithComponent<
+export default class Testimonials extends KeithComponent<
 	TestimonialsProps,
 	TestimonialsState
 > {
@@ -51,5 +51,3 @@ class Testimonials extends KeithComponent<
 		);
 	}
 }
-
-export default Testimonials;

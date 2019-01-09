@@ -1,5 +1,3 @@
 import KeithState from "../KeithState";
 
-declare class PortfolioState extends KeithState {}
-
-export default PortfolioState;
+export default class PortfolioState extends KeithState {}

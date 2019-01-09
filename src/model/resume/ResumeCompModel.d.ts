@@ -3,28 +3,26 @@ import KeithProps from "../KeithProps";
 import Education from "./Education";
 import Work from "./Work";
 
-declare class ResumeCompProps extends KeithProps {
+export class ResumeCompProps extends KeithProps {
 	data: ResumeCompData;
 }
 
-declare class ResumeCompData {
+export class ResumeCompData {
 	skillMessage: string;
 	education: Education[];
 	work: Work[];
 	skills: Skill[];
 }
 
-declare class ResumeCompState extends KeithState {
+export class ResumeCompState extends KeithState {
 	skillMessage: string;
 	education: Education[];
 	work: Work[];
 	skills: Skill[];
 }
 
-declare class Skill {
+export class Skill {
 	name: string;
 	level: number;
 	img: string;
 }
-
-export { ResumeCompProps, ResumeCompState, ResumeCompData, Skill };

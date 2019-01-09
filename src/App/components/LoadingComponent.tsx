@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as Spinner from "react-spinkit";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
-import KeithComponent from "./resume/KeithComponent";
+import KeithComponent from "./KeithComponent";
 
-abstract class LoadingComponent<
+export default abstract class LoadingComponent<
 	P extends LoadingProps,
 	S extends LoadingState
 > extends KeithComponent<P, S> {
@@ -12,7 +12,7 @@ abstract class LoadingComponent<
 			className="container loading"
 			style={{
 				backgroundColor: "transparent",
-				textAlign: "center",
+				textAlign: "center"
 			}}
 		>
 			<span
@@ -65,5 +65,3 @@ abstract class LoadingComponent<
 		return 500;
 	}
 }
-
-export default LoadingComponent;

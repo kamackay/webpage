@@ -1,13 +1,13 @@
 import * as React from "react";
-import { scroller } from "react-scroll";
 import { Element } from "react-scroll";
+import { scroller } from "react-scroll";
 import { AboutData } from "src/model/resume/AboutModel";
 import { ContactData } from "src/model/resume/ContactModel";
 import { FooterData } from "src/model/resume/FooterModel";
 import { HeaderData } from "src/model/resume/HeaderModel";
 import { PortfolioData } from "src/model/resume/PortfolioProps";
 import { ResumeCompData } from "src/model/resume/ResumeCompModel";
-import { ResumeData } from "src/model/resume/ResumeData";
+import ResumeData from "src/model/resume/ResumeData";
 import ResumeState from "src/model/resume/ResumeState";
 import { TestimonialsData } from "src/model/resume/TestimonialsModel";
 import "../../bootstrap.min.css";

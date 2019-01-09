@@ -1,7 +1,5 @@
-declare class Social {
+export default class Social {
 	name: string;
 	url: string;
 	className: string;
 }
-
-export default Social;

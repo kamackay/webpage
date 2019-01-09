@@ -5,7 +5,7 @@ import * as d3 from "d3";
 import * as React from "react";
 
 import {
-	Button, 
+	Button,
 	Card,
 	CardActions,
 	CardHeader,
@@ -49,15 +49,16 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 		this.expandOptions = this.expandOptions.bind(this);
 		this.speedChange = this.speedChange.bind(this);
 		this.mouseMove = this.mouseMove.bind(this);
+	}
+
+	public onLoad() {
 
 		setInterval(() => {
 			if (this.state.running) {
 				this.stepTo(this.state.lastClick);
 			}
 		}, this.state.updateInterval);
-	}
 
-	public onLoad() {
 		document.addEventListener("mousemove", this.mouseMove);
 	}
 
@@ -71,7 +72,7 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 		if (currentLocation) {
 			if (!keepPath) {
 				d3.select("svg")
-					.select("circle")
+					.selectAll("circle")
 					.remove();
 			}
 
@@ -83,11 +84,16 @@ class D3Page extends LoadingComponent<D3Props, D3State> {
 				.attr("r", circleSize)
 				.attr("fill", "red");
 		}
-		
+
 		return (
 			<div>
 				<svg
-					style={{ width: "500vw", height: "500vh", cursor: "auto" }}
+					style={{
+						width: "100vw",
+						height: "100vh",
+						cursor: "auto",
+						overflow: "none"
+					}}
 				/>
 				<Card
 					style={{

@@ -6,16 +6,31 @@ class KeithComponent<
 	P extends KeithProps,
 	S extends KeithState
 > extends React.Component<P, S> {
-	public setState(state: S) {
-		super.setState(state);
+	constructor(p: P) {
+		super(p);
+		this.log = this.log.bind(this);
+	}
+
+	public setState<K extends keyof S>(
+		state:
+			| ((
+					prevState: Readonly<S>,
+					props: Readonly<P>
+			  ) => Pick<S, K> | S | null)
+			| (Pick<S, K> | S | null),
+		callback?: () => void
+	): void {
+		super.setState(state, callback);
 
 		this.log = this.log.bind(this);
 
-		if (this.state.title) {
-			document.title = this.state.title!;
-		}
-		if (this.state.faviconUrl) {
-			this.setFavicon(this.state.faviconUrl!);
+		if ((state as S) !== undefined) {
+			if (this.state.title) {
+				document.title = this.state.title!;
+			}
+			if (this.state.faviconUrl) {
+				this.setFavicon(this.state.faviconUrl!);
+			}
 		}
 	}
 
@@ -27,10 +42,6 @@ class KeithComponent<
 		link.rel = "shortcut icon";
 		link.href = url;
 		document.getElementsByTagName("head")[0].appendChild(link);
-	}
-
-	protected updateState(updater: (current: S) => S) {
-		super.setState(updater);
 	}
 
 	protected log(...args: any[]) {

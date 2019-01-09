@@ -811,7 +811,7 @@ input[type="password"]:focus,
 input[type="email"]:focus,
 textarea:focus {
 	color: #B3B7BC;
-	/* background-color: #3d4145; */
+	background-color: #3d4145;
 }
 
 textarea {

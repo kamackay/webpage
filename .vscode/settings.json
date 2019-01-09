@@ -1,3 +1,5 @@
 {
-	"explorer.sortOrder": "mixed"
+	"explorer.sortOrder": "mixed",
+	"prettier.eslintIntegration": true,
+	"editor.formatOnSave": true
 }

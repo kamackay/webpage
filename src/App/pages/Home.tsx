@@ -4,19 +4,30 @@ import { Link } from "react-router-dom";
 import { HomeProps, HomeState } from "src/model/HomeModel";
 import LinkBean from "src/model/LinkBean";
 import "../../bootstrap.min.css";
-import LoadingComponent from "../components/LoadingComponent";
 import "./Home.css";
+import Page from "./Page";
 
-class Home extends LoadingComponent<HomeProps, HomeState> {
+export default class Home extends Page<HomeProps, HomeState> {
+	private mounted = false;
+
 	constructor(p: HomeProps) {
 		super(p);
 		this.state = {
 			loading: true
 		};
-		const setState = this.setState.bind(this);
-		this.fetchData((data: LinkBean[]) => {
-			setState({ ...this.state, links: data });
-		});
+		this.setState = this.setState.bind(this);
+	}
+
+	public onLoad() {
+		this.mounted = true;
+		this.get(
+			"./homeData.json",
+			((data: LinkBean[]) => {
+				if (this.mounted) {
+					this.setState({ ...this.state, links: data });
+				}
+			}).bind(this)
+		);
 	}
 
 	public renderPostLoad() {
@@ -45,6 +56,10 @@ class Home extends LoadingComponent<HomeProps, HomeState> {
 				{links!.map(this.generateLink)}
 			</div>
 		);
+	}
+
+	public componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	protected getLoadTime(): number {
@@ -81,19 +96,4 @@ class Home extends LoadingComponent<HomeProps, HomeState> {
 			</div>
 		);
 	}
-
-	private fetchData(callback: (data: LinkBean[]) => void) {
-		const log = this.log.bind(this);
-		$.ajax({
-			url: "/homeData.json",
-			dataType: "json",
-			cache: false,
-			success: callback,
-			error(xhr, status, err) {
-				log(err);
-				alert(err);
-			}
-		});
-	}
 }
-export default Home;

@@ -1,10 +1,10 @@
 import { Button, Card, Typography } from "@material-ui/core";
 import * as React from "react";
 import { JSONFormatState } from "src/model/jsonFormatter/JSONFormatModel";
-import LoadingComponent from "../components/LoadingComponent";
 import "./JSONFormatter.css";
+import Page from "./Page";
 
-class JSONFormatter extends LoadingComponent<any, JSONFormatState> {
+class JSONFormatter extends Page<any, JSONFormatState> {
 	constructor(p: any) {
 		super(p);
 		this.state = { loading: true, value: "", rows: 10, fontSize: 20 };
@@ -50,7 +50,8 @@ class JSONFormatter extends LoadingComponent<any, JSONFormatState> {
 			</div>
 		);
 	}
-	private resize() {
+
+	protected resize() {
 		const rows = Math.floor(
 			(window.innerHeight / this.state.fontSize) * 0.5
 		);
@@ -76,10 +77,10 @@ class JSONFormatter extends LoadingComponent<any, JSONFormatState> {
 		const { value } = this.state;
 		try {
 			const obj = JSON.parse(value);
-			this.updateState((current: JSONFormatState) => ({
-				...current,
+			this.setState({
+				...this.state,
 				value: JSON.stringify(obj, undefined, f)
-			}));
+			});
 		} catch (err) {
 			this.log(err);
 		}

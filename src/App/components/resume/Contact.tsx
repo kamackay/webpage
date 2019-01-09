@@ -5,9 +5,10 @@ import { Element } from "react-scroll";
 import { ContactProps, ContactState } from "src/model/resume/ContactModel";
 import KeithComponent from "./KeithComponent";
 
-let setState: (state: ContactState) => void;
-
-class Contact extends KeithComponent<ContactProps, ContactState> {
+export default class Contact extends KeithComponent<
+	ContactProps,
+	ContactState
+> {
 	constructor(props: ContactProps) {
 		super(props);
 		this.state = {
@@ -18,7 +19,9 @@ class Contact extends KeithComponent<ContactProps, ContactState> {
 			email: props.data.email,
 			message: props.data.message
 		};
-		setState = this.setState.bind(this);
+		this.setState = this.setState.bind(this);
+		this.handleClick = this.setState.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 
 	public render() {
@@ -211,12 +214,11 @@ class Contact extends KeithComponent<ContactProps, ContactState> {
 	}
 
 	private handleClick() {
-		setState({ ...this.state, snackbarOpen: true });
+		this.setState({ ...this.state, snackbarOpen: true });
 	}
 
 	private handleClose(event: React.MouseEvent<HTMLElement>) {
-		setState({ ...this.state, snackbarOpen: false });
+		this.setState({ ...this.state, snackbarOpen: false });
+		event.persist();
 	}
 }
-
-export default Contact;

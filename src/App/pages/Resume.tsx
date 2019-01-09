@@ -1,4 +1,3 @@
-import * as $ from "jquery";
 import * as React from "react";
 import { scroller } from "react-scroll";
 import { Element } from "react-scroll";
@@ -12,7 +11,6 @@ import { ResumeData } from "src/model/resume/ResumeData";
 import ResumeState from "src/model/resume/ResumeState";
 import { TestimonialsData } from "src/model/resume/TestimonialsModel";
 import "../../bootstrap.min.css";
-import LoadingComponent from "../components/LoadingComponent";
 import About from "../components/resume/About";
 import Contact from "../components/resume/Contact";
 import Footer from "../components/resume/Footer";
@@ -20,9 +18,9 @@ import Header from "../components/resume/Header";
 import Portfolio from "../components/resume/Portfolio";
 import ResumeComponent from "../components/resume/ResumeComponent";
 import Testimonials from "../components/resume/Testimonials";
+import Page from "./Page";
 
-
-class Resume extends LoadingComponent<any, ResumeState> {
+export default class Resume extends Page<any, ResumeState> {
 	// Initialize the state
 	constructor(props: any) {
 		super(props);
@@ -32,25 +30,28 @@ class Resume extends LoadingComponent<any, ResumeState> {
 			loading: true,
 			resumeData: new ResumeData()
 		};
-		this.getResumeData((data: ResumeData) => {
-			const setState = this.setState.bind(this);
-			setState({ resumeData: data });
-			setTimeout(() => {
-				const url = window.location.href;
-				const urlId = url.substring(url.lastIndexOf("#") + 1);
-				if (urlId) {
-					try {
-						scroller.scrollTo(urlId, {
-							duration: 1000,
-							delay: 0,
-							smooth: "easeInOutQuart"
-						});
-					} catch (e) {
-						// NO-OP
+		this.get(
+			"./resumeData.json",
+			((data: ResumeData) => {
+				const setState = this.setState.bind(this);
+				setState({ resumeData: data });
+				setTimeout(() => {
+					const url = window.location.href;
+					const urlId = url.substring(url.lastIndexOf("#") + 1);
+					if (urlId) {
+						try {
+							scroller.scrollTo(urlId, {
+								duration: 1000,
+								delay: 0,
+								smooth: "easeInOutQuart"
+							});
+						} catch (e) {
+							// NO-OP
+						}
 					}
-				}
-			}, 100);
-		});
+				}, 100);
+			}).bind(this)
+		);
 	}
 
 	public renderPostLoad() {
@@ -73,20 +74,4 @@ class Resume extends LoadingComponent<any, ResumeState> {
 			</div>
 		);
 	}
-
-	private getResumeData(callback: (data: ResumeData) => void) {
-		$.ajax({
-			url: "/resumeData.json",
-			dataType: "json",
-			cache: false,
-			success: callback,
-			error(xhr, status, err) {
-				// tslint:disable-next-line:no-console
-				console.log(err);
-				alert(err);
-			}
-		});
-	}
 }
-
-export default Resume;

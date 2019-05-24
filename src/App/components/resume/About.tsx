@@ -25,14 +25,7 @@ export default class About extends KeithComponent<AboutProps, AboutState> {
   }
 
   public render() {
-    const {
-      profilePic,
-      bio,
-      address,
-      phone,
-      resumeDownload,
-      email
-    } = this.state;
+    const { profilePic, bio, address, phone, email } = this.state;
     return (
       <div>
         <Element name="about" />
@@ -66,14 +59,14 @@ export default class About extends KeithComponent<AboutProps, AboutState> {
                     <a href={`mailto:${email}`}>{email}</a>
                   </p>
                 </div>
-                <div className="columns download">
+                {/* <div className="columns download">
                   <p>
                     <a href={resumeDownload} className="button">
                       <i className="fa fa-download" />
                       Download Resume
                     </a>
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

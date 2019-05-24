@@ -1,6 +1,6 @@
 export default class Address {
-	street: string;
-	city: string;
-	state: string;
-	zip: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
 }

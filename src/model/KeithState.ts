@@ -1,4 +1,4 @@
 export default class KeithState {
-	public title?: string;
-	public faviconUrl?: string;
+  public title?: string;
+  public faviconUrl?: string;
 }

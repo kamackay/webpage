@@ -3,49 +3,46 @@ import KeithProps from "src/model/KeithProps";
 import KeithState from "src/model/KeithState";
 
 export default class KeithComponent<
-	P extends KeithProps,
-	S extends KeithState
+  P extends KeithProps,
+  S extends KeithState
 > extends React.Component<P, S> {
-	constructor(p: P) {
-		super(p);
-		this.log = this.log.bind(this);
-	}
+  constructor(p: P) {
+    super(p);
+    this.log = this.log.bind(this);
+  }
 
-	public setState<K extends keyof S>(
-		state:
-			| ((
-					prevState: Readonly<S>,
-					props: Readonly<P>
-			  ) => Pick<S, K> | S | null)
-			| (Pick<S, K> | S | null),
-		callback?: () => void
-	): void {
-		super.setState(state, callback);
+  public setState<K extends keyof S>(
+    state:
+      | ((prevState: Readonly<S>, props: Readonly<P>) => Pick<S, K> | S | null)
+      | (Pick<S, K> | S | null),
+    callback?: () => void
+  ): void {
+    super.setState(state, callback);
 
-		this.log = this.log.bind(this);
+    this.log = this.log.bind(this);
 
-		if ((state as S) !== undefined) {
-			if (this.state.title) {
-				document.title = this.state.title!;
-			}
-			if (this.state.faviconUrl) {
-				this.setFavicon(this.state.faviconUrl!);
-			}
-		}
-	}
+    if ((state as S) !== undefined) {
+      if (this.state.title) {
+        document.title = this.state.title!;
+      }
+      if (this.state.faviconUrl) {
+        this.setFavicon(this.state.faviconUrl!);
+      }
+    }
+  }
 
-	public setFavicon(url: string) {
-		const link =
-			(document.querySelector("link[rel*='icon']") as HTMLLinkElement) ||
-			document.createElement("link");
-		link.type = "image/x-icon";
-		link.rel = "shortcut icon";
-		link.href = url;
-		document.getElementsByTagName("head")[0].appendChild(link);
-	}
+  public setFavicon(url: string) {
+    const link =
+      (document.querySelector("link[rel*='icon']") as HTMLLinkElement) ||
+      document.createElement("link");
+    link.type = "image/x-icon";
+    link.rel = "shortcut icon";
+    link.href = url;
+    document.getElementsByTagName("head")[0].appendChild(link);
+  }
 
-	protected log(...args: any[]) {
-		// tslint:disable-next-line:no-console
-		console.log(...args);
-	}
+  protected log(...args: any[]) {
+    // tslint:disable-next-line:no-console
+    console.log(...args);
+  }
 }

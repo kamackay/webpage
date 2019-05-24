@@ -3,22 +3,22 @@ import KeithProps from "../KeithProps";
 import Address from "../Address";
 
 export class ContactState extends KeithState {
-	snackbarOpen: boolean;
-	name: string;
-	address: Address;
-	phone: string;
-	email: string;
-	message: string;
+  snackbarOpen: boolean;
+  name: string;
+  address: Address;
+  phone: string;
+  email: string;
+  message: string;
 }
 
 export class ContactProps extends KeithProps {
-	data: ContactData;
+  data: ContactData;
 }
 
 export class ContactData {
-	name: string;
-	address: Address;
-	phone: string;
-	email: string;
-	message: string;
+  name: string;
+  address: Address;
+  phone: string;
+  email: string;
+  message: string;
 }

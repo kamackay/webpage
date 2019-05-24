@@ -1,5 +1,5 @@
 export default class Social {
-	name: string;
-	url: string;
-	className: string;
+  name: string;
+  url: string;
+  className: string;
 }

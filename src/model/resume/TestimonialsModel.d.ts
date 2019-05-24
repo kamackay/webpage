@@ -3,18 +3,18 @@ import KeithProps from "../KeithProps";
 import Social from "./Social";
 
 export class TestimonialsProps extends KeithProps {
-	data: TestimonialsData;
+  data: TestimonialsData;
 }
 
 export class TestimonialsData {
-	testimonials: Testimonial[];
+  testimonials: Testimonial[];
 }
 
 export class TestimonialsState extends KeithState {
-	testimonials: Testimonial[];
+  testimonials: Testimonial[];
 }
 
 export class Testimonial {
-	text: string;
-	user: string;
+  text: string;
+  user: string;
 }

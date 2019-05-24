@@ -40,8 +40,8 @@ export default class ResumeComponent extends KeithComponent<
             {ed.degree} <span>&bull;</span>
             <em className="date">{ed.graduated}</em>
           </p>
-          <p>{ed.description}</p>
-          <p>
+          <p style={{ fontSize: 14 }}>{ed.description}</p>
+          <p style={{ fontSize: 13 }}>
             {ed.classes
               ? ed.classes
                   .map(className => (

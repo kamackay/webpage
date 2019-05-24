@@ -4,5 +4,3 @@ services:
   webpage: 
     build: 
       context: .
-    ports: 
-      - 80:5000

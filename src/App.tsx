@@ -15,7 +15,7 @@ export default class App extends React.Component {
           <Route
             exact={true}
             path="/"
-            render={() => <Redirect push={true} to="/resume" />}
+            render={() => <Redirect to="/resume" />}
           />
           <Route path="/home" component={Home} />
           <Route path="/resume" component={Resume} />

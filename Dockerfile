@@ -1,10 +1,12 @@
 FROM kamackay/alpine
 
 EXPOSE 5000
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY ./ ./
 
-RUN yarn global add serve react-scripts-ts react
+RUN yarn global add serve react-scripts-ts
 RUN yarn build
 
-CMD serve dist/
+CMD serve -s build/

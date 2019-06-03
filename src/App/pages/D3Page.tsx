@@ -157,9 +157,9 @@ export default class D3Page extends LoadingComponent<D3Props, D3State> {
                 onChange={this.speedChange}
                 type="number"
                 InputProps={{
-                  min: "0",
-                  max: "100",
-                  step: "1",
+                  // min: "0",
+                  // max: "100",
+                  // step: "1",
                   style: { fontSize: 15 }
                 }}
                 InputLabelProps={{

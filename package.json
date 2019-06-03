@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts-ts start",
-    "build": "yarn install && react-scripts-ts build",
+    "build": "npm i -g yarn && yarn install && react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "go": "yarn build && serve build/",
@@ -38,7 +38,8 @@
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
     "serve": "^11.0.1",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "yarn": "^1.16.0"
   },
   "browserslist": [
     ">0.2%",

@@ -3,19 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts-ts start",
     "build": "npm i -g yarn && yarn install && react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
+    "format": "prettier --write --check ./**/*.ts ./**/*.tsx ./**/*.js ./**/*.jsx ./**/*.css ./**/*.html ./**/*.json ./**/*.yaml",
     "go": "yarn build && serve build/",
-    "format": "prettier --write --check ./**/*.ts ./**/*.tsx ./**/*.js ./**/*.jsx ./**/*.css ./**/*.html ./**/*.json ./**/*.yaml"
+    "start": "react-scripts-ts start",
+    "test": "react-scripts-ts test --env=jsdom"
   },
+  "browserslist": [
+    ">0.2%",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
     "@types/classnames": "^2.2.7",
     "@types/d3": "^5.5.0",
     "@types/jquery": "^3.3.27",
+    "@types/node": "^12.0.2",
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.3",
     "@types/react-scroll": "^1.5.4",
     "@types/react-spinkit": "^3.0.5",
@@ -34,16 +42,8 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.2",
-    "@types/react": "^16.8.18",
-    "@types/react-dom": "^16.8.4",
     "serve": "^11.0.1",
     "typescript": "^3.4.5",
     "yarn": "^1.16.0"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

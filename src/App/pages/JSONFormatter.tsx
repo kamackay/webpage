@@ -7,7 +7,13 @@ import Page from "./Page";
 class JSONFormatter extends Page<any, JSONFormatState> {
   constructor(p: any) {
     super(p);
-    this.state = { loading: true, value: "", rows: 10, fontSize: 20 };
+    this.state = {
+      title: "Json Formatter",
+      loading: true,
+      fontSize: 20,
+      value: "",
+      rows: 10
+    };
     this.change = this.change.bind(this);
     this.format = this.format.bind(this);
     this.resize = this.resize.bind(this);

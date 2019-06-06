@@ -6,7 +6,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY ./ ./
 
-RUN yarn global add serve react-scripts-ts
+RUN yarn global add serve react-scripts-ts npm-run-all
 RUN yarn build
 
 CMD serve -s build/

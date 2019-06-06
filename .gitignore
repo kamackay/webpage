@@ -23,3 +23,5 @@ yarn-error.log*
 
 # Ignoring yarn.lock so that it doesn't persist artifactory repo
 yarn.lock
+
+src/**/*.css

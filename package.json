@@ -9,7 +9,7 @@
     "eject": "react-scripts-ts eject",
     "format": "prettier --write --check ./**/*.ts ./**/*.tsx ./**/*.js ./**/*.jsx ./**/*.css ./**/*.html ./**/*.json ./**/*.yaml",
     "go": "yarn build && serve build/",
-    "start": "npm-run-all -p watch:css start:js",
+    "start": "yarn && npm-run-all -p watch:css start:js",
     "start:js": "react-scripts-ts start",
     "test": "react-scripts-ts test --env=jsdom",
     "watch:css": "npm run build:css && node-sass src/ -o src/ -w -r"
@@ -37,6 +37,7 @@
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-https-redirect": "^1.1.0",
     "react-router-dom": "^5.0.0",
     "react-scripts-ts": "^3.1.0",
     "react-scroll": "^1.7.11",

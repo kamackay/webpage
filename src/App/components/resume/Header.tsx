@@ -4,20 +4,21 @@ import { getArticleFor } from "src/lib/IndefiniteArticle";
 import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
 import KeithComponent from "../KeithComponent";
 
-export default class Header extends KeithComponent<HeaderProps, HeaderState> {
+export default class Header extends KeithComponent<
+  HeaderProps,
+  Partial<HeaderState>
+> {
   constructor(props: HeaderProps) {
     super(props);
-    this.state = {
-      name: props.data.name,
-      occupation: props.data.occupation,
-      description: props.data.description,
-      address: props.data.address,
-      social: props.data.social
-    };
+    this.state = {};
   }
 
   public render() {
-    const { name, occupation, description, address, social } = this.state;
+    if (!this.props.data) {
+      return <div />;
+    }
+
+    const { name, occupation, description, address, social } = this.props.data;
 
     const networks = social.map(network => {
       return (
@@ -106,7 +107,8 @@ export default class Header extends KeithComponent<HeaderProps, HeaderState> {
         <div
           className="row banner"
           style={{
-            left: "100px",
+            left: "50px",
+            right: "50px",
             position: "absolute",
             top: "100px"
           }}

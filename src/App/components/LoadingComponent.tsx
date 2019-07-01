@@ -11,22 +11,31 @@ export default abstract class LoadingComponent<
     <div
       className="container loading"
       style={{
-        backgroundColor: "transparent",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        maxWidth: "unset",
+        backgroundColor: "rgba(0,0,0,0.85)",
         textAlign: "center"
       }}
     >
       <span
         style={{
           backgroundColor: "transparent",
-          width: "100px",
           paddingTop: "250px",
           height: "100px",
-          display: "block",
+          display: "inline-block",
           marginLeft: "auto",
           marginRight: "auto"
         }}
       >
-        <Spinner name="ball-scale-multiple" fadeIn="half" />
+        <Spinner color="white" name="ball-scale-multiple" fadeIn="half" />
+        <div style={{ position: "absolute", left: 0, width: "100vw" }}>
+          <h1 style={{ marginTop: 100, textAlign: "center", color: "white" }}>
+            Loading
+          </h1>
+        </div>
       </span>
     </div>
   );
@@ -34,16 +43,21 @@ export default abstract class LoadingComponent<
   public componentDidMount() {
     const setState = this.setState.bind(this);
     const onLoad = this.onLoad.bind(this);
-    window.addEventListener("load", () => {
+    const promises: Array<Promise<any>> =
+      this.state.loadAfter! || new Array([Promise.resolve(null)]);
+    Promise.all(promises).finally(() => {
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          setState({ ...this.state, loading: false });
+          onLoad();
+        }, this.getLoadTime());
+      });
       setTimeout(() => {
+        // If the page still hasn't rendered after 10 seconds, just go ahead and try
         setState({ ...this.state, loading: false });
         onLoad();
-      }, this.getLoadTime());
+      }, 20000);
     });
-    setTimeout(() => {
-      // If the page still hasn't rendered after 10 seconds, just go ahead and try
-      setState({ ...this.state, loading: false });
-    }, 10000);
   }
 
   public onLoad() {
@@ -58,7 +72,14 @@ export default abstract class LoadingComponent<
       return this.loadingElement;
     }
 
-    return this.renderPostLoad();
+    return loading ? (
+      <React.Fragment>
+        {this.renderPostLoad()}
+        {this.loadingElement}
+      </React.Fragment>
+    ) : (
+      this.renderPostLoad()
+    );
   }
 
   protected getLoadTime(): number {

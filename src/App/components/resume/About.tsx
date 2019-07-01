@@ -4,29 +4,23 @@ import { AboutProps, AboutState } from "src/model/resume/AboutModel";
 import KeithComponent from "../KeithComponent";
 import "./About.css";
 
-export default class About extends KeithComponent<AboutProps, AboutState> {
+export default class About extends KeithComponent<
+  AboutProps,
+  Partial<AboutState>
+> {
   constructor(props: AboutProps) {
     super(props);
     if (this.props.data) {
-      this.state = {
-        name: this.props.data.name,
-        profilePic: "images/" + this.props.data.image,
-        bio: this.props.data.bio,
-        address: {
-          street: this.props.data.address.street,
-          city: this.props.data.address.city,
-          state: this.props.data.address.state,
-          zip: this.props.data.address.zip
-        },
-        phone: this.props.data.phone,
-        email: this.props.data.email,
-        resumeDownload: this.props.data.resumeDownload
-      };
+      this.state = {};
     }
   }
 
   public render() {
-    const { profilePic, bio, address, phone, email } = this.state;
+    if (!this.props.data) {
+      return <div />;
+    }
+    const { image, bio, address, phone, email } = this.props.data;
+    const profilePic = `images/${image}`;
     return (
       <div>
         <Element name="about" />

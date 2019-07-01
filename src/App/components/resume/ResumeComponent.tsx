@@ -17,20 +17,19 @@ const bullet = " • ";
 
 export default class ResumeComponent extends KeithComponent<
   ResumeCompProps,
-  ResumeCompState
+  Partial<ResumeCompState>
 > {
   constructor(p: ResumeCompProps) {
     super(p);
-    this.state = {
-      skillMessage: p.data.skillMessage,
-      education: p.data.education,
-      work: p.data.work,
-      skills: p.data.skills
-    };
+    this.state = {};
   }
 
   public render() {
-    const { skillMessage, education, work, skills } = this.state;
+    if (!this.props.data) {
+      return <div />;
+    }
+
+    const { skillMessage, education, work, skills } = this.props.data;
 
     const educationData = education.map(ed => {
       return (

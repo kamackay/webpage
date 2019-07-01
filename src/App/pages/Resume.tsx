@@ -25,7 +25,8 @@ export default class Resume extends Page<any, ResumeState> {
       faviconUrl: "images/resume.ico",
       title: "Keith MacKay - Resume",
       loading: true,
-      resumeData: new ResumeData()
+      resumeData: new ResumeData(),
+      loadAfter: [fetch("/images/header-background.jpg")]
     };
     this.get(
       "./resumeData.json",

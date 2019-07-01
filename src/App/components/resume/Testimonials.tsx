@@ -8,15 +8,18 @@ import KeithComponent from "../KeithComponent";
 
 export default class Testimonials extends KeithComponent<
   TestimonialsProps,
-  TestimonialsState
+  Partial<TestimonialsState>
 > {
   constructor(props: TestimonialsProps) {
     super(props);
-    this.state = { testimonials: props.data.testimonials };
+    this.state = {};
   }
 
   public render() {
-    const { testimonials } = this.state;
+    if (!this.props.data) {
+      return <div />;
+    }
+    const { testimonials } = this.props.data;
     const testimonialsData = testimonials.map(testimonial => {
       return (
         <li key={testimonial.user}>

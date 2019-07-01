@@ -3,16 +3,23 @@ import { Link } from "react-scroll";
 import { FooterProps, FooterState } from "src/model/resume/FooterModel";
 import KeithComponent from "../KeithComponent";
 
-export default class Footer extends KeithComponent<FooterProps, FooterState> {
+export default class Footer extends KeithComponent<
+  FooterProps,
+  Partial<FooterState>
+> {
   constructor(props: FooterProps) {
     super(props);
-    this.state = {
-      social: props.data.social
-    };
+    this.state = {};
   }
 
   public render() {
-    const networks = this.state.social.map(network => {
+    if (!this.props.data) {
+      return <div />;
+    }
+
+    const { social } = this.props.data;
+
+    const networks = social.map(network => {
       return (
         <li key={network.name}>
           <a href={network.url}>

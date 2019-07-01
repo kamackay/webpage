@@ -1,0 +1,132 @@
+{
+  "main": {
+    "name": "Keith MacKay",
+    "occupation": "Software Engineer",
+    "description": "I have a wide range of experience with different technologies and development tools",
+    "image": "profilepic.jpg",
+    "bio": "I am a dedicated developer with a passion for learning new things. I have taught myself most of the technologies that I know, just because I really enjoy learning new ways to do things. In my spare time, I like to explore all of the amazing Breweries, Restaurants, and Food Trucks in Durham with my girlfriend and our dog, Pepper",
+    "contactmessage": "Please feel free to contact me with any projects or offers via email, or through this contact form",
+    "email": "keith@keithmackay.com",
+    "phone": "704-699-9713",
+    "address": {
+      "street": "Duke Street",
+      "city": "Durham",
+      "state": "NC",
+      "zip": "27701"
+    },
+    "website": "http://www.keithmackay.com",
+    "resumedownload": "#",
+    "social": [
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/in/keith-mackay-047b9387/",
+        "className": "fa fa-linkedin"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com/mackaykeith/",
+        "className": "fa fa-instagram"
+      },
+      {
+        "name": "github",
+        "url": "http://github.com/kamackay",
+        "className": "fa fa-github"
+      },
+      {
+        "name": "DockerHub",
+        "url": "https://cloud.docker.com/repository/docker/kamackay",
+        "className": "fab fa-docker"
+      }
+    ]
+  },
+  "resume": {
+    "skillMessage": "Some of my strongest development skills and my confidence level with them",
+    "education": [
+      {
+        "school": "North Carolina State University",
+        "degree": "BS in Computer Science",
+        "graduated": "December 2016",
+        "description": "Studying Computer Science at NC State is what gave me the drive to teach myself as many technologies and languages that I could. I gained a great core understanding of Operating Systems and the general structures of programming languages",
+        "classes": [
+          "Network Security",
+          "Operating Systems",
+          "Human-Computer Interaction",
+          "Computer Graphics",
+          "Introduction to Artificial Intelligence",
+          "Database Management",
+          "Interactive Video Game Design",
+          "Numerical Methods"
+        ]
+      }
+    ],
+    "work": [
+      {
+        "company": "iPipeline",
+        "title": "Lead Development Intern",
+        "years": "December 2013 - November 2015",
+        "description": "",
+        "img": "images/ipipeline.png"
+      },
+      {
+        "company": "iPipeline",
+        "title": "Software Configuration Specialist",
+        "years": "May 2016 - August 2016",
+        "description": "",
+        "img": "images/ipipeline.png"
+      },
+      {
+        "company": "Honeywell",
+        "title": "Junior Software Engineer",
+        "years": "January 2017 - December 2017",
+        "description": "",
+        "img": "images/honeywell.png"
+      },
+      {
+        "company": "Q-Free",
+        "title": "Junior Software Engineer",
+        "years": "December 2017 - April 2019",
+        "description": "",
+        "img": "images/q-free.jpg"
+      },
+      {
+        "company": "Cisco",
+        "title": "Software Engineer",
+        "years": "April 2019 - Present",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg"
+      }
+    ],
+    "skills": [
+      { "name": "JavaScript", "level": 80, "img": "images/js.jpg" },
+      { "name": "TypeScript", "level": 80, "img": "images/ts.png" },
+      { "name": "Java", "level": 90, "img": "images/java.png" },
+      { "name": "Python", "level": 70, "img": "images/python.png" },
+      { "name": "C# / .NET", "level": 50, "img": "images/csharp.png" },
+      { "name": "React", "level": 65, "img": "images/react.png" },
+      { "name": "Android", "level": 60, "img": "images/android.png" },
+      { "name": "CSS", "level": 75, "img": "images/css.png" },
+      { "name": "Docker", "level": 75, "img": "images/docker.png" },
+      { "name": "Git", "level": 80, "img": "images/git.png" },
+      { "name": "MongoDB", "level": 50, "img": "images/mongodb.png" },
+      {
+        "name": "SQL (Oracle / MySQL / PostgreSQL)",
+        "level": 65,
+        "img": "images/sql.png"
+      }
+    ]
+  },
+  "portfolio": {
+    "projects": [{}]
+  },
+  "testimonials": {
+    "testimonials": [
+      {
+        "text": "Here you should write some nice things that someone has said about you. No lies though, employers can tell when you are lying.",
+        "user": "Kareem Abdul Jabbar"
+      },
+      {
+        "text": "That Tim Baker must be one of the most brilliant developers I've ever met! It is amazing that nobody has hired him yet. Hey you, you should hire this guy, he may be fresh out of University and have zero on the job experience but I am confident that he will be one of your best developers in no time!",
+        "user": "Steve Wozniak... impersonator"
+      }
+    ]
+  }
+}

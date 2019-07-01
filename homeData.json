@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Resume",
+    "subheader": "Webpage of my skills and experience",
+    "url": "./resume",
+    "img": "images/resumeScreenshot.jpg"
+  },
+  {
+    "name": "JSON Formatter",
+    "subheader": "Helper to format JSON documents",
+    "url": "./json",
+    "img": "images/json.png"
+  },
+  {
+    "name": "D3 Page",
+    "subheader": "Hello World for D3",
+    "url": "./d3",
+    "img": "images/d3.png"
+  },
+  {
+    "name": "Other",
+    "subheader": "TODO: Other stuff",
+    "url": "./",
+    "img": "images/resumeScreenshot.jpg"
+  }
+]

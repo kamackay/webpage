@@ -52,11 +52,12 @@ export default abstract class LoadingComponent<
           onLoad();
         }, this.getLoadTime());
       });
+      const seconds = 1.5;
+      // If the page still hasn't rendered after this many seconds, just go ahead and try
       setTimeout(() => {
-        // If the page still hasn't rendered after 10 seconds, just go ahead and try
         setState({ ...this.state, loading: false });
         onLoad();
-      }, 20000);
+      }, seconds * 1000);
     });
   }
 

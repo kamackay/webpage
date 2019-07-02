@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm i -g yarn && yarn install && npm-run-all build:*",
+    "build": "yarn install && npm-run-all build:*",
     "build:css": "node-sass src/ -o src/ ",
     "build:js": "react-scripts-ts build",
     "eject": "react-scripts-ts eject",
-    "format": "prettier --write --check ./**/*.ts ./**/*.tsx ./**/*.js ./**/*.jsx ./**/*.css ./**/*.html ./**/*.json ./**/*.yaml",
+    "format": "prettier --write --check src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx src/**/*.css",
     "go": "yarn build && serve build/",
     "start": "yarn && npm-run-all -p watch:css start:js",
     "start:js": "react-scripts-ts start",

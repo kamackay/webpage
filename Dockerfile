@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 COPY ./ ./
 
 # RUN yarn global add serve react-scripts-ts npm-run-all
+RUN yarn global add forever
 RUN yarn build
 
 EXPOSE 5000

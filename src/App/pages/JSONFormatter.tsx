@@ -28,7 +28,12 @@ class JSONFormatter extends Page<any, JSONFormatState> {
   public renderPostLoad(): JSX.Element {
     return (
       <div id="page" className="container">
-        <Typography component="h2" variant="h1" gutterBottom={true}>
+        <Typography
+          component="h2"
+          variant="h1"
+          gutterBottom={true}
+          style={{ color: "white" }}
+        >
           JSON Formatter
         </Typography>
         <Card>

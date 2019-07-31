@@ -32,7 +32,11 @@ export default class QRPage extends LoadingComponent<LoadingProps, QRState> {
   public renderPostLoad() {
     const { url } = this.state;
     return (
-      <form className={classNames("container", "qr-page")}>
+      <form
+        noValidate={true}
+        autoComplete="off"
+        className={classNames("container", "qr-page")}
+      >
         <Typography
           component="h2"
           variant="h1"
@@ -66,11 +70,15 @@ export default class QRPage extends LoadingComponent<LoadingProps, QRState> {
     this.setState(p => ({ ...p, url }));
     const element = document.getElementById("canvas");
     if (element) {
-      (QRCode as any).toCanvas(element, url || "Nothing", (error: any) => {
-        if (error) {
-          console.error(error);
+      (QRCode as any).toCanvas(
+        element,
+        url || "Enter Something",
+        (error: any) => {
+          if (error) {
+            console.error(error);
+          }
         }
-      });
+      );
     }
     this.settings.set(Settings.CommonSettings.QR_URL, url);
   };

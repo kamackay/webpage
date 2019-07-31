@@ -106,7 +106,7 @@
       { "name": "CSS", "level": 75, "img": "images/css.png" },
       { "name": "Docker", "level": 75, "img": "images/docker.png" },
       { "name": "Git", "level": 80, "img": "images/git.png" },
-      { "name": "MongoDB", "level": 50, "img": "images/mongodb.png" },
+      { "name": "MongoDB", "level": 60, "img": "images/mongodb.png" },
       {
         "name": "SQL (Oracle / MySQL / PostgreSQL)",
         "level": 65,

@@ -1,16 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import HttpsRedirect from "react-https-redirect";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 
+try {
+  const element = document.getElementById("static-loading")!;
+  element.parentElement!.removeChild(element);
+} catch (err) {
+  // No-op
+}
+
 ReactDOM.render(
   <BrowserRouter>
-    <HttpsRedirect>
-      <App />
-    </HttpsRedirect>
+    {/* <HttpsRedirect> */}
+    <App />
+    {/* </HttpsRedirect> */}
   </BrowserRouter>,
   document.getElementById("root")
 );

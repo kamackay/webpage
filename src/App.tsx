@@ -36,7 +36,7 @@ export default class App extends React.Component {
             },
             {
               path: "dockerhub",
-              url: "https://cloud.docker.com/repository/docker/kamackay"
+              url: "https://hub.docker.com/u/kamackay"
             },
             { path: "github", url: "https://github.com/kamackay" }
           ] as RedirectModel[]).map(redirect => (

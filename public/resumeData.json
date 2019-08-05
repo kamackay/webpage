@@ -34,7 +34,7 @@
       },
       {
         "name": "DockerHub",
-        "url": "https://cloud.docker.com/repository/docker/kamackay",
+        "url": "https://hub.docker.com/u/kamackay",
         "className": "fab fa-docker"
       }
     ]

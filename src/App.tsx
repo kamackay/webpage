@@ -27,6 +27,28 @@ export default class App extends React.Component {
           <Route path="/qr" component={QRPage} />
           <Route path="/rayTracer" component={RayTracer} />
           <Route path="/update/windows" component={WindowsUpdate} />
+
+          {/* Static Redirects, for using the page as a URL shortener */}
+          {([
+            {
+              path: "offline-code",
+              url: "https://www.get-offline.com/premium-referral/keithmackay"
+            },
+            {
+              path: "dockerhub",
+              url: "https://cloud.docker.com/repository/docker/kamackay"
+            },
+            { path: "github", url: "https://github.com/kamackay" }
+          ] as RedirectModel[]).map(redirect => (
+            <Route
+              path={`/${redirect.path}`}
+              component={() => {
+                window.location.href = redirect.url;
+                return null;
+              }}
+            />
+          ))}
+
           <Route component={FourOhFourPage} />
         </Switch>
       </div>

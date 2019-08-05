@@ -38,7 +38,11 @@ export default class App extends React.Component {
               path: "dockerhub",
               url: "https://hub.docker.com/u/kamackay"
             },
-            { path: "github", url: "https://github.com/kamackay" }
+            { path: "github", url: "https://github.com/kamackay" },
+            {
+              path: "linkedin",
+              url: "https://www.linkedin.com/in/keith-mackay-047b9387/"
+            }
           ] as RedirectModel[]).map(redirect => (
             <Route
               path={`/${redirect.path}`}

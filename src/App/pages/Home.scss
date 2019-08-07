@@ -1,5 +1,12 @@
-.card-link:hover {
-  background-color: #4fc3f7;
+.link {
+  .card-link:hover {
+    background-color: #4fc3f7;
+  }
+
+  &:hover {
+    border-radius: 5px;
+    box-shadow: 5px 5px 7px rgba(#ccc, 0.9);
+  }
 }
 
 html,

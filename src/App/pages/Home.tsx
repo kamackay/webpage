@@ -1,4 +1,5 @@
 import { Card, CardHeader, Typography } from "@material-ui/core";
+import classNames from "classnames";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { HomeProps, HomeState } from "src/model/HomeModel";
@@ -41,12 +42,22 @@ export default class Home extends Page<HomeProps, HomeState> {
           margin: 20
         }}
       >
-        <Typography component="h2" variant="h1" gutterBottom={true}>
+        <Typography
+          component="h2"
+          variant="h1"
+          gutterBottom={true}
+          color="primary"
+        >
           Welcome!
         </Typography>
         <hr />
 
-        <Typography component="h2" variant="h3" gutterBottom={true}>
+        <Typography
+          component="h2"
+          variant="h3"
+          gutterBottom={true}
+          style={{ color: "white" }}
+        >
           Here are some of the projects available
         </Typography>
         {links!.map(this.generateLink)}
@@ -74,6 +85,7 @@ export default class Home extends Page<HomeProps, HomeState> {
           float: "left",
           margin: 10
         }}
+        className={classNames("link")}
       >
         <Link to={link.url}>
           <Card className="card-link" style={{ padding: 15, maxWidth: 400 }}>

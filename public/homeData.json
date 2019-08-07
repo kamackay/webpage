@@ -12,15 +12,15 @@
     "img": "images/json.png"
   },
   {
+    "name": "QR Code Generator",
+    "subheader": "Webpage that can convert URLs and Text into a QR Code",
+    "url": "./qr",
+    "img": "images/qr.png"
+  },
+  {
     "name": "D3 Page",
     "subheader": "Hello World for D3",
     "url": "./d3",
     "img": "images/d3.png"
-  },
-  {
-    "name": "Other",
-    "subheader": "TODO: Other stuff",
-    "url": "./",
-    "img": "images/resumeScreenshot.jpg"
   }
 ]

@@ -1,4 +1,5 @@
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
+import "../../all.css";
 import LoadingComponent from "../components/LoadingComponent";
 
 export default abstract class Page<

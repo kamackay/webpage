@@ -46,6 +46,8 @@ export default class QRPage extends LoadingComponent<LoadingProps, QRState> {
           QR Generator
         </Typography>
         <TextField
+          autoFocus={true}
+          autoComplete="off"
           name="url"
           value={url}
           placeholder="URL"

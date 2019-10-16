@@ -52,6 +52,7 @@ export default class App extends React.Component {
             }
           ] as RedirectModel[]).map(redirect => (
             <Route
+              key={redirect.path}
               path={`/${redirect.path}`}
               component={() => {
                 window.location.href = redirect.url;

@@ -14,6 +14,10 @@
       "state": "NC",
       "zip": "27701"
     },
+    "additional": {
+      "message": "Not currently available for hire or freelance, but feel free to get in contact with me! Enjoy a picture of my dog",
+      "photo": "pepper_horizontal.jpg"
+    },
     "website": "http://www.keithmackay.com",
     "resumedownload": "#",
     "social": [
@@ -36,6 +40,11 @@
         "name": "DockerHub",
         "url": "https://hub.docker.com/u/kamackay",
         "className": "fab fa-docker"
+      },
+      {
+        "name": "Gitlab",
+        "url": "https://gitlab.com/kamackay",
+        "className": "fab fa-gitlab"
       }
     ]
   },
@@ -64,41 +73,43 @@
         "company": "iPipeline",
         "title": "Lead Development Intern",
         "years": "December 2013 - November 2015",
-        "description": "",
+        "description": "Worked on C#.NET web application to meet requests from customers for Insurance Application behaviors, and helped develop a tool to detect and fix duplicate configurations in customer data to optimize build times",
         "img": "images/ipipeline.png"
       },
       {
         "company": "iPipeline",
         "title": "Software Configuration Specialist",
         "years": "May 2016 - August 2016",
-        "description": "",
+        "description": "Worked on converting Cloud Application to Locally Hosted instance to circumvent issues with customers that needed offline access. Worked with automated installations to make configuration easier for End-Users",
         "img": "images/ipipeline.png"
       },
       {
         "company": "Honeywell",
         "title": "Junior Software Engineer",
         "years": "January 2017 - December 2017",
-        "description": "",
+        "description": "Wrote Python Library for Blackbox Firmware Tests to assist Electrical Engineering Staff and some small Angular Applications to help manage ownership of test machines",
         "img": "images/honeywell.png"
       },
       {
         "company": "Q-Free",
         "title": "Junior Software Engineer",
         "years": "December 2017 - April 2019",
-        "description": "",
+        "description": "Worked on GWT Application to show live traffic data to DOTs so that they can more quickly respond to traffic incidents. Used TS frameworks like D3 to show live traffic data and automatically adjust Variable Speed Limit (VSL) signs",
         "img": "images/q-free.jpg"
       },
       {
         "company": "Cisco",
         "title": "Software Engineer",
         "years": "April 2019 - Present",
-        "img": "https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg"
+        "img": "images/cisco.svg",
+        "description": "Working on Dockerized webapps for internal development tools. Supplying several different Applications as a Service to other teams"
       }
     ],
     "skills": [
       { "name": "JavaScript", "level": 80, "img": "images/js.jpg" },
       { "name": "TypeScript", "level": 80, "img": "images/ts.png" },
       { "name": "Java", "level": 90, "img": "images/java.png" },
+      { "name": "Kotlin", "level": 90, "img": "images/kotlin.png" },
       { "name": "Python", "level": 70, "img": "images/python.png" },
       { "name": "C# / .NET", "level": 50, "img": "images/csharp.png" },
       { "name": "React", "level": 65, "img": "images/react.png" },
@@ -106,7 +117,7 @@
       { "name": "CSS", "level": 75, "img": "images/css.png" },
       { "name": "Docker", "level": 75, "img": "images/docker.png" },
       { "name": "Git", "level": 80, "img": "images/git.png" },
-      { "name": "MongoDB", "level": 60, "img": "images/mongodb.png" },
+      { "name": "MongoDB", "level": 75, "img": "images/mongodb.png" },
       {
         "name": "SQL (Oracle / MySQL / PostgreSQL)",
         "level": 65,
@@ -115,7 +126,20 @@
     ]
   },
   "portfolio": {
-    "projects": [{}]
+    "projects": [
+      {
+        "title": "JSON Formatter",
+        "subheader": "Helper to format JSON documents",
+        "url": "./json",
+        "image": "images/json.png"
+      },
+      {
+        "title": "QR Code Generator",
+        "subheader": "Webpage that can convert URLs and Text into a QR Code",
+        "url": "./qr",
+        "image": "images/qr.png"
+      }
+    ]
   },
   "testimonials": {
     "testimonials": [

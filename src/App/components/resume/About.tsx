@@ -19,7 +19,7 @@ export default class About extends KeithComponent<
     if (!this.props.data) {
       return <div />;
     }
-    const { image, bio, address, phone, email } = this.props.data;
+    const { image, bio, address, phone, email, additional } = this.props.data;
     const profilePic = `images/${image}`;
     return (
       <div>
@@ -38,7 +38,7 @@ export default class About extends KeithComponent<
 
               <p className="bio">{bio}</p>
               <div className="row">
-                <div className="columns contact-details">
+                <div className="columns contact-details center-text">
                   <h2>Contact Details</h2>
                   <p className="address">
                     {name ? (
@@ -58,8 +58,12 @@ export default class About extends KeithComponent<
                     <a href={`mailto:${email}`}>{email}</a>
                   </p>
                 </div>
-                <div className="columns download">
-                  <p>Hey Keith, put more information here</p>
+                <div className="columns download center-text">
+                  <p>{additional.message}</p>
+                  <img
+                    style={{ width: 200, borderRadius: "100%" }}
+                    src={`images/${additional.photo}`}
+                  />
                 </div>
               </div>
             </div>

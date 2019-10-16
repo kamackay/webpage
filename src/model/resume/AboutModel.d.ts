@@ -10,6 +10,7 @@ export class AboutData {
   phone: string;
   email: string;
   resumeDownload: string;
+  additional: { message: string; photo: string };
 }
 
 export class AboutProps extends KeithProps {

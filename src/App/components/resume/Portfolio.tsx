@@ -14,16 +14,17 @@ export default class Portfolio extends KeithComponent<
     }
 
     const projectData = this.props.data.projects.map((project, x) => {
-      const projectImage = "images/portfolio/" + project.image;
+      const { image } = project;
       return (
         <div key={`${x}-${project.title}`} className="columns portfolio-item">
           <div className="item-wrap">
             <a href={project.url} title={project.title}>
-              <img alt={project.title} src={projectImage} />
+              <img style={{ maxHeight: 100 }} alt={project.title} src={image} />
+              <br />
               <div className="overlay">
                 <div className="portfolio-item-meta">
                   <h5>{project.title}</h5>
-                  <p>{project.category}</p>
+                  <p>{project.description}</p>
                 </div>
               </div>
               <div className="link-icon">

@@ -16,11 +16,5 @@
     "subheader": "Webpage that can convert URLs and Text into a QR Code",
     "url": "./qr",
     "img": "images/qr.png"
-  },
-  {
-    "name": "D3 Page",
-    "subheader": "Hello World for D3",
-    "url": "./d3",
-    "img": "images/d3.png"
   }
 ]

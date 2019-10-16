@@ -69,7 +69,8 @@ export default class ResumeComponent extends KeithComponent<
             {job.title}
             <span>&bull;</span> <em className="date">{job.years}</em>
           </p>
-          <p>{job.description}</p>
+          <h5>{job.description}</h5>
+          <hr />
         </div>
       );
     });

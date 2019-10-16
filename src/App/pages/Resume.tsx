@@ -3,18 +3,14 @@ import { Element, scroller } from "react-scroll";
 import { AboutData } from "src/model/resume/AboutModel";
 import { FooterData } from "src/model/resume/FooterModel";
 import { HeaderData } from "src/model/resume/HeaderModel";
-import { PortfolioData } from "src/model/resume/PortfolioProps";
 import { ResumeCompData } from "src/model/resume/ResumeCompModel";
 import ResumeData from "src/model/resume/ResumeData";
 import ResumeState from "src/model/resume/ResumeState";
-import { TestimonialsData } from "src/model/resume/TestimonialsModel";
 import "../../bootstrap.min.css";
 import About from "../components/resume/About";
 import Footer from "../components/resume/Footer";
 import Header from "../components/resume/Header";
-import Portfolio from "../components/resume/Portfolio";
 import ResumeComponent from "../components/resume/ResumeComponent";
-import Testimonials from "../components/resume/Testimonials";
 import Page from "./Page";
 
 export default class Resume extends Page<any, ResumeState> {
@@ -36,10 +32,11 @@ export default class Resume extends Page<any, ResumeState> {
         setTimeout(() => {
           const url = window.location.href;
           const urlId = url.substring(url.lastIndexOf("#") + 1);
+          console.log(`Scroll to ${urlId}`);
           if (urlId) {
             try {
               scroller.scrollTo(urlId, {
-                duration: 1000,
+                duration: 250,
                 delay: 0,
                 smooth: "easeInOutQuart"
               });
@@ -47,7 +44,7 @@ export default class Resume extends Page<any, ResumeState> {
               // NO-OP
             }
           }
-        }, 100);
+        }, 2000);
       }).bind(this)
     );
   }
@@ -61,8 +58,8 @@ export default class Resume extends Page<any, ResumeState> {
         <Header data={r.main as HeaderData} />
         <About data={r.main as AboutData} />
         <ResumeComponent data={r.resume as ResumeCompData} />
-        <Portfolio data={r.portfolio as PortfolioData} />
-        <Testimonials data={r.testimonials as TestimonialsData} />
+        {/* <Portfolio data={r.portfolio as PortfolioData} /> */}
+        {/* <Testimonials data={r.testimonials as TestimonialsData} /> */}
         {/* <Contact data={r.main as ContactData} /> */}
         <Footer data={r.main as FooterData} />
       </div>

@@ -71,7 +71,7 @@ export default class Header extends KeithComponent<
                 Resume
               </Scroll.Link>
             </li>
-            <li>
+            {/* <li>
               <Scroll.Link
                 className="smoothscroll"
                 to="portfolio"
@@ -80,8 +80,8 @@ export default class Header extends KeithComponent<
               >
                 Portfolio
               </Scroll.Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Scroll.Link
                 className="smoothscroll"
                 to="testimonials"
@@ -90,8 +90,8 @@ export default class Header extends KeithComponent<
               >
                 Testimonials
               </Scroll.Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Scroll.Link
                 className="smoothscroll"
                 to="contact"
@@ -100,7 +100,7 @@ export default class Header extends KeithComponent<
               >
                 Contact
               </Scroll.Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
@@ -114,7 +114,7 @@ export default class Header extends KeithComponent<
           }}
         >
           <div className="banner-text header-cont-div">
-            <h1 className="responsive-headline">I'm {name}.</h1>
+            <h1 className="responsive-headline">{name}.</h1>
             <h3>
               I'm {getArticleFor(address.city)} {address.city}, {address.state}{" "}
               based <span>{occupation}</span>. {description}.

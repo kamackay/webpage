@@ -9,6 +9,7 @@ import QRPage from "./App/pages/QRPage";
 import RayTracer from "./App/pages/RayTracer";
 import Resume from "./App/pages/Resume";
 import WindowsUpdate from "./App/pages/WindowsUpdate";
+import Tracker from "./utils/Tracker";
 
 export default class App extends React.Component {
   public render() {
@@ -19,14 +20,9 @@ export default class App extends React.Component {
             exact={true}
             path="/"
             render={() => {
-              fetch("https://api.keithmackay.com/tracker/events", {
-                method: "PUT",
-                body: JSON.stringify({
-                  url: window.location.href,
-                  feature: "webpage",
-                  data: { description: "User went to splash page" },
-                  userAgent: navigator.userAgent
-                })
+              Tracker.send({
+                feature: "Splash Page",
+                data: { description: "User went to splash page" }
               });
               return <Redirect to="/resume" />;
             }}

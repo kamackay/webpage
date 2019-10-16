@@ -1,16 +1,18 @@
-FROM kamackay/alpine
+FROM alpine:latest
+WORKDIR /root
 
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+RUN apk upgrade --update --no-cache && \
+    apk add --no-cache yarn nodejs && \
+    yarn global add forever serve
 
-WORKDIR /usr/src/app
+ENV PATH /root/node_modules/.bin:$PATH
+
 COPY ./ ./
 
 # RUN yarn global add serve react-scripts-ts npm-run-all
-RUN yarn global add forever serve && \
-    yarn build && \
+RUN yarn build && \
     rm -rf src && \
     rm -rf node_modules && \
     rm -rf public
 
-EXPOSE 5000
 CMD serve -s build/

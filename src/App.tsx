@@ -18,7 +18,18 @@ export default class App extends React.Component {
           <Route
             exact={true}
             path="/"
-            render={() => <Redirect to="/resume" />}
+            render={() => {
+              fetch("https://api.keithmackay.com/tracker/events", {
+                method: "PUT",
+                body: JSON.stringify({
+                  url: window.location.href,
+                  feature: "webpage",
+                  data: { description: "User went to splash page" },
+                  userAgent: navigator.userAgent
+                })
+              });
+              return <Redirect to="/resume" />;
+            }}
           />
           <Route path="/home" component={Home} />
           <Route path="/resume" component={Resume} />

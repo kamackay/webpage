@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import HttpsRedirect from "react-https-redirect";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
@@ -15,9 +14,7 @@ try {
 
 ReactDOM.render(
   <BrowserRouter>
-    <HttpsRedirect>
-      <App />
-    </HttpsRedirect>
+    <App />
   </BrowserRouter>,
   document.getElementById("root")
 );

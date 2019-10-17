@@ -21,7 +21,7 @@ export default class App extends React.Component {
             path="/"
             render={() => {
               Tracker.send({
-                feature: "Splash Page",
+                feature: "SplashPage",
                 data: { description: "User went to splash page" }
               });
               return <Redirect to="/resume" />;

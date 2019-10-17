@@ -114,7 +114,7 @@ export default class Header extends KeithComponent<
           }}
         >
           <div className="banner-text header-cont-div">
-            <h1 className="responsive-headline">{name}.</h1>
+            <h1 className="responsive-headline">{name}</h1>
             <h3>
               I'm {getArticleFor(address.city)} {address.city}, {address.state}{" "}
               based <span>{occupation}</span>. {description}.

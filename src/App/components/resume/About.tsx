@@ -1,13 +1,14 @@
-import * as React from "react";
-import { Element } from "react-scroll";
-import { AboutProps, AboutState } from "src/model/resume/AboutModel";
-import KeithComponent from "../KeithComponent";
-import "./About.css";
+import * as React from 'react';
+import KeithComponent from '../KeithComponent';
+import Tracker from '../../../utils/Tracker';
+import { AboutProps, AboutState } from 'src/model/resume/AboutModel';
+import { Element } from 'react-scroll';
+import './About.css';
 
 export default class About extends KeithComponent<
   AboutProps,
   Partial<AboutState>
-> {
+  > {
   constructor(props: AboutProps) {
     super(props);
     if (this.props.data) {
@@ -36,7 +37,10 @@ export default class About extends KeithComponent<
             <div className="nine columns main-col">
               <h2>About Me</h2>
 
-              <p className="bio">{bio}</p>
+              <p className="bio">
+                {bio}
+                <hr />
+              </p>
               <div className="row">
                 <div className="columns contact-details center-text">
                   <h2>Contact Details</h2>
@@ -48,14 +52,22 @@ export default class About extends KeithComponent<
                       </span>
                     ) : null}
                     <span>
-                      {address.street}
-                      <br />
-                      {address.city} {address.state}, {address.zip}
+                      {address.city}, {address.state}
                     </span>
                     <br />
                     <span>{phone}</span>
                     <br />
-                    <a href={`mailto:${email}`}>{email}</a>
+                    <a
+                      onClick={() =>
+                        Tracker.send({
+                          feature: "EmailClick",
+                          data: "Click on email link"
+                        })
+                      }
+                      href={`mailto:${email}`}
+                    >
+                      {email}
+                    </a>
                   </p>
                 </div>
                 <div className="columns download center-text">

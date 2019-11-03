@@ -45,7 +45,7 @@ export default class NewsItemComponent extends KeithComponent<
   }
 
   public render = () => {
-    const { link, content, title, description, source } = this.props.news;
+    const { link, content, title, source } = this.props.news;
     const { expanded } = this.state;
     return (
       <Card style={this.styles.card} onClick={this.toggle}>
@@ -61,10 +61,10 @@ export default class NewsItemComponent extends KeithComponent<
             </IconButton>
             <span style={{ color: "blue" }}>{source.site}</span> - {title}
           </Typography>
-          <this.html
+          {/* <this.html
             className={classNames("description")}
             content={expanded ? description : undefined}
-          />
+          /> */}
           <this.html
             className={classNames("content")}
             content={expanded ? content : undefined}

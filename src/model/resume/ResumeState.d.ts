@@ -6,4 +6,5 @@ import ResumeData from "./ResumeData";
 export default class ResumeState extends LoadingState {
   loading: boolean;
   resumeData: ResumeData;
+  headerBg?: string;
 }

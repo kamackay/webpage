@@ -31,7 +31,12 @@ export default class Header extends KeithComponent<
     });
 
     return (
-      <header id="home">
+      <header
+        id="home"
+        style={{
+          background: `#161415 url(${this.props.background}) no-repeat top center`
+        }}
+      >
         <nav id="nav-wrap">
           <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
             Show navigation

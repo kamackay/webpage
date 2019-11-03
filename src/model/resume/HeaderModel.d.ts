@@ -5,6 +5,7 @@ import Address from "../Address";
 
 export class HeaderProps extends KeithProps {
   data: HeaderData;
+  background?: string;
 }
 
 export class HeaderData {

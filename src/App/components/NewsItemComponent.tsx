@@ -67,12 +67,10 @@ export default class NewsItemComponent extends KeithComponent<
             style={this.styles.title}
             className={classNames("noselect", "title")}
           >
-            <IconButton onClick={this.open}>
+            <IconButton onClick={this.open} color="primary">
               <OpenInNewRounded />
-            </IconButton>
-            <span style={{ color: "blue" }} onClick={this.open}>
               {source.site}
-            </span>{" "}
+            </IconButton>
             - {title}
           </Typography>
           {/* <this.html

@@ -25,7 +25,7 @@ export default class NewsPage extends LoadingComponent<
     super(p);
     this.state = {
       loading: true,
-      loadAfter: [this.loadData()],
+      loadAfter: [this.loadData(true)()],
       title: "News",
       news: undefined
     };
@@ -56,11 +56,11 @@ export default class NewsPage extends LoadingComponent<
               : this.loadingElement}
           </div>
         </div>
-        <div style={{ position: "fixed", bottom: 5, right: 5 }}>
+        <div style={{ position: "fixed", bottom: 10, right: 5 }}>
           <Fab
             aria-label="refresh"
             color="primary"
-            onClick={this.loadData}
+            onClick={this.loadData(true)}
             style={{ float: "right" }}
           >
             <Refresh />
@@ -70,8 +70,8 @@ export default class NewsPage extends LoadingComponent<
     );
   }
 
-  private loadData = () => {
-    if (this.state) {
+  private loadData = (clearFirst?: boolean) => () => {
+    if (this.state && clearFirst) {
       this.setState(p => ({ ...p, news: undefined }));
     }
     return axios

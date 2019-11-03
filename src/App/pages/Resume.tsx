@@ -12,6 +12,7 @@ import Footer from "../components/resume/Footer";
 import Header from "../components/resume/Header";
 import ResumeComponent from "../components/resume/ResumeComponent";
 import Page from "./Page";
+import { downloadBlob } from "src/utils";
 
 export default class Resume extends Page<any, ResumeState> {
   // Initialize the state
@@ -22,7 +23,12 @@ export default class Resume extends Page<any, ResumeState> {
       title: "Keith MacKay - Resume",
       loading: true,
       resumeData: new ResumeData(),
-      loadAfter: [fetch("/images/header-background.jpg")]
+      headerBg: undefined,
+      loadAfter: [
+        downloadBlob("/images/header-background.jpg").then(data => {
+          this.setState(p => ({ ...p, headerBg: data }));
+        })
+      ]
     };
     this.get(
       "./resumeData.json",
@@ -55,7 +61,7 @@ export default class Resume extends Page<any, ResumeState> {
     return r ? (
       <div className="App">
         <Element name="home" />
-        <Header data={r.main as HeaderData} />
+        <Header data={r.main as HeaderData} background={this.state.headerBg} />
         <About data={r.main as AboutData} />
         <ResumeComponent data={r.resume as ResumeCompData} />
         {/* <Portfolio data={r.portfolio as PortfolioData} /> */}

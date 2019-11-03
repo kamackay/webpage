@@ -5,10 +5,9 @@ import KeithState from "src/model/KeithState";
 export default class KeithComponent<
   P extends KeithProps,
   S extends KeithState
-> extends React.Component<P, S> {
+  > extends React.Component<P, S> {
   constructor(p: P) {
     super(p);
-    this.log = this.log.bind(this);
   }
 
   public setState<K extends keyof S>(
@@ -18,8 +17,6 @@ export default class KeithComponent<
     callback?: () => void
   ): void {
     super.setState(state, callback);
-
-    this.log = this.log.bind(this);
 
     if ((state as S) !== undefined) {
       if (this.state.title) {
@@ -41,7 +38,7 @@ export default class KeithComponent<
     document.getElementsByTagName("head")[0].appendChild(link);
   }
 
-  protected log(...args: any[]) {
+  protected log = (...args: any[]) => {
     // tslint:disable-next-line:no-console
     console.log(...args);
   }

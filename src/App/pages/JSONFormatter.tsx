@@ -14,10 +14,6 @@ class JSONFormatter extends Page<any, JSONFormatState> {
       value: "",
       rows: 10
     };
-    this.change = this.change.bind(this);
-    this.format = this.format.bind(this);
-    this.resize = this.resize.bind(this);
-    this.log = this.log.bind(this);
   }
 
   public onLoad() {
@@ -50,8 +46,8 @@ class JSONFormatter extends Page<any, JSONFormatState> {
             // label="JSON"
             rows={this.state.rows}
             placeholder="Enter JSON here"
-            // multiline={true}
-            // margin="normal"
+          // multiline={true}
+          // margin="normal"
           />
           <div style={{ margin: 20 }}>
             {this.getButton("Format", () => this.format(4))}
@@ -62,7 +58,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     );
   }
 
-  protected resize() {
+  protected resize = () => {
     const rows = Math.floor((window.innerHeight / this.state.fontSize) * 0.5);
     this.log(`Setting to ${rows} rows`);
     this.setState({ ...this.state, rows });
@@ -82,7 +78,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     );
   }
 
-  private format(f: number | undefined) {
+  private format = (f: number | undefined) => {
     const { value } = this.state;
     try {
       const obj = JSON.parse(value);
@@ -95,11 +91,11 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     }
   }
 
-  private change(
+  private change = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
-  ) {
+  ) => {
     this.setState({ ...this.state, value: event.target.value });
   }
 }

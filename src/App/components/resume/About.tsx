@@ -1,14 +1,14 @@
-import * as React from 'react';
-import KeithComponent from '../KeithComponent';
-import Tracker from '../../../utils/Tracker';
-import { AboutProps, AboutState } from 'src/model/resume/AboutModel';
-import { Element } from 'react-scroll';
-import './About.css';
+import * as React from "react";
+import KeithComponent from "../KeithComponent";
+import Tracker from "../../../utils/Tracker";
+import { AboutProps, AboutState } from "src/model/resume/AboutModel";
+import { Element } from "react-scroll";
+import "./About.css";
 
 export default class About extends KeithComponent<
   AboutProps,
   Partial<AboutState>
-  > {
+> {
   constructor(props: AboutProps) {
     super(props);
     if (this.props.data) {

@@ -10,6 +10,7 @@ import RayTracer from "./App/pages/RayTracer";
 import Resume from "./App/pages/Resume";
 import WindowsUpdate from "./App/pages/WindowsUpdate";
 import Tracker from "./utils/Tracker";
+import NewsPage from './App/pages/NewsPage';
 
 export default class App extends React.Component {
   public render() {
@@ -32,6 +33,7 @@ export default class App extends React.Component {
           <Route path="/json" component={JSONFormatter} />
           <Route path="/d3" component={D3Page} />
           <Route path="/qr" component={QRPage} />
+          <Route path="/news" component={NewsPage} />
           <Route path="/rayTracer" component={RayTracer} />
           <Route path="/update/windows" component={WindowsUpdate} />
 

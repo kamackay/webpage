@@ -1,7 +1,11 @@
 import * as React from "react";
 import KeithProps from "../../model/KeithProps";
 import KeithState from "../../model/KeithState";
-import { OpenInNewRounded } from "@material-ui/icons";
+import {
+  OpenInNewRounded,
+  ExpandLess as Expanded,
+  ExpandMore as NotExpanded
+} from "@material-ui/icons";
 import KeithComponent from "./KeithComponent";
 import { Card, CardContent, Typography, IconButton } from "@material-ui/core";
 import classNames from "classnames";
@@ -45,29 +49,39 @@ export default class NewsItemComponent extends KeithComponent<
   }
 
   public render = () => {
-    const { link, content, title, source } = this.props.news;
+    const { content, title, description, source } = this.props.news;
     const { expanded } = this.state;
+    const body =
+      (description || "").length > (content || "").length
+        ? description
+        : content;
     return (
       <Card style={this.styles.card} onClick={this.toggle}>
         <CardContent>
+          <span style={{ float: "right" }}>
+            {expanded ? <Expanded /> : <NotExpanded />}
+          </span>
           <Typography
             component="h1"
             gutterBottom={true}
             style={this.styles.title}
             className={classNames("noselect", "title")}
           >
-            <IconButton onClick={() => window.open(link, "_blank")}>
+            <IconButton onClick={this.open}>
               <OpenInNewRounded />
             </IconButton>
-            <span style={{ color: "blue" }}>{source.site}</span> - {title}
+            <span style={{ color: "blue" }} onClick={this.open}>
+              {source.site}
+            </span>{" "}
+            - {title}
           </Typography>
           {/* <this.html
             className={classNames("description")}
             content={expanded ? description : undefined}
           /> */}
           <this.html
-            className={classNames("content")}
-            content={expanded ? content : undefined}
+            className={classNames("body")}
+            content={expanded ? body : undefined}
           />
         </CardContent>
       </Card>
@@ -79,6 +93,8 @@ export default class NewsItemComponent extends KeithComponent<
       console.log(`Setting Expanded to ${!p.expanded}`);
       return { ...p, expanded: !p.expanded };
     });
+
+  private open = () => window.open(this.props.news.link, "_blank");
 
   private html = (p: { content?: string; className?: string }) => {
     const { content, className } = p;

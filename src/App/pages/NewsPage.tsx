@@ -3,7 +3,7 @@ import Settings from "src/lib/Settings";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import LoadingComponent from "../components/LoadingComponent";
 import "./QRPage.css";
-import { Typography, IconButton } from "@material-ui/core";
+import { Typography, Fab } from "@material-ui/core";
 import { Refresh } from "@material-ui/icons";
 import axios from "axios";
 import NewsItemComponent from "../components/NewsItemComponent";
@@ -38,29 +38,33 @@ export default class NewsPage extends LoadingComponent<
 
   public renderPostLoad() {
     return (
-      <div id="page" className="container">
-        <Typography
-          component="h1"
-          style={this.styles.header}
-          color="textPrimary"
-        >
-          News
-          <IconButton
+      <div style={{ width: "99vw", height: "100vh" }}>
+        <div id="page" className="container">
+          <Typography
+            component="h1"
+            style={this.styles.header}
+            color="textPrimary"
+          >
+            News
+          </Typography>
+
+          <div>
+            {this.state.news
+              ? this.state.news.map((news, x) => (
+                  <NewsItemComponent news={news} key={`news-${x}`} />
+                ))
+              : this.loadingElement}
+          </div>
+        </div>
+        <div style={{ position: "fixed", bottom: 5, right: 5 }}>
+          <Fab
             aria-label="refresh"
-            color="inherit"
+            color="primary"
             onClick={this.loadData}
             style={{ float: "right" }}
           >
             <Refresh />
-          </IconButton>
-        </Typography>
-
-        <div>
-          {this.state.news
-            ? this.state.news.map((news, x) => (
-                <NewsItemComponent news={news} key={`news-${x}`} />
-              ))
-            : this.loadingElement}
+          </Fab>
         </div>
       </div>
     );

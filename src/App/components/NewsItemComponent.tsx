@@ -7,7 +7,14 @@ import {
   ExpandMore as NotExpanded
 } from "@material-ui/icons";
 import KeithComponent from "./KeithComponent";
-import { Card, CardContent, Typography, IconButton } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  CardActions,
+  Button
+} from "@material-ui/core";
 import classNames from "classnames";
 import "../../index.css";
 
@@ -49,14 +56,25 @@ export default class NewsItemComponent extends KeithComponent<
   }
 
   public render = () => {
-    const { content, title, description, source } = this.props.news;
+    const {
+      content,
+      title,
+      description,
+      source,
+      categories,
+      guid
+    } = this.props.news;
     const { expanded } = this.state;
     const body =
       (description || "").length > (content || "").length
         ? description
         : content;
     return (
-      <Card style={this.styles.card} onClick={this.toggle}>
+      <Card
+        className={classNames("news")}
+        style={this.styles.card}
+        onClick={this.toggle}
+      >
         <CardContent>
           <span style={{ float: "right" }}>
             {expanded ? <Expanded /> : <NotExpanded />}
@@ -82,6 +100,29 @@ export default class NewsItemComponent extends KeithComponent<
             content={expanded ? body : undefined}
           />
         </CardContent>
+        {categories ? (
+          <CardActions
+            style={{ maxWidth: "100%", overflowX: "auto" }}
+            disableSpacing={true}
+          >
+            {categories.map((category, x) => (
+              <Button
+                color="primary"
+                variant="contained"
+                className={classNames("category")}
+                key={`${guid}-category-${category}-${x}`}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  // TODO Filter to this category
+                }}
+              >
+                {category}
+              </Button>
+            ))}
+          </CardActions>
+        ) : null}
       </Card>
     );
   };

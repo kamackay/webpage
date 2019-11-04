@@ -12,3 +12,18 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
+#root {
+  .news {
+    .category {
+      & > span {
+        white-space: nowrap;
+        // padding-left: 10px;
+        // padding-right: 10px;
+        // display: inline-flex;
+        // margin-left: 10px;
+        // margin-right: 10px;
+      }
+    }
+  }
+}

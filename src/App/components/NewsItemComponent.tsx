@@ -1,22 +1,22 @@
-import * as React from "react";
-import KeithProps from "../../model/KeithProps";
-import KeithState from "../../model/KeithState";
-import {
-  OpenInNewRounded,
-  ExpandLess as Expanded,
-  ExpandMore as NotExpanded
-} from "@material-ui/icons";
-import KeithComponent from "./KeithComponent";
 import {
   Card,
-  CardContent,
-  Typography,
-  IconButton,
   CardActions,
-  Button
+  CardContent,
+  IconButton,
+  Typography
 } from "@material-ui/core";
+import {
+  ExpandLess as Expanded,
+  ExpandMore as NotExpanded,
+  OpenInNewRounded
+} from "@material-ui/icons";
 import classNames from "classnames";
+import * as React from "react";
+import { Button } from "semantic-ui-react";
 import "../../index.css";
+import KeithProps from "../../model/KeithProps";
+import KeithState from "../../model/KeithState";
+import KeithComponent from "./KeithComponent";
 
 interface NewsItemProps extends KeithProps {
   news: NewsItem;
@@ -107,19 +107,13 @@ export default class NewsItemComponent extends KeithComponent<
           >
             {categories.map((category, x) => (
               <Button
-                color="primary"
-                variant="contained"
+                color="blue"
+                basic={true}
+                size="medium"
+                content={category}
                 className={classNames("category")}
                 key={`${guid}-category-${category}-${x}`}
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-
-                  // TODO Filter to this category
-                }}
-              >
-                {category}
-              </Button>
+              />
             ))}
           </CardActions>
         ) : null}

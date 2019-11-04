@@ -16,14 +16,12 @@ body {
 #root {
   .news {
     .category {
-      & > span {
-        white-space: nowrap;
-        // padding-left: 10px;
-        // padding-right: 10px;
-        // display: inline-flex;
-        // margin-left: 10px;
-        // margin-right: 10px;
-      }
+      white-space: nowrap;
+      margin-left: 2px;
+      font-size: 12px;
+      line-height: 12px;
+      max-height: 30px;
+      padding: 5px;
     }
   }
 }

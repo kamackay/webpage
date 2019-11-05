@@ -49,7 +49,7 @@ export default class D3Page extends LoadingComponent<D3Props, D3State> {
     this.mouseMove = this.mouseMove.bind(this);
   }
 
-  public onLoad() {
+  public onLoad = () => {
     setInterval(() => {
       if (this.state.running) {
         this.stepTo(this.state.lastClick);
@@ -57,7 +57,7 @@ export default class D3Page extends LoadingComponent<D3Props, D3State> {
     }, this.state.updateInterval);
 
     document.addEventListener("mousemove", this.mouseMove);
-  }
+  };
 
   public componentWillUnmount() {
     document.removeEventListener("mousemove", this.mouseMove);

@@ -19,7 +19,7 @@ export default class Home extends Page<HomeProps, HomeState> {
     this.setState = this.setState.bind(this);
   }
 
-  public onLoad() {
+  public onLoad = () => {
     this.mounted = true;
     this.get(
       "./homeData.json",
@@ -29,7 +29,7 @@ export default class Home extends Page<HomeProps, HomeState> {
         }
       }).bind(this)
     );
-  }
+  };
 
   public renderPostLoad() {
     const { links } = this.state;

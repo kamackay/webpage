@@ -16,10 +16,10 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     };
   }
 
-  public onLoad() {
+  public onLoad = () => {
     window.addEventListener("resize", this.resize);
     this.resize();
-  }
+  };
 
   public renderPostLoad(): JSX.Element {
     return (
@@ -46,8 +46,8 @@ class JSONFormatter extends Page<any, JSONFormatState> {
             // label="JSON"
             rows={this.state.rows}
             placeholder="Enter JSON here"
-          // multiline={true}
-          // margin="normal"
+            // multiline={true}
+            // margin="normal"
           />
           <div style={{ margin: 20 }}>
             {this.getButton("Format", () => this.format(4))}
@@ -62,7 +62,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     const rows = Math.floor((window.innerHeight / this.state.fontSize) * 0.5);
     this.log(`Setting to ${rows} rows`);
     this.setState({ ...this.state, rows });
-  }
+  };
 
   private getButton(text: string, handler: () => void) {
     return (
@@ -89,7 +89,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     } catch (err) {
       this.log(err);
     }
-  }
+  };
 
   private change = (
     event: React.ChangeEvent<
@@ -97,7 +97,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     >
   ) => {
     this.setState({ ...this.state, value: event.target.value });
-  }
+  };
 }
 
 export default JSONFormatter;

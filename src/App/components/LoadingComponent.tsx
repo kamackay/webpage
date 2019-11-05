@@ -41,29 +41,18 @@ export default abstract class LoadingComponent<
   );
 
   public componentDidMount() {
-    const setState = this.setState.bind(this);
     const onLoad = this.onLoad.bind(this);
     const promises: Array<Promise<any>> =
       this.state.loadAfter! || new Array([Promise.resolve(null)]);
     Promise.all(promises).finally(() => {
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          setState({ ...this.state, loading: false });
-          onLoad();
-        }, this.getLoadTime());
-      });
-      const seconds = 1.5;
-      // If the page still hasn't rendered after this many seconds, just go ahead and try
-      setTimeout(() => {
-        setState({ ...this.state, loading: false });
-        onLoad();
-      }, seconds * 1000);
+      this.setState(p => ({ ...p, loading: false }));
+      onLoad();
     });
   }
 
-  public onLoad() {
+  public onLoad = () => {
     // NO-OP
-  }
+  };
 
   public abstract renderPostLoad(): JSX.Element;
 
@@ -84,6 +73,6 @@ export default abstract class LoadingComponent<
   }
 
   protected getLoadTime(): number {
-    return 500;
+    return 1;
   }
 }

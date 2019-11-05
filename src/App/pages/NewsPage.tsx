@@ -78,9 +78,13 @@ export default class NewsPage extends LoadingComponent<
               <Typography
                 variant="h4"
                 component="h4"
-                style={{ fontSize: "1.5rem", textTransform: "initial" }}
+                style={{
+                  fontSize: "1.5rem",
+                  textTransform: "initial",
+                  marginLeft: 4
+                }}
               >
-                {" - "}
+                {" "}
                 {updates} New
               </Typography>
             )}
@@ -109,6 +113,7 @@ export default class NewsPage extends LoadingComponent<
       }
     }
     return this.fetcher.getAll().then(result => {
+      console.log(`Finished Fetching News`);
       this.setState(
         p => ({ ...p, news: result, newsLoading: false, updates: 0 }),
         this.checkForUpdates

@@ -57,11 +57,11 @@ export default class RayTracer extends Page<IRayTracerProps, IRayTracerState> {
     this.state = { loading: true, nFactor: 15 };
   }
 
-  public onLoad(): void {
+  public onLoad = (): void => {
     this.get("./spheres.json", (data: Sphere[]) => {
       this.setState({ ...this.state, spheres: data }, this.draw);
     });
-  }
+  };
 
   public renderPostLoad(): JSX.Element {
     return (

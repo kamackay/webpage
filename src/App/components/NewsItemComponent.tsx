@@ -40,7 +40,7 @@ export default class NewsItemComponent extends KeithComponent<
       boxShadow: "rgb(119, 119, 119) 7px 4px 7px"
     },
     title: {
-      fontSize: 20
+      fontSize: 18
     },
     noselect: {
       userSelect: "none"
@@ -50,7 +50,7 @@ export default class NewsItemComponent extends KeithComponent<
   constructor(props: NewsItemProps) {
     super(props);
     this.state = {
-      expanded: props.news.importance === 0
+      expanded: props.news.indexInFeed === 0
     };
     this.styles.card.cursor = !!props.news.description ? "pointer" : "default";
   }
@@ -62,7 +62,8 @@ export default class NewsItemComponent extends KeithComponent<
       description,
       source,
       categories,
-      guid
+      guid,
+      "dc:creator": creator
     } = this.props.news;
     const { expanded } = this.state;
     const body =
@@ -80,7 +81,7 @@ export default class NewsItemComponent extends KeithComponent<
             {expanded ? <Expanded /> : <NotExpanded />}
           </span>
           <Typography
-            component="h1"
+            component="h2"
             gutterBottom={true}
             style={this.styles.title}
             className={classNames("noselect", "title")}
@@ -89,12 +90,8 @@ export default class NewsItemComponent extends KeithComponent<
               <OpenInNewRounded />
               {source.site}
             </IconButton>
-            - {title}
+            - {title} {creator ? <i>- {creator}</i> : null}
           </Typography>
-          {/* <this.html
-            className={classNames("description")}
-            content={expanded ? description : undefined}
-          /> */}
           <this.html
             className={classNames("body")}
             content={expanded ? body : undefined}
@@ -112,6 +109,12 @@ export default class NewsItemComponent extends KeithComponent<
                 size="medium"
                 content={category}
                 className={classNames("category")}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  // TODO
+                }}
                 key={`${guid}-category-${category}-${x}`}
               />
             ))}
@@ -123,7 +126,6 @@ export default class NewsItemComponent extends KeithComponent<
 
   private toggle = () =>
     this.setState(p => {
-      console.log(`Setting Expanded to ${!p.expanded}`);
       return { ...p, expanded: !p.expanded };
     });
 

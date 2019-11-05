@@ -50,6 +50,7 @@
     "react-spinners": "^0.5.4",
     "semantic-ui-react": "^0.87.2",
     "toastr": "^2.1.4",
+    "tslib": "^1.10.0",
     "typescript-optional": "^2.0.1"
   },
   "devDependencies": {

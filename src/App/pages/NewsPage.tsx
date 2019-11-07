@@ -1,5 +1,6 @@
 import { CircularProgress, Fab, Typography } from "@material-ui/core";
 import { Refresh } from "@material-ui/icons";
+import classNames from "classnames";
 import React from "react";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
@@ -11,15 +12,16 @@ interface NewsState extends LoadingState {
   news?: NewsItem[];
   updates?: number;
   newsLoading: boolean;
+  search: string;
 }
 
 export default class NewsPage extends LoadingComponent<
   LoadingProps,
   NewsState
 > {
-  private styles: Styles = {
-    header: { color: "white", fontSize: 35 }
-  };
+  // private styles: Styles = {
+  //   header: { color: "white", fontSize: 35 }
+  // };
   private updateInterval: NodeJS.Timeout;
   private fetcher = new NewsFetcher();
 
@@ -27,10 +29,12 @@ export default class NewsPage extends LoadingComponent<
     super(p);
     this.state = {
       loading: true,
+      faviconUrl: "images/news.png",
       newsLoading: true,
       loadAfter: [this.loadData(true)()],
       title: "News",
-      news: undefined
+      news: undefined,
+      search: ""
     };
   }
 
@@ -47,19 +51,23 @@ export default class NewsPage extends LoadingComponent<
     const { updates, news, newsLoading } = this.state;
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
-        <div id="page" className="container">
-          <Typography
-            component="h1"
-            style={this.styles.header}
-            color="textPrimary"
-          >
-            News
-          </Typography>
+        <div className={classNames("header")}>
+          <span className={classNames("header-title")}>News</span>
+          {/* <input
+            className={classNames("search")}
+            onChange={this.searchChange}
+          /> */}
+        </div>
 
+        <div id="page" className="container" style={{ marginTop: 45 }}>
           <div>
             {news
               ? news.map((item, x) => (
-                  <NewsItemComponent news={item} key={`news-${x}`} />
+                  <NewsItemComponent
+                    news={item}
+                    key={`news-${x}`}
+                    visible={true}
+                  />
                 ))
               : this.loadingElement}
           </div>
@@ -93,6 +101,11 @@ export default class NewsPage extends LoadingComponent<
       </div>
     );
   }
+
+  // private searchChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   event.persist();
+  //   this.setState(p => ({ ...p, search: event.target.value }));
+  // };
 
   private checkForUpdates = () => {
     if (!this.state.news) {

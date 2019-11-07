@@ -20,6 +20,7 @@ import KeithComponent from "./KeithComponent";
 
 interface NewsItemProps extends KeithProps {
   news: NewsItem;
+  visible: boolean;
 }
 
 interface NewsItemState extends KeithState {
@@ -63,8 +64,12 @@ export default class NewsItemComponent extends KeithComponent<
       source,
       categories,
       guid,
+      pubDate,
       "dc:creator": creator
     } = this.props.news;
+    if (!this.props.visible) {
+      return null;
+    }
     const { expanded } = this.state;
     const body =
       (description || "").length > (content || "").length
@@ -90,7 +95,17 @@ export default class NewsItemComponent extends KeithComponent<
               <OpenInNewRounded />
               {source.site}
             </IconButton>
-            - {title} {creator ? <i>- {creator}</i> : null}
+            - {title}
+          </Typography>
+          <Typography
+            component="h4"
+            gutterBottom={true}
+            style={{ ...this.styles.title, marginLeft: 10 }}
+            className={classNames("noselect", "secondary-header")}
+          >
+            {creator ? <i>{creator}</i> : null}
+            {"   - "}
+            <span style={{ fontSize: 15 }}>{this.getDate(pubDate)}</span>
           </Typography>
           <this.html
             className={classNames("body")}
@@ -122,6 +137,14 @@ export default class NewsItemComponent extends KeithComponent<
         ) : null}
       </Card>
     );
+  };
+
+  private getDate = (date: string): string => {
+    try {
+      return new Date(Date.parse(date)).toLocaleString();
+    } catch (err) {
+      return "";
+    }
   };
 
   private toggle = () =>

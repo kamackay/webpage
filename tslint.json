@@ -6,6 +6,8 @@
     "interface-name": false,
     "no-console": false,
     "array-type": false,
+    "no-unused-expression": false,
+    "no-unused-variable": false,
     "ordered-imports": false
   },
   "linterOptions": {

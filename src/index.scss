@@ -30,4 +30,33 @@ body {
       }
     }
   }
+
+  .header {
+    height: 35px;
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    z-index: 9999999;
+    background-color: #222;
+    padding-left: 4vw;
+    padding-right: 4vw;
+
+    * {
+      color: white;
+    }
+
+    .search {
+      display: inline-block;
+      width: 45%;
+      background-color: transparent;
+      font-size: large;
+      border-radius: 5px;
+      margin-left: 6px;
+    }
+
+    .header-title {
+      display: inline-block;
+      font-size: x-large;
+    }
+  }
 }

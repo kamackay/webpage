@@ -5,12 +5,12 @@ import FourOhFourPage from "./App/pages/404";
 import D3Page from "./App/pages/D3Page";
 import Home from "./App/pages/Home";
 import JSONFormatter from "./App/pages/JSONFormatter";
+import NewsPage from './App/pages/NewsPage';
 import QRPage from "./App/pages/QRPage";
 import RayTracer from "./App/pages/RayTracer";
 import Resume from "./App/pages/Resume";
 import WindowsUpdate from "./App/pages/WindowsUpdate";
 import Tracker from "./utils/Tracker";
-import NewsPage from './App/pages/NewsPage';
 
 export default class App extends React.Component {
   public render() {
@@ -29,6 +29,7 @@ export default class App extends React.Component {
             }}
           />
           <Route path="/home" component={Home} />
+          <Route path="/index.html" component={Home} />
           <Route path="/resume" component={Resume} />
           <Route path="/json" component={JSONFormatter} />
           <Route path="/d3" component={D3Page} />

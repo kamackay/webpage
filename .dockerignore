@@ -2,3 +2,7 @@ node_modules/
 .vscode/
 .git/
 .gitignore
+Dockerfile
+heroku.yml
+*.md
+docker-compose.yml

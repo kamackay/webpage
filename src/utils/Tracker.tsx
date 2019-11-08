@@ -9,7 +9,7 @@ export default class Tracker {
             feature: data.feature,
             data: data.data,
             userAgent: navigator.userAgent,
-            location: !!location ? { ...location.coords } : undefined
+            // location: !!location ? { ...location.coords } : undefined
           })
         });
       });

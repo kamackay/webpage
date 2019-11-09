@@ -9,11 +9,12 @@ export default class NewsFetcher {
         .get(`${this.rootUrl}/ids/`)
         .then(r => r.data)
         .then((data: string[]) => {
-          Promise.all(data.map(this.getId)).then(result => {
-            resolve(result
-              .filter(item => !!item)
-              .sort(this.sortItems) as NewsItem[]);
-          });
+          axios
+            .post(`${this.rootUrl}/ids`, { ids: data })
+            .then(r => r.data)
+            .then((body: NewsItem[]) => {
+              resolve(body);
+            });
         });
     });
 

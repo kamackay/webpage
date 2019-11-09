@@ -51,7 +51,8 @@ export default class NewsPage extends LoadingComponent<
   }
 
   public renderPostLoad() {
-    const { updates, news, newsLoading } = this.state;
+    const { updates, news: fullNews, newsLoading } = this.state;
+    const news = !!fullNews ? fullNews.slice(0, 100) : [];
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
@@ -80,7 +81,7 @@ export default class NewsPage extends LoadingComponent<
             variant="extended"
             aria-label="refresh"
             color="primary"
-            onClick={this.loadData(false)}
+            onClick={newsLoading ? undefined : this.refresh}
             style={{ float: "right" }}
           >
             {!newsLoading && !!news && <Refresh />}
@@ -118,6 +119,31 @@ export default class NewsPage extends LoadingComponent<
     this.fetcher.checkForNew(maxTime).then(count => {
       this.setState(p => ({ ...p, updates: count }));
     });
+  };
+
+  private refresh = () => {
+    this.setState(
+      p => ({ ...p, newsLoading: true }),
+      () => {
+        if (this.state.news) {
+          this.fetcher
+            .loadAfter(Math.max(...this.state.news.map(item => item.time)))
+            .then(newItems =>
+              this.setState(p => {
+                const items = [...(p.news || [])]
+                  .concat(newItems)
+                  .sort(this.fetcher.sortItems);
+                return {
+                  ...p,
+                  news: items,
+                  newsLoading: false,
+                  updates: 0
+                };
+              })
+            );
+        }
+      }
+    );
   };
 
   private loadData = (clearFirst?: boolean) => () => {

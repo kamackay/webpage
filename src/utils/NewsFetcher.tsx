@@ -17,12 +17,22 @@ export default class NewsFetcher {
         });
     });
 
+  public loadAfter = (time: number): Promise<NewsItem[]> =>
+    new Promise(resolve => {
+      axios
+        .get(`${this.rootUrl}/after/${time}`)
+        .then(r => r.data)
+        .then((data: NewsItem[]) => resolve(data))
+        .catch(() => resolve([]));
+    });
+
   public getId = (id: string): Promise<NewsItem | null> =>
     new Promise(resolve => {
       const storageId = `news-item-${id}`;
       const fromStorage = localStorage.getItem(storageId);
-      if (!!fromStorage) {
-        resolve(JSON.parse(fromStorage) as NewsItem);
+      if (!!fromStorage && false) {
+        // console.log(`Pulling ${id} from localstorage`);
+        // resolve(JSON.parse(fromStorage) as NewsItem);
       } else {
         axios
           .get(`${this.rootUrl}/id/${id}`)
@@ -45,7 +55,7 @@ export default class NewsFetcher {
         .catch(() => resolve(0));
     });
 
-  private sortItems = (i1: NewsItem, i2: NewsItem): number => {
+  public sortItems = (i1: NewsItem, i2: NewsItem): number => {
     if (i1.indexInFeed === i2.indexInFeed) {
       return i2.time - i1.time;
     }

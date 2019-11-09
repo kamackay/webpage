@@ -1,5 +1,11 @@
 [
   {
+    "name": "News Aggregator",
+    "subheader": "Page to show recent news aggregated from many RSS feeds",
+    "url": "./news",
+    "img": "images/news.png"
+  },
+  {
     "name": "Resume",
     "subheader": "Webpage of my skills and experience",
     "url": "./resume",

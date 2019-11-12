@@ -3,7 +3,8 @@ FROM alpine:latest AS builder
 WORKDIR /root
 
 RUN apk upgrade --update --no-cache && \
-    apk add --no-cache yarn nodejs
+    apk add --no-cache yarn nodejs && \
+    yarn global add serve
 
 ADD ./package.json .
 
@@ -20,6 +21,8 @@ RUN yarn build && \
     rm -rf src && \
     rm -rf node_modules && \
     rm -rf public
+
+# CMD serve -s build/
 
 FROM kamackay/nginx
 

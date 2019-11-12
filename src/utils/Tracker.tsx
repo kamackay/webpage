@@ -8,8 +8,7 @@ export default class Tracker {
             url: window.location.href,
             feature: data.feature,
             data: data.data,
-            userAgent: navigator.userAgent,
-            // location: !!location ? { ...location.coords } : undefined
+            userAgent: navigator.userAgent
           })
         });
       });

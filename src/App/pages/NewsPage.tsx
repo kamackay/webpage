@@ -61,6 +61,7 @@ export default class NewsPage extends LoadingComponent<
             className={classNames("search")}
             onChange={this.searchChange}
           /> */}
+          <span style={{ float: "right" }}>{news.length} Articles</span>
         </div>
 
         <div id="page" className="container" style={{ marginTop: 45 }}>

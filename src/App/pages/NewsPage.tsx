@@ -62,7 +62,7 @@ export default class NewsPage extends LoadingComponent<
             onChange={this.searchChange}
           /> */}
           <span style={{ float: "right", fontSize: 15 }}>
-            {news.length} Articles
+            {(fullNews || []).length} Articles
           </span>
         </div>
 

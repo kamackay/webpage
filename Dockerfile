@@ -3,8 +3,7 @@ FROM alpine:latest AS builder
 WORKDIR /root
 
 RUN apk upgrade --update --no-cache && \
-    apk add --no-cache yarn nodejs && \
-    yarn global add serve
+    apk add --no-cache yarn nodejs
 
 ADD ./package.json .
 

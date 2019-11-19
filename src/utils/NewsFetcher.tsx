@@ -13,7 +13,7 @@ export default class NewsFetcher {
             .post(`${this.rootUrl}/ids`, { ids: data })
             .then(r => r.data)
             .then((body: NewsItem[]) => {
-              resolve(body);
+              resolve(body.sort(this.sortItems));
             });
         });
     });
@@ -50,9 +50,9 @@ export default class NewsFetcher {
   public checkForNew = (time: number): Promise<number> =>
     new Promise(resolve => {
       axios
-        .get(`${this.rootUrl}/after/${time}`)
+        .get(`${this.rootUrl}/ids_after/${time}`)
         .then(r => r.data)
-        .then((data: NewsItem[]) => resolve(data.length))
+        .then((data: string[]) => resolve(data.length))
         .catch(() => resolve(0));
     });
 

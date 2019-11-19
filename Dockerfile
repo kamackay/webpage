@@ -21,8 +21,6 @@ RUN yarn build && \
     rm -rf node_modules && \
     rm -rf public
 
-# CMD serve -s build/
-
 FROM kamackay/nginx
 
 COPY --from=builder /root/build /www/

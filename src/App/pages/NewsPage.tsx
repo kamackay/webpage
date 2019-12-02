@@ -32,13 +32,10 @@ export default class NewsPage extends LoadingComponent<
       newsLoading: true,
       loadAfter: [this.loadData(true)()],
       news: undefined,
-      search: ""
-    };
-    this.setState(prev => ({
-      ...prev,
+      search: "",
       faviconUrl: "images/news.png",
       title: "News"
-    }));
+    };
   }
 
   public componentDidMount() {

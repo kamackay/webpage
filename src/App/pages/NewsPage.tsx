@@ -1,5 +1,5 @@
-import { CircularProgress, Fab, Typography } from "@material-ui/core";
-import { Refresh } from "@material-ui/icons";
+import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
+import { CloseRounded, Refresh } from "@material-ui/icons";
 import classNames from "classnames";
 import React from "react";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
@@ -13,6 +13,7 @@ interface NewsState extends LoadingState {
   updates?: number;
   newsLoading: boolean;
   search: string;
+  categoryFilter?: string;
 }
 
 export default class NewsPage extends LoadingComponent<
@@ -48,19 +49,38 @@ export default class NewsPage extends LoadingComponent<
   }
 
   public renderPostLoad() {
-    const { updates, news: fullNews, newsLoading } = this.state;
-    const news = !!fullNews ? fullNews.slice(0, 100) : [];
+    const { updates, news: fullNews, newsLoading, categoryFilter } = this.state;
+    const news = !!fullNews
+      ? fullNews
+          .filter(
+            item =>
+              !categoryFilter ||
+              item.categories
+                .map(s => s.toLowerCase())
+                .includes(categoryFilter.toLowerCase())
+          )
+          .slice(0, 100)
+      : [];
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
           <span className={classNames("header-title")}>News</span>
-          {/* <input
-            className={classNames("search")}
-            onChange={this.searchChange}
-          /> */}
-          <span style={{ float: "right", fontSize: 15 }}>
-            {(fullNews || []).length} Articles
-          </span>
+          <div style={{ float: "right" }}>
+            {categoryFilter && (
+              <Button
+                variant="contained"
+                style={{ fontSize: 12, marginRight: 5 }}
+                color="default"
+                endIcon={<CloseRounded />}
+                onClick={() => this.categoryClick(undefined)}
+              >
+                Category: {categoryFilter}
+              </Button>
+            )}
+            <span style={{ fontSize: 15 }}>
+              {(fullNews || []).length} Articles
+            </span>
+          </div>
         </div>
 
         <div id="page" className="container" style={{ marginTop: 45 }}>
@@ -71,6 +91,7 @@ export default class NewsPage extends LoadingComponent<
                     news={item}
                     key={`news-${x}`}
                     visible={true}
+                    categoryClick={this.categoryClick}
                   />
                 ))
               : this.loadingElement}
@@ -105,6 +126,10 @@ export default class NewsPage extends LoadingComponent<
       </div>
     );
   }
+
+  private categoryClick = (s?: string): void => {
+    this.setState(prev => ({ ...prev, categoryFilter: s }));
+  };
 
   // private searchChange = (event: ChangeEvent<HTMLInputElement>) => {
   //   event.persist();

@@ -21,6 +21,7 @@ import KeithComponent from "./KeithComponent";
 interface NewsItemProps extends KeithProps {
   news: NewsItem;
   visible: boolean;
+  categoryClick: (s: string) => void;
 }
 
 interface NewsItemState extends KeithState {
@@ -127,8 +128,7 @@ export default class NewsItemComponent extends KeithComponent<
                 onClick={e => {
                   e.preventDefault();
                   e.stopPropagation();
-
-                  // TODO
+                  this.props.categoryClick(category);
                 }}
                 key={`${guid}-category-${category}-${x}`}
               />

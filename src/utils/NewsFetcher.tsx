@@ -6,15 +6,10 @@ export default class NewsFetcher {
   public getAll = (): Promise<NewsItem[]> =>
     new Promise(resolve => {
       axios
-        .get(`${this.rootUrl}/ids/`)
+        .get(`${this.rootUrl}/`)
         .then(r => r.data)
-        .then((data: string[]) => {
-          axios
-            .post(`${this.rootUrl}/ids`, { ids: data })
-            .then(r => r.data)
-            .then((body: NewsItem[]) => {
-              resolve(body.sort(this.sortItems));
-            });
+        .then((body: NewsItem[]) => {
+          resolve(body.sort(this.sortItems));
         });
     });
 

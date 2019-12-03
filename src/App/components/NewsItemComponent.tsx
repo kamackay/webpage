@@ -65,6 +65,7 @@ export default class NewsItemComponent extends KeithComponent<
       source,
       categories,
       guid,
+      link,
       pubDate,
       "dc:creator": creator
     } = this.props.news;
@@ -72,6 +73,7 @@ export default class NewsItemComponent extends KeithComponent<
       return null;
     }
     const { expanded } = this.state;
+    const safeLink = link.toLowerCase().startsWith("http:");
     const body =
       (description || "").length > (content || "").length
         ? description
@@ -92,10 +94,19 @@ export default class NewsItemComponent extends KeithComponent<
             style={this.styles.title}
             className={classNames("noselect", "title")}
           >
-            <IconButton onClick={this.open} color="primary">
-              <OpenInNewRounded />
-              {source.site}
-            </IconButton>
+            {" "}
+            <a href={link} target="_blank">
+              <span
+                style={{
+                  color: safeLink ? "red" : "blue"
+                }}
+              >
+                <IconButton color="primary">
+                  <OpenInNewRounded />
+                  {source.site}
+                </IconButton>
+              </span>
+            </a>
             - {title}
           </Typography>
           <Typography
@@ -151,8 +162,6 @@ export default class NewsItemComponent extends KeithComponent<
     this.setState(p => {
       return { ...p, expanded: !p.expanded };
     });
-
-  private open = () => window.open(this.props.news.link, "_blank");
 
   private html = (p: { content?: string; className?: string }) => {
     const { content, className } = p;

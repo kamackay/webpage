@@ -50,17 +50,7 @@ export default class NewsPage extends LoadingComponent<
 
   public renderPostLoad() {
     const { updates, news: fullNews, newsLoading, categoryFilter } = this.state;
-    const news = !!fullNews
-      ? fullNews
-          .filter(
-            item =>
-              !categoryFilter ||
-              item.categories
-                .map(s => s.toLowerCase())
-                .includes(categoryFilter.toLowerCase())
-          )
-          .slice(0, 100)
-      : [];
+    const news = !!fullNews ? fullNews.slice(0, 100) : [];
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
@@ -90,7 +80,12 @@ export default class NewsPage extends LoadingComponent<
                   <NewsItemComponent
                     news={item}
                     key={`news-${x}`}
-                    visible={true}
+                    visible={
+                      !categoryFilter ||
+                      item.categories
+                        .map(s => s.toLowerCase())
+                        .includes(categoryFilter.toLowerCase())
+                    }
                     categoryClick={this.categoryClick}
                   />
                 ))

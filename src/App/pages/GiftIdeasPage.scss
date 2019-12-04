@@ -1,0 +1,25 @@
+#root {
+  .paper {
+    padding: 5px;
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 50px;
+    .ideas-list {
+      padding-top: 20px;
+      * {
+        font-size: 2rem;
+      }
+      .idea {
+        font-family: sans-serif;
+
+        &.claimed {
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    .gift-header {
+      margin-top: 10px;
+    }
+  }
+}

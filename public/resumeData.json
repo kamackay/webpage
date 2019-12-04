@@ -100,7 +100,7 @@
         "title": "Software Engineer",
         "years": "April 2019 - Present",
         "img": "images/cisco.svg",
-        "description": "Working on Dockerized webapps for internal development tools. Supplying several different Applications as a Service to other teams"
+        "description": "Working on Dockerized webapps in a Kubernetes environment for internal development tools. Supplying several different Applications as a Service to other teams, such as DNS, Binary Storage (Artifactory), and Source Control Management"
       }
     ],
     "skills": [

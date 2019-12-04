@@ -10,3 +10,16 @@ export const downloadBlob = (url: string) =>
           reader.readAsDataURL(blob);
         })
     );
+
+export const randomInt = (low: number, high: number): number =>
+  Math.floor(Math.random() * (high - low + 1) + low);
+
+export function remove<T>(list: T[], item: T): T[] {
+  const tempList = [...list];
+  for (let i = 0; i < tempList.length; i++) {
+    if (tempList[i] === item) {
+      tempList.splice(i, 1);
+    }
+  }
+  return tempList;
+}

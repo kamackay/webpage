@@ -3,6 +3,7 @@ import * as Scroll from "react-scroll";
 import { getArticleFor } from "src/lib/IndefiniteArticle";
 import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
 import KeithComponent from "../KeithComponent";
+import TypingComponent from "../TypingComponent";
 
 export default class Header extends KeithComponent<
   HeaderProps,
@@ -123,6 +124,24 @@ export default class Header extends KeithComponent<
             <h3>
               I'm {getArticleFor(address.city)} {address.city}, {address.state}{" "}
               based <span>{occupation}</span>. {description}.
+            </h3>
+            <h3>
+              Skilled with
+              <span style={{ display: "inline-block" }}>
+                <TypingComponent
+                  items={[
+                    "Docker",
+                    "Kubernetes",
+                    "Java",
+                    "Javascript",
+                    "Typescript",
+                    "Python"
+                  ]}
+                  font={`18px/1.9em "librebaskerville-regular", serif`}
+                  color={`rgb(209, 207, 207)`}
+                  delay={4}
+                />
+              </span>
             </h3>
             <hr />
             <ul className="social">{networks}</ul>

@@ -6,13 +6,14 @@ import { HeaderData } from "src/model/resume/HeaderModel";
 import { ResumeCompData } from "src/model/resume/ResumeCompModel";
 import ResumeData from "src/model/resume/ResumeData";
 import ResumeState from "src/model/resume/ResumeState";
+import { downloadBlob } from "src/utils";
+import { Optional } from "typescript-optional";
 import "../../bootstrap.min.css";
 import About from "../components/resume/About";
 import Footer from "../components/resume/Footer";
 import Header from "../components/resume/Header";
 import ResumeComponent from "../components/resume/ResumeComponent";
 import Page from "./Page";
-import { downloadBlob } from "src/utils";
 
 export default class Resume extends Page<any, ResumeState> {
   // Initialize the state
@@ -61,7 +62,16 @@ export default class Resume extends Page<any, ResumeState> {
     return r ? (
       <div className="App">
         <Element name="home" />
-        <Header data={r.main as HeaderData} background={this.state.headerBg} />
+        <Header
+          data={{
+            ...(r.main as HeaderData),
+            skillNames: Optional.ofNullable(r.resume)
+              .map(d => d.skills)
+              .map(d => d.map(skill => skill.name))
+              .orElse([""])
+          }}
+          background={this.state.headerBg}
+        />
         <About data={r.main as AboutData} />
         <ResumeComponent data={r.resume as ResumeCompData} />
         {/* <Portfolio data={r.portfolio as PortfolioData} /> */}

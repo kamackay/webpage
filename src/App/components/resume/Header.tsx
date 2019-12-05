@@ -125,18 +125,11 @@ export default class Header extends KeithComponent<
               I'm {getArticleFor(address.city)} {address.city}, {address.state}{" "}
               based <span>{occupation}</span>. {description}.
             </h3>
-            <h3>
+            <h3 style={{ marginTop: 2 }}>
               Skilled with
               <span style={{ display: "inline-block" }}>
                 <TypingComponent
-                  items={[
-                    "Docker",
-                    "Kubernetes",
-                    "Java",
-                    "Javascript",
-                    "Typescript",
-                    "Python"
-                  ]}
+                  items={this.props.data.skillNames}
                   font={`18px/1.9em "librebaskerville-regular", serif`}
                   color={`rgb(209, 207, 207)`}
                   delay={4}

@@ -1,7 +1,7 @@
-import KeithState from "../KeithState";
-import KeithProps from "../KeithProps";
-import Social from "./Social";
 import Address from "../Address";
+import KeithProps from "../KeithProps";
+import KeithState from "../KeithState";
+import Social from "./Social";
 
 export class HeaderProps extends KeithProps {
   data: HeaderData;
@@ -14,6 +14,7 @@ export class HeaderData {
   description: string;
   address: Address;
   social: Social[];
+  skillNames: string[];
 }
 
 export class HeaderState extends KeithState {

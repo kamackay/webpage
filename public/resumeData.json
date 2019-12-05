@@ -7,7 +7,7 @@
     "bio": "I am a dedicated developer with a passion for learning new things. I have taught myself most of the technologies that I know, just because I really enjoy learning new ways to do things. In my spare time, I like to explore all of the amazing breweries, restaurants, and food trucks in Durham with my girlfriend and our dog, Pepper",
     "contactmessage": "Please feel free to contact me with any projects or offers via email, or through this contact form",
     "email": "keith@keithmackay.com",
-    "phone": "704-699-9713",
+    "phone": "",
     "address": {
       "city": "Durham",
       "state": "NC"
@@ -25,11 +25,6 @@
         "className": "fa fa-linkedin"
       },
       {
-        "name": "instagram",
-        "url": "https://www.instagram.com/mackaykeith/",
-        "className": "fa fa-instagram"
-      },
-      {
         "name": "github",
         "url": "http://github.com/kamackay",
         "className": "fa fa-github"
@@ -43,6 +38,11 @@
         "name": "Gitlab",
         "url": "https://gitlab.com/kamackay",
         "className": "fab fa-gitlab"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com/mackaykeith/",
+        "className": "fa fa-instagram"
       }
     ]
   },
@@ -104,21 +104,22 @@
       }
     ],
     "skills": [
-      { "name": "JavaScript", "level": 90, "img": "images/js.jpg" },
+      { "name": "JavaScript", "level": 90, "img": "images/js.svg" },
       { "name": "TypeScript", "level": 90, "img": "images/ts.png" },
-      { "name": "Java", "level": 90, "img": "images/java.png" },
+      { "name": "Java", "level": 90, "img": "images/java.svg" },
       { "name": "Kotlin", "level": 90, "img": "images/kotlin.png" },
       { "name": "Python", "level": 70, "img": "images/python.png" },
       { "name": "C# / .NET", "level": 50, "img": "images/csharp.png" },
       { "name": "React", "level": 65, "img": "images/react.png" },
       { "name": "Android", "level": 60, "img": "images/android.png" },
+      { "name": "Go", "level": 60, "img": "images/golang.svg" },
       { "name": "CSS", "level": 75, "img": "images/css.png" },
       { "name": "Docker", "level": 85, "img": "images/docker.png" },
       { "name": "Kubernetes", "level": 65, "img": "images/k8s.svg" },
       { "name": "Git", "level": 80, "img": "images/git.png" },
       { "name": "MongoDB", "level": 75, "img": "images/mongodb.png" },
       {
-        "name": "SQL (Oracle / MySQL / PostgreSQL)",
+        "name": "SQL",
         "level": 65,
         "img": "images/sql.png"
       }

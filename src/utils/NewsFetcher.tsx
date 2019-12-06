@@ -6,7 +6,7 @@ export default class NewsFetcher {
   public getAll = (): Promise<NewsItem[]> =>
     new Promise(resolve => {
       axios
-        .get(`${this.rootUrl}/`)
+        .get(`https://api.keithmackay.com/go/news`)
         .then(r => r.data)
         .then((body: NewsItem[]) => {
           resolve(body.sort(this.sortItems));

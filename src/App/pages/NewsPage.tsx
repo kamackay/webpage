@@ -1,12 +1,19 @@
 import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
-import { CloseRounded, Refresh } from "@material-ui/icons";
 import classNames from "classnames";
 import React from "react";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
-import NewsItemComponent from "../components/NewsItemComponent";
 import "./QRPage.css";
+import asyncComponent from "../components/asyncComponent";
+
+const NewsItemComponent = asyncComponent(() =>
+  import("../components/NewsItemComponent")
+);
+const CloseRounded = asyncComponent(() =>
+  import("@material-ui/icons/CloseRounded")
+);
+const Refresh = asyncComponent(() => import("@material-ui/icons/Refresh"));
 
 interface NewsState extends LoadingState {
   news?: NewsItem[];

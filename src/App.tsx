@@ -2,24 +2,19 @@ import * as React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import asyncComponent from "./App/components/asyncComponent";
-import FourOhFourPage from "./App/pages/404";
-import D3Page from "./App/pages/D3Page";
-import GiftIdeaPage from "./App/pages/GiftIdeasPage";
-import Home from "./App/pages/Home";
-import JSONFormatter from "./App/pages/JSONFormatter";
-import NewsPage from "./App/pages/NewsPage";
-import QRPage from "./App/pages/QRPage";
 import RayTracer from "./App/pages/RayTracer";
-import Resume from "./App/pages/Resume";
 import WindowsUpdate from "./App/pages/WindowsUpdate";
 import Tracker from "./utils/Tracker";
 
-// const AsyncNewsPage = asyncComponent(() => import("./App/pages/NewsPage"));
-// const AsyncResumePage = asyncComponent(() => import("./App/pages/Resume"));
-// const AsyncJsonPage = asyncComponent(() => import("./App/pages/JSONFormatter"));
-// const AsyncQrPage = asyncComponent(() => import("./App/pages/QRPage"));
-// const AsyncGiftPage = asyncComponent(() => import("./App/pages/GiftIdeasPage"));
+const JsonPage = asyncComponent(() => import("./App/pages/JSONFormatter"));
+const GiftPage = asyncComponent(() => import("./App/pages/GiftIdeasPage"));
+const FourOhFourPage = asyncComponent(() => import("./App/pages/404"));
+const NewsPage = asyncComponent(() => import("./App/pages/NewsPage"));
 const TestPage = asyncComponent(() => import("./App/pages/TestPage"));
+const Resume = asyncComponent(() => import("./App/pages/Resume"));
+const QrPage = asyncComponent(() => import("./App/pages/QRPage"));
+const D3Page = asyncComponent(() => import("./App/pages/D3Page"));
+const Home = asyncComponent(() => import("./App/pages/Home"));
 
 export default class App extends React.Component {
   public render() {
@@ -34,17 +29,17 @@ export default class App extends React.Component {
                 feature: "SplashPage",
                 data: { description: "User went to splash page" }
               });
-              return <Redirect to="/resume" />;
+              return <Redirect to="/home" />;
             }}
           />
           <Route path="/home" component={Home} />
           <Route path="/index.html" component={Home} />
           <Route path="/resume" component={Resume} />
-          <Route path="/json" component={JSONFormatter} />
+          <Route path="/json" component={JsonPage} />
           <Route path="/d3" component={D3Page} />
-          <Route path="/qr" component={QRPage} />
+          <Route path="/qr" component={QrPage} />
           <Route path="/news" component={NewsPage} />
-          <Route path="/gift-ideas" component={GiftIdeaPage} />
+          <Route path="/gift-ideas" component={GiftPage} />
           <Route path="/rayTracer" component={RayTracer} />
           <Route path="/update/windows" component={WindowsUpdate} />
           <Route path="/test" component={TestPage} />

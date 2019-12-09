@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export default class NewsFetcher {
-  private rootUrl = `https://api.keithmackay.com/news`;
+  private rootUrl = `https://api.keithmackay.com/go/news`;
 
   public getAll = (): Promise<NewsItem[]> =>
     new Promise(resolve => {
       axios
-        .get(`https://api.keithmackay.com/go/news`)
+        .get(`${this.rootUrl}`)
         .then(r => r.data)
         .then((body: NewsItem[]) => {
           resolve(body.sort(this.sortItems));

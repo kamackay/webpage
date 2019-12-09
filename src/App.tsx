@@ -7,7 +7,7 @@ import WindowsUpdate from "./App/pages/WindowsUpdate";
 import Tracker from "./utils/Tracker";
 
 const JsonPage = asyncComponent(() => import("./App/pages/JSONFormatter"));
-const GiftPage = asyncComponent(() => import("./App/pages/GiftIdeasPage"));
+const GiftIdeaPage = asyncComponent(() => import("./App/pages/GiftIdeasPage"));
 const FourOhFourPage = asyncComponent(() => import("./App/pages/404"));
 const NewsPage = asyncComponent(() => import("./App/pages/NewsPage"));
 const TestPage = asyncComponent(() => import("./App/pages/TestPage"));
@@ -39,7 +39,7 @@ export default class App extends React.Component {
           <Route path="/d3" component={D3Page} />
           <Route path="/qr" component={QrPage} />
           <Route path="/news" component={NewsPage} />
-          <Route path="/gift-ideas" component={GiftPage} />
+          <Route path="/gift-ideas" component={GiftIdeaPage} />
           <Route path="/rayTracer" component={RayTracer} />
           <Route path="/update/windows" component={WindowsUpdate} />
           <Route path="/test" component={TestPage} />

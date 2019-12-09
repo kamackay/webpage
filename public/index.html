@@ -1,76 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" style="height:100vh">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="keywords"
+      content="Keith MacKay, react, resume, javascript, kubernetes, typescript, developer, docker, code, json, qr"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#111" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/default.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/bootstrap.min.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/layout.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/media-queries.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/magnific-popup.css" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="keywords"
-    content="Keith MacKay, react, resume, javascript, kubernetes, typescript, developer, docker, code, json, qr" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#111" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/css/default.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/css/layout.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/css/media-queries.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/css/magnific-popup.css" />
+    <title>Home - Keith MacKay</title>
 
-  <title>Home - Keith MacKay</title>
-
-  <style>
-    .lds-dual-ring {
-      display: inline-block;
-      width: 64px;
-      height: 64px;
-    }
-
-    .lds-dual-ring:after {
-      content: " ";
-      display: block;
-      width: 46px;
-      height: 46px;
-      margin: 1px;
-      border-radius: 50%;
-      border: 5px solid #fff;
-      border-color: #fff transparent #fff transparent;
-      animation: lds-dual-ring 1.2s linear infinite;
-    }
-
-    @keyframes lds-dual-ring {
-      0% {
-        transform: rotate(0deg);
+    <style>
+      .lds-dual-ring {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
       }
 
-      100% {
-        transform: rotate(360deg);
+      .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
       }
-    }
-  </style>
-</head>
 
-<body style="height:100vh">
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <div id="root" class="ui transparent">
-  </div>
-  <div id="static-loading" style="width:100vw;text-align:center;padding-top:10vh;">
-    <div class="lds-dual-ring"></div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
-    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-  <script>
-    window.jQuery ||
-      document.write('<script src="js/jquery-1.10.2.min.js"><\/script>');
-  </script>
-  <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+      @keyframes lds-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
 
-  <script src="js/jquery.flexslider.js"></script>
-  <script src="js/waypoints.js"></script>
-  <script src="js/jquery.fittext.js"></script>
-  <script src="js/magnific-popup.js"></script>
-  <script src="js/init.js"></script>
-</body>
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
 
+  <body style="height:100vh">
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" class="ui transparent"></div>
+    <div
+      id="static-loading"
+      style="width:100vw;text-align:center;padding-top:10vh;"
+    >
+      <div class="lds-dual-ring"></div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.jQuery ||
+        document.write('<script src="js/jquery-1.10.2.min.js"><\/script>');
+    </script>
+    <script
+      type="text/javascript"
+      src="js/jquery-migrate-1.2.1.min.js"
+    ></script>
+
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/waypoints.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/magnific-popup.js"></script>
+    <script src="js/init.js"></script>
+  </body>
 </html>

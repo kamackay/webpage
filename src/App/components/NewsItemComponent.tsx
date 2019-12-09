@@ -22,6 +22,7 @@ interface NewsItemProps extends KeithProps {
   news: NewsItem;
   visible: boolean;
   categoryClick: (s: string) => void;
+  index: number;
 }
 
 interface NewsItemState extends KeithState {
@@ -52,7 +53,7 @@ export default class NewsItemComponent extends KeithComponent<
   constructor(props: NewsItemProps) {
     super(props);
     this.state = {
-      expanded: props.news.indexInFeed === 0
+      expanded: props.index < 100 // && props.news.indexInFeed === 0
     };
     this.styles.card.cursor = !!props.news.description ? "pointer" : "default";
   }

@@ -4,16 +4,12 @@ import React from "react";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
-import "./QRPage.css";
-import asyncComponent from "../components/asyncComponent";
+import NewsItemComponent from "../components/NewsItemComponent";
+import { CloseRounded, Refresh } from "@material-ui/icons";
 
-const NewsItemComponent = asyncComponent(() =>
-  import("../components/NewsItemComponent")
-);
-const CloseRounded = asyncComponent(() =>
-  import("@material-ui/icons/CloseRounded")
-);
-const Refresh = asyncComponent(() => import("@material-ui/icons/Refresh"));
+// const NewsItemComponent = asyncComponent(() => import("../components/NewsItemComponent"));
+// const CloseRounded = asyncComponent(() => import("@material-ui/icons/CloseRounded"));
+// const Refresh = asyncComponent(() => import("@material-ui/icons/Refresh"));
 
 interface NewsState extends LoadingState {
   news?: NewsItem[];
@@ -87,6 +83,7 @@ export default class NewsPage extends LoadingComponent<
                   <NewsItemComponent
                     news={item}
                     key={`news-${x}`}
+                    index={x}
                     visible={
                       !categoryFilter ||
                       item.categories
@@ -116,7 +113,8 @@ export default class NewsPage extends LoadingComponent<
                 style={{
                   fontSize: "1.5rem",
                   textTransform: "initial",
-                  marginLeft: 4
+                  marginLeft: 4,
+                  color: "white"
                 }}
               >
                 {" "}

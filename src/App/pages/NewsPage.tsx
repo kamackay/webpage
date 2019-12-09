@@ -3,9 +3,9 @@ import classNames from "classnames";
 import React from "react";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
+import asyncComponent from "../components/asyncComponent";
 import LoadingComponent from "../components/LoadingComponent";
 import "./QRPage.css";
-import asyncComponent from "../components/asyncComponent";
 
 const NewsItemComponent = asyncComponent(() =>
   import("../components/NewsItemComponent")
@@ -116,7 +116,8 @@ export default class NewsPage extends LoadingComponent<
                 style={{
                   fontSize: "1.5rem",
                   textTransform: "initial",
-                  marginLeft: 4
+                  marginLeft: 4,
+                  color: "white"
                 }}
               >
                 {" "}

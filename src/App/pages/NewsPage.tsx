@@ -45,10 +45,12 @@ export default class NewsPage extends LoadingComponent<
   public componentDidMount() {
     super.componentDidMount();
     this.updateInterval = setInterval(this.checkForUpdates, 1000 * 60);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   public componentWillUnmount() {
     clearInterval(this.updateInterval);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   public renderPostLoad() {
@@ -127,14 +129,21 @@ export default class NewsPage extends LoadingComponent<
     );
   }
 
+  private handleKeyDown = (event: KeyboardEvent) => {
+    switch (event.which) {
+      case 82:
+        if (event.metaKey || event.ctrlKey) {
+          event.preventDefault();
+          event.stopPropagation();
+          this.refresh();
+        }
+        return;
+    }
+  };
+
   private categoryClick = (s?: string): void => {
     this.setState(prev => ({ ...prev, categoryFilter: s }));
   };
-
-  // private searchChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   event.persist();
-  //   this.setState(p => ({ ...p, search: event.target.value }));
-  // };
 
   private checkForUpdates = () => {
     if (!this.state.news) {

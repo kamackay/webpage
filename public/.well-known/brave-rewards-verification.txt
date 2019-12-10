@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: keithmackay.com
+Token: d3f2d0e79296587ae181ee453f2a4c57c1e390416e8eea261cd2574b3063472d

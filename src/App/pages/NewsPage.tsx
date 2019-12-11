@@ -1,11 +1,12 @@
 import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
+import { CloseRounded, Refresh } from "@material-ui/icons";
 import classNames from "classnames";
 import React from "react";
+import SmoothScroll from "smooth-scroll";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
 import NewsItemComponent from "../components/NewsItemComponent";
-import { CloseRounded, Refresh } from "@material-ui/icons";
 
 // const NewsItemComponent = asyncComponent(() => import("../components/NewsItemComponent"));
 // const CloseRounded = asyncComponent(() => import("@material-ui/icons/CloseRounded"));
@@ -78,8 +79,9 @@ export default class NewsPage extends LoadingComponent<
           </div>
         </div>
 
-        <div id="page" className="container" style={{ marginTop: 45 }}>
-          <div>
+        <div id="page" className="container">
+          <div id="top" />
+          <div style={{ paddingTop: 45 }}>
             {news
               ? news.map((item, x) => (
                   <NewsItemComponent
@@ -163,17 +165,27 @@ export default class NewsPage extends LoadingComponent<
           this.fetcher
             .loadAfter(Math.max(...this.state.news.map(item => item.time)))
             .then(newItems =>
-              this.setState(p => {
-                const items = [...(p.news || [])]
-                  .concat(newItems)
-                  .sort(this.fetcher.sortItems);
-                return {
-                  ...p,
-                  news: items,
-                  newsLoading: false,
-                  updates: 0
-                };
-              })
+              this.setState(
+                p => {
+                  const items = [...(p.news || [])]
+                    .concat(newItems)
+                    .sort(this.fetcher.sortItems);
+                  return {
+                    ...p,
+                    news: items,
+                    newsLoading: false,
+                    updates: 0
+                  };
+                },
+                () => {
+                  const el = document.getElementById("top");
+                  console.log(`Scrolling to top`, { el });
+                  new SmoothScroll().animateScroll(el, el, {
+                    easing: "easeInCubic",
+                    speed: 500
+                  });
+                }
+              )
             );
         }
       }

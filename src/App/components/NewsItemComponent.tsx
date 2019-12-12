@@ -96,7 +96,7 @@ export default class NewsItemComponent extends KeithComponent<
             className={classNames("noselect", "title")}
           >
             {" "}
-            <a href={link} target="_blank">
+            <a href={link} target="_blank" className={classNames("news-link")}>
               <span
                 style={{
                   color: safeLink ? "red" : "blue"

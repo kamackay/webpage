@@ -7,6 +7,7 @@ import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
 import NewsItemComponent from "../components/NewsItemComponent";
+import "./NewsPage.css";
 
 // const NewsItemComponent = asyncComponent(() => import("../components/NewsItemComponent"));
 // const CloseRounded = asyncComponent(() => import("@material-ui/icons/CloseRounded"));

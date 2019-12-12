@@ -56,7 +56,7 @@ export default class NewsPage extends LoadingComponent<
 
   public renderPostLoad() {
     const { updates, news: fullNews, newsLoading, categoryFilter } = this.state;
-    const news = !!fullNews ? fullNews.slice(0, 100) : [];
+    const news = !!fullNews ? fullNews : [];
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
@@ -177,19 +177,20 @@ export default class NewsPage extends LoadingComponent<
                     updates: 0
                   };
                 },
-                () => {
-                  const el = document.getElementById("top");
-                  console.log(`Scrolling to top`, { el });
-                  new SmoothScroll().animateScroll(el, el, {
-                    easing: "easeInCubic",
-                    speed: 500
-                  });
-                }
+                () => setTimeout(this.scrollToTop, 250)
               )
             );
         }
       }
     );
+  };
+
+  private scrollToTop = () => {
+    const el = document.getElementById("top");
+    new SmoothScroll().animateScroll(el, el, {
+      easing: "easeInCubic",
+      speed: 500
+    });
   };
 
   private loadData = (clearFirst?: boolean) => () => {

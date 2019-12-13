@@ -2,11 +2,11 @@ import { Button, CircularProgress, Fab, Typography } from "@material-ui/core";
 import { CloseRounded, Refresh } from "@material-ui/icons";
 import classNames from "classnames";
 import React from "react";
+import { isMobile } from "react-device-detect";
 import SmoothScroll from "smooth-scroll";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
-import { isMobile } from "react-device-detect";
 import NewsItemComponent from "../components/NewsItemComponent";
 import "./NewsPage.css";
 
@@ -57,8 +57,7 @@ export default class NewsPage extends LoadingComponent<
   }
 
   public renderPostLoad() {
-    const { updates, news: fullNews, newsLoading, categoryFilter } = this.state;
-    const news = isMobile ? fullNews.splice(0, 250) : fullNews;
+    const { updates, news, newsLoading, categoryFilter } = this.state;
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
@@ -155,6 +154,27 @@ export default class NewsPage extends LoadingComponent<
     });
   };
 
+  private setNews = (newItems: NewsItem[], callback?: () => void) =>
+    this.setState(
+      p => {
+        const items = [...(p.news || [])]
+          .concat(newItems)
+          .sort(this.fetcher.sortItems);
+        return {
+          ...p,
+          news: isMobile ? items.splice(0, 100) : items,
+          newsLoading: false,
+          updates: 0
+        };
+      },
+      () => {
+        setTimeout(this.scrollToTop, 250);
+        if (!!callback) {
+          callback();
+        }
+      }
+    );
+
   private refresh = () => {
     this.setState(
       p => ({ ...p, newsLoading: true }),
@@ -162,22 +182,7 @@ export default class NewsPage extends LoadingComponent<
         if (this.state.news) {
           this.fetcher
             .loadAfter(Math.max(...this.state.news.map(item => item.time)))
-            .then(newItems =>
-              this.setState(
-                p => {
-                  const items = [...(p.news || [])]
-                    .concat(newItems)
-                    .sort(this.fetcher.sortItems);
-                  return {
-                    ...p,
-                    news: items,
-                    newsLoading: false,
-                    updates: 0
-                  };
-                },
-                () => setTimeout(this.scrollToTop, 250)
-              )
-            );
+            .then(this.setNews);
         }
       }
     );
@@ -201,10 +206,7 @@ export default class NewsPage extends LoadingComponent<
     }
     return this.fetcher.getAll().then(result => {
       console.log(`Finished Fetching News`);
-      this.setState(
-        p => ({ ...p, news: result, newsLoading: false, updates: 0 }),
-        this.checkForUpdates
-      );
+      this.setNews(result, this.checkForUpdates);
     });
   };
 }

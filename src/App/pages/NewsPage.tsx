@@ -6,6 +6,7 @@ import SmoothScroll from "smooth-scroll";
 import { LoadingProps, LoadingState } from "src/model/LoadingModel";
 import NewsFetcher from "src/utils/NewsFetcher";
 import LoadingComponent from "../components/LoadingComponent";
+import { isMobile } from "react-device-detect";
 import NewsItemComponent from "../components/NewsItemComponent";
 import "./NewsPage.css";
 
@@ -14,7 +15,7 @@ import "./NewsPage.css";
 // const Refresh = asyncComponent(() => import("@material-ui/icons/Refresh"));
 
 interface NewsState extends LoadingState {
-  news?: NewsItem[];
+  news: NewsItem[];
   updates?: number;
   newsLoading: boolean;
   search: string;
@@ -37,7 +38,7 @@ export default class NewsPage extends LoadingComponent<
       loading: true,
       newsLoading: true,
       loadAfter: [this.loadData(true)()],
-      news: undefined,
+      news: [],
       search: "",
       faviconUrl: "images/news.png",
       title: "News"
@@ -57,7 +58,7 @@ export default class NewsPage extends LoadingComponent<
 
   public renderPostLoad() {
     const { updates, news: fullNews, newsLoading, categoryFilter } = this.state;
-    const news = !!fullNews ? fullNews : [];
+    const news = isMobile ? fullNews.splice(0, 250) : fullNews;
     return (
       <div style={{ width: "99vw", height: "100vh" }}>
         <div className={classNames("header")}>
@@ -74,31 +75,27 @@ export default class NewsPage extends LoadingComponent<
                 Category: {categoryFilter}
               </Button>
             )}
-            <span style={{ fontSize: 15 }}>
-              {(fullNews || []).length} Articles
-            </span>
+            <span style={{ fontSize: 15 }}>{news.length} Articles</span>
           </div>
         </div>
 
         <div id="page" className="container">
           <div id="top" />
           <div style={{ paddingTop: 45 }}>
-            {news
-              ? news.map((item, x) => (
-                  <NewsItemComponent
-                    news={item}
-                    key={`news-${x}`}
-                    index={x}
-                    visible={
-                      !categoryFilter ||
-                      item.categories
-                        .map(s => s.toLowerCase())
-                        .includes(categoryFilter.toLowerCase())
-                    }
-                    categoryClick={this.categoryClick}
-                  />
-                ))
-              : this.loadingElement}
+            {news.map((item, x) => (
+              <NewsItemComponent
+                news={item}
+                key={`news-${x}`}
+                index={x}
+                visible={
+                  !categoryFilter ||
+                  item.categories
+                    .map(s => s.toLowerCase())
+                    .includes(categoryFilter.toLowerCase())
+                }
+                categoryClick={this.categoryClick}
+              />
+            ))}
           </div>
         </div>
         <div style={{ position: "fixed", bottom: 10, right: 5 }}>
@@ -197,7 +194,7 @@ export default class NewsPage extends LoadingComponent<
   private loadData = (clearFirst?: boolean) => () => {
     if (this.state) {
       if (clearFirst) {
-        this.setState(p => ({ ...p, news: undefined, newsLoading: true }));
+        this.setState(p => ({ ...p, news: [], newsLoading: true }));
       } else {
         this.setState(p => ({ ...p, newsLoading: true }));
       }

@@ -43,6 +43,7 @@
     "node-sass": "^4.12.0",
     "qrcode": "^1.4.1",
     "react": "^16.8.6",
+    "react-device-detect": "^1.11.14",
     "react-dom": "^16.8.6",
     "react-https-redirect": "^1.1.0",
     "react-router-dom": "^5.0.0",

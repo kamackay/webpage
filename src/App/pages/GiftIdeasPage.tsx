@@ -15,6 +15,7 @@ interface Idea {
   claimed?: boolean;
   expired?: boolean;
   priority?: number;
+  hidden?: boolean;
 }
 
 interface GiftState extends LoadingState {
@@ -50,6 +51,7 @@ export default class GiftIdeaPage extends LoadingComponent<
 
           <ul className={classNames("ideas-list")}>
             {ideas
+              .filter(idea => !idea.hidden)
               .sort((a, b) => {
                 const priority = (b.priority || 0) - (a.priority || 0);
                 return priority === 0 ? a.id.localeCompare(b.id) : priority;

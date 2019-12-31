@@ -16,10 +16,7 @@ COPY ./public ./public
 COPY *.json ./
 
 
-RUN yarn build && \
-    rm -rf src && \
-    rm -rf node_modules && \
-    rm -rf public
+RUN yarn build
 
 FROM kamackay/nginx
 

@@ -131,8 +131,7 @@ export default class ResumeComponent extends KeithComponent<
               </div>
 
               <div className="nine columns main-col">
-                <h4>{skillMessage}</h4>
-
+                <h2>{skillMessage}</h2>
                 <div className="bars">
                   <ul className="skills">{skillsData}</ul>
                 </div>

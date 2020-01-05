@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class NewsFetcher {
-  private rootUrl = `https://api.keithmackay.com/go/news`;
+  private rootUrl = `https://go.keithm.io/go/news`;
 
   public getAll = (): Promise<NewsItem[]> =>
     new Promise(resolve => {

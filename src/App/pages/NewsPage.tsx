@@ -168,7 +168,7 @@ export default class NewsPage extends LoadingComponent<
         };
       },
       () => {
-        setTimeout(this.scrollToTop, 250);
+        setTimeout(this.scrollToTop, 100);
         if (!!callback) {
           callback();
         }
@@ -192,7 +192,7 @@ export default class NewsPage extends LoadingComponent<
     const el = document.getElementById("top");
     new SmoothScroll().animateScroll(el, el, {
       easing: "easeInCubic",
-      speed: 500
+      durationMax: 1000
     });
   };
 

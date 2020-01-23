@@ -21,15 +21,17 @@ export default class Header extends KeithComponent<
 
     const { name, occupation, description, address, social } = this.props.data;
 
-    const networks = social.map(network => {
-      return (
-        <li key={network.name}>
-          <a href={network.url}>
-            <i className={network.className} />
-          </a>
-        </li>
-      );
-    });
+    const networks =
+      social &&
+      social.map(network => {
+        return (
+          <li key={network.name}>
+            <a href={network.url}>
+              <i className={network.className} />
+            </a>
+          </li>
+        );
+      });
 
     return (
       <header

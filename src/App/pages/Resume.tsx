@@ -28,7 +28,13 @@ export default class Resume extends Page<any, ResumeState> {
       loadAfter: [
         downloadBlob("/images/header-background.jpg").then(data => {
           this.setState(p => ({ ...p, headerBg: data }));
-        })
+        }),
+        downloadBlob(
+          "/css/fonts/librebaskerville/librebaskerville-regular-webfont.woff"
+        ),
+        downloadBlob(
+          "/css/fonts/librebaskerville/librebaskerville-italic-webfont.woff"
+        )
       ]
     };
     this.get(

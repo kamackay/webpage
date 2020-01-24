@@ -7,7 +7,7 @@ RUN apk upgrade --update --no-cache && \
 
 ADD ./package.json .
 
-RUN yarn install
+RUN yarn install --verbose
 
 ENV PATH /root/node_modules/.bin:$PATH
 
@@ -18,7 +18,7 @@ COPY *.json ./
 
 RUN yarn build
 
-FROM kamackay/nginx
+FROM kamackay/nginx:latest
 
 COPY --from=builder /root/build /www/
 

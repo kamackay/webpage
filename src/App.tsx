@@ -15,6 +15,7 @@ const Resume = asyncComponent(() => import("./App/pages/Resume"));
 const QrPage = asyncComponent(() => import("./App/pages/QRPage"));
 const D3Page = asyncComponent(() => import("./App/pages/D3Page"));
 const Home = asyncComponent(() => import("./App/pages/Home"));
+const SearchPage = asyncComponent(() => import("./App/pages/SearchPage"));
 
 export default class App extends React.Component {
   public render() {
@@ -33,6 +34,7 @@ export default class App extends React.Component {
             }}
           />
           <Route path="/home" component={Home} />
+          <Route path="/search" component={SearchPage} />
           <Route path="/index.html" component={Home} />
           <Route path="/resume" component={Resume} />
           <Route path="/json" component={JsonPage} />

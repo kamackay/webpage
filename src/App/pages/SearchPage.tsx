@@ -20,8 +20,10 @@ interface State extends LoadingState {
 }
 
 export default class SearchPage extends Page<Props, State> {
-  constructor(p: Props) {
-    super(p);
+  private form = React.createRef<HTMLFormElement>();
+
+  constructor(props: Props) {
+    super(props);
     this.state = {
       loading: true,
       title: "Search",
@@ -102,6 +104,14 @@ export default class SearchPage extends Page<Props, State> {
                       />
                     }
                   />
+                  <form
+                    method="POST"
+                    ref={this.form}
+                    style={{ display: "none" }}
+                    action="https://duckduckgo.com"
+                  >
+                    <input name="q" value={this.state.searchText} />
+                  </form>
                 </Form>
               }
             />
@@ -113,8 +123,8 @@ export default class SearchPage extends Page<Props, State> {
 
   private search = () => {
     const { searchText } = this.state;
-    if (!!searchText) {
-      window.location.href = `https://www.startpage.com/do/dsearch?query=${searchText}&language=english`;
+    if (!!searchText && !!this.form.current) {
+      this.form.current.submit();
     } else {
       toast(`Please Enter something to search for!`, { type: "info" });
     }

@@ -26,9 +26,10 @@ export default class SearchPage extends Page<Props, State> {
     super(props);
     this.state = {
       loading: true,
+      searchText: "",
       title: "Search",
       loadAfter: [this.loadFonts()],
-      searchText: ""
+      faviconUrl: "/images/search.png"
     };
   }
 

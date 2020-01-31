@@ -1,9 +1,8 @@
-FROM alpine:latest AS builder
+FROM node:alpine AS builder
 
 WORKDIR /root
 
-RUN apk upgrade --update --no-cache && \
-    apk add --no-cache yarn nodejs
+# RUN yarn global add ufnr
 
 ADD ./package.json .
 
@@ -14,7 +13,6 @@ ENV PATH /root/node_modules/.bin:$PATH
 COPY ./src ./src
 COPY ./public ./public
 COPY *.json ./
-
 
 RUN yarn build
 

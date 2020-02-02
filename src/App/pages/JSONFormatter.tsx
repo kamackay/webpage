@@ -10,7 +10,7 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     this.state = {
       title: "Json Formatter",
       loading: true,
-      fontSize: 20,
+      fontSize: 15,
       value: "",
       rows: 10
     };
@@ -23,25 +23,28 @@ class JSONFormatter extends Page<any, JSONFormatState> {
 
   public renderPostLoad(): JSX.Element {
     return (
-      <div id="page" className="container">
+      <div id="page">
         <Typography
-          component="h2"
-          variant="h1"
+          component="h3"
+          variant="h2"
           gutterBottom={true}
           style={{ color: "white" }}
         >
           JSON Formatter
         </Typography>
-        <Card>
+        <Card style={{ backgroundColor: "#222" }}>
           <textarea
             id="jsonCode"
             value={this.state.value}
             onChange={this.change}
             style={{
               width: "100%",
+              color: "white",
+              resize: "none",
               minHeight: "20vh",
-              maxHeight: "80vh",
-              fontSize: this.state.fontSize
+              maxHeight: "90vh",
+              fontSize: this.state.fontSize,
+              backgroundColor: "transparent"
             }}
             // label="JSON"
             rows={this.state.rows}
@@ -66,15 +69,25 @@ class JSONFormatter extends Page<any, JSONFormatState> {
 
   private getButton(text: string, handler: () => void) {
     return (
-      <Button
-        onClick={() => handler()}
-        type="button"
-        variant="contained"
-        color="primary"
-        style={{ width: "50%" }}
-      >
-        {text}
-      </Button>
+      <div
+        style={{
+          width: "50%",
+          paddingLeft: 5,
+          paddingRight: 5,
+          display: "inline-block"
+        }}
+        children={
+          <Button
+            type="button"
+            color="primary"
+            children={text}
+            onClick={handler}
+            size="large"
+            style={{ width: "100%" }}
+            variant="contained"
+          />
+        }
+      />
     );
   }
 
@@ -82,10 +95,10 @@ class JSONFormatter extends Page<any, JSONFormatState> {
     const { value } = this.state;
     try {
       const obj = JSON.parse(value);
-      this.setState({
-        ...this.state,
+      this.setState(prev => ({
+        ...prev,
         value: JSON.stringify(obj, undefined, f)
-      });
+      }));
     } catch (err) {
       this.log(err);
     }

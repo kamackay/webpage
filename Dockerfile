@@ -6,7 +6,7 @@ WORKDIR /root
 
 ADD ./package.json .
 
-RUN yarn install --verbose
+RUN yarn install
 
 ENV PATH /root/node_modules/.bin:$PATH
 

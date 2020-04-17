@@ -4,6 +4,7 @@ import { getArticleFor } from "src/lib/IndefiniteArticle";
 import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
 import KeithComponent from "../KeithComponent";
 import TypingComponent from "../TypingComponent";
+import { Popup } from "semantic-ui-react";
 
 export default class Header extends KeithComponent<
   HeaderProps,
@@ -23,13 +24,21 @@ export default class Header extends KeithComponent<
 
     const networks =
       social &&
-      social.map(network => {
+      social.map((network) => {
         return (
-          <li key={network.name}>
-            <a href={network.url}>
-              <i className={network.className} />
-            </a>
-          </li>
+          <Popup
+            inverted={true}
+            key={network.name}
+            disabled={!network.title}
+            content={network.title}
+            trigger={
+              <li>
+                <a href={network.url}>
+                  <i className={network.className} />
+                </a>
+              </li>
+            }
+          />
         );
       });
 
@@ -37,7 +46,7 @@ export default class Header extends KeithComponent<
       <header
         id="home"
         style={{
-          background: `#161415 url(${this.props.background}) no-repeat top center`
+          background: `#161415 url(${this.props.background}) no-repeat top center`,
         }}
       >
         <nav id="nav-wrap">
@@ -118,7 +127,7 @@ export default class Header extends KeithComponent<
             left: "50px",
             right: "50px",
             position: "absolute",
-            top: "100px"
+            top: "100px",
           }}
         >
           <div className="banner-text header-cont-div">

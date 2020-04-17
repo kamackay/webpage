@@ -20,6 +20,8 @@ interface TypingState extends KeithState {
   waitTime: number;
 }
 
+const randomFactor = () => Math.random() * 0.5 + 0.5;
+
 export default class TypingComponent extends KeithComponent<
   TypingProps,
   TypingState
@@ -35,64 +37,77 @@ export default class TypingComponent extends KeithComponent<
       currentItem: props.items[randomInt(0, props.items.length - 1)],
       currentIndex: 0,
       action: "incrementing",
-      waitTime: 0
+      waitTime: 0,
     };
   }
 
   public componentWillUnmount() {
-    this.intervals.forEach(i => clearInterval(i));
+    this.intervals.forEach((i) => {
+      try {
+        clearInterval(i);
+      } catch (err) {
+        console.error(err);
+      }
+    });
   }
 
   public componentDidMount() {
+    const update = () => {
+      switch (this.state.action) {
+        case "incrementing":
+          if (this.state.currentIndex === this.state.currentItem.length) {
+            this.setState((p) => ({
+              ...p,
+              action: "waiting",
+              waitTime: this.props.delay * 1000,
+            }));
+          } else {
+            this.setState((p) => ({
+              ...p,
+              currentIndex: p.currentIndex + 1,
+            }));
+          }
+          break;
+        case "waiting":
+          if (this.state.waitTime <= 0) {
+            this.setState((p) => ({
+              ...p,
+              action: p.currentIndex === 0 ? "incrementing" : "decrementing",
+            }));
+          } else {
+            this.setState((p) => ({
+              ...p,
+              waitTime: p.waitTime - this.updateTime,
+            }));
+          }
+          break;
+        case "decrementing":
+          if (this.state.currentIndex === 0) {
+            this.setState((p) => {
+              const smallerList = remove(this.props.items, p.currentItem);
+              const index = randomInt(0, smallerList.length - 1);
+              console.log({ smallerList, index, item: smallerList[index] });
+              return {
+                ...p,
+                action: "incrementing",
+                currentItem: smallerList[index],
+              };
+            });
+          } else {
+            this.setState((p) => ({
+              ...p,
+              currentIndex: p.currentIndex - 1,
+            }));
+          }
+          break;
+      }
+      console.log(randomFactor());
+      this.intervals.push(setTimeout(update, this.updateTime * randomFactor()));
+    };
+    update();
     this.intervals.push(
       setInterval(() => {
-        switch (this.state.action) {
-          case "incrementing":
-            if (this.state.currentIndex === this.state.currentItem.length) {
-              this.setState(p => ({
-                ...p,
-                action: "waiting",
-                waitTime: this.props.delay * 1000
-              }));
-            } else {
-              this.setState(p => ({ ...p, currentIndex: p.currentIndex + 1 }));
-            }
-            break;
-          case "waiting":
-            if (this.state.waitTime <= 0) {
-              this.setState(p => ({
-                ...p,
-                action: p.currentIndex === 0 ? "incrementing" : "decrementing"
-              }));
-            } else {
-              this.setState(p => ({
-                ...p,
-                waitTime: p.waitTime - this.updateTime
-              }));
-            }
-            break;
-          case "decrementing":
-            if (this.state.currentIndex === 0) {
-              this.setState(p => {
-                const smallerList = remove(this.props.items, p.currentItem);
-                const index = randomInt(0, smallerList.length - 1);
-                console.log({ smallerList, index, item: smallerList[index] });
-                return {
-                  ...p,
-                  action: "incrementing",
-                  currentItem: smallerList[index]
-                };
-              });
-            } else {
-              this.setState(p => ({ ...p, currentIndex: p.currentIndex - 1 }));
-            }
-            break;
-        }
-      }, this.updateTime)
-    );
-    this.intervals.push(
-      setInterval(() => {
-        this.setState(p => ({ ...p, cursorShowing: !p.cursorShowing }));
+        this.setState((p) => ({ ...p, cursorShowing: !p.cursorShowing }));
       }, this.cursorFlashTime)
     );
   }
@@ -108,7 +123,7 @@ export default class TypingComponent extends KeithComponent<
           fontSize: 12,
           font: this.props.font || "15px sans-serif",
           paddingLeft: 5,
-          paddingRight: 5
+          paddingRight: 5,
         }}
       >
         <span style={{ color }}>
@@ -120,7 +135,7 @@ export default class TypingComponent extends KeithComponent<
             display: "inline",
             width: "1rem",
             height: "100%",
-            backgroundColor: this.state.cursorShowing ? color : "transparent"
+            backgroundColor: this.state.cursorShowing ? color : "transparent",
           }}
         >
           &nbsp;

@@ -12,6 +12,7 @@ export class ResumeCompData {
   education: Education[];
   work: Work[];
   skills: Skill[];
+  skillNames?: string[];
 }
 
 export class ResumeCompState extends KeithState {

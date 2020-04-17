@@ -26,16 +26,16 @@ export default class Resume extends Page<any, ResumeState> {
       resumeData: new ResumeData(),
       headerBg: undefined,
       loadAfter: [
-        downloadBlob("/images/header-background.jpg").then(data => {
-          this.setState(p => ({ ...p, headerBg: data }));
+        downloadBlob("/images/header-background.jpg").then((data) => {
+          this.setState((p) => ({ ...p, headerBg: data }));
         }),
         downloadBlob(
           "/css/fonts/librebaskerville/librebaskerville-regular-webfont.woff"
         ),
         downloadBlob(
           "/css/fonts/librebaskerville/librebaskerville-italic-webfont.woff"
-        )
-      ]
+        ),
+      ],
     };
     this.get(
       "./resumeData.json",
@@ -51,7 +51,7 @@ export default class Resume extends Page<any, ResumeState> {
               scroller.scrollTo(urlId, {
                 duration: 250,
                 delay: 0,
-                smooth: "easeInOutQuart"
+                smooth: "easeInOutQuart",
               });
             } catch (e) {
               // NO-OP
@@ -71,10 +71,13 @@ export default class Resume extends Page<any, ResumeState> {
         <Header
           data={{
             ...(r.main as HeaderData),
-            skillNames: Optional.ofNullable(r.resume)
-              .map(d => d.skills)
-              .map(d => d.map(skill => skill.name))
-              .orElse([""])
+            skillNames: [
+              ...Optional.ofNullable(r.resume)
+                .map((d) => d.skills)
+                .map((d) => d.map((skill) => skill.name))
+                .orElse([""]),
+              ...(r.resume?.skillNames || []),
+            ],
           }}
           background={this.state.headerBg}
         />

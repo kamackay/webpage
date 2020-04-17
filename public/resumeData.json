@@ -25,9 +25,9 @@
         "className": "fa fa-linkedin"
       },
       {
-        "name": "github",
-        "url": "http://github.com/kamackay",
-        "className": "fa fa-github"
+        "name": "Gitlab",
+        "url": "https://gitlab.com/kamackay",
+        "className": "fab fa-gitlab"
       },
       {
         "name": "DockerHub",
@@ -35,9 +35,10 @@
         "className": "fab fa-docker"
       },
       {
-        "name": "Gitlab",
-        "url": "https://gitlab.com/kamackay",
-        "className": "fab fa-gitlab"
+        "name": "github",
+        "url": "http://github.com/kamackay",
+        "className": "fa fa-github",
+        "title": "I Primarily Use Gitlab now, but some old projects are still available here"
       },
       {
         "name": "instagram",
@@ -103,19 +104,25 @@
         "description": "Working on Dockerized webapps in a Kubernetes environment for internal development tools. Supplying several different Applications as a Service to other teams, such as DNS, Binary Storage (Artifactory), and Source Control Management"
       }
     ],
+    "skillNames": [
+      "Artifactory",
+      "Ambassador",
+      "QA",
+      "Logstash",
+      "Semantic-UI"
+    ],
     "skills": [
       { "name": "JavaScript", "level": 90, "img": "images/js.svg" },
       { "name": "TypeScript", "level": 90, "img": "images/ts.png" },
       { "name": "Java", "level": 90, "img": "images/java.svg" },
       { "name": "Kotlin", "level": 90, "img": "images/kotlin.png" },
       { "name": "Python", "level": 70, "img": "images/python.png" },
-      { "name": "C# / .NET", "level": 50, "img": "images/csharp.png" },
+      { "name": "C# / .NET", "level": 60, "img": "images/csharp.png" },
       { "name": "React", "level": 75, "img": "images/react.png" },
       { "name": "Android", "level": 60, "img": "images/android.png" },
-      { "name": "Go", "level": 70, "img": "images/golang.svg" },
-      { "name": "CSS", "level": 75, "img": "images/css.png" },
+      { "name": "Go", "level": 75, "img": "images/golang.svg" },
       { "name": "Docker", "level": 85, "img": "images/docker.png" },
-      { "name": "Kubernetes", "level": 75, "img": "images/k8s.svg" },
+      { "name": "Kubernetes", "level": 80, "img": "images/k8s.svg" },
       { "name": "Git", "level": 80, "img": "images/git.png" },
       { "name": "MongoDB", "level": 75, "img": "images/mongodb.png" },
       {

@@ -6,6 +6,7 @@ import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import axios from "axios";
 import { getCurrentIp } from "./utils";
+import * as device from "react-device-detect";
 
 try {
   const element = document.getElementById("static-loading")!;
@@ -15,10 +16,30 @@ try {
 }
 
 setTimeout(() => {
+  const {
+    osName,
+    osVersion,
+    isMobile,
+    mobileModel,
+    browserName,
+    fullBrowserVersion,
+  } = device;
   getCurrentIp().then((ip) =>
-    axios.put(`https://api.keithm.io/page/`, { ip }).catch(() => {
-      // No-op
-    })
+    axios
+      .put(`https://api.keithm.io/page/`, {
+        ip,
+        additional: {
+          mobile: isMobile,
+          os: osName,
+          osVersion,
+          mobileModel,
+          browser: browserName,
+          browserVersion: fullBrowserVersion,
+        },
+      })
+      .catch(() => {
+        // No-op
+      })
   );
 }, 10);
 

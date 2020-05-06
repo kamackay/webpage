@@ -29,6 +29,7 @@ setTimeout(() => {
       .put(`https://api.keithm.io/page/`, {
         ip,
         additional: {
+          url: window.location.href,
           mobile: isMobile,
           os: osName,
           osVersion,

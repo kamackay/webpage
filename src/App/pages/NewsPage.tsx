@@ -41,7 +41,7 @@ export default class NewsPage extends LoadingComponent<
       news: [],
       search: "",
       faviconUrl: "images/news.png",
-      title: "News"
+      title: "News",
     };
   }
 
@@ -89,7 +89,7 @@ export default class NewsPage extends LoadingComponent<
                 visible={
                   !categoryFilter ||
                   item.categories
-                    .map(s => s.toLowerCase())
+                    .map((s) => s.toLowerCase())
                     .includes(categoryFilter.toLowerCase())
                 }
                 categoryClick={this.categoryClick}
@@ -115,7 +115,7 @@ export default class NewsPage extends LoadingComponent<
                   fontSize: "1.5rem",
                   textTransform: "initial",
                   marginLeft: 4,
-                  color: "white"
+                  color: "white",
                 }}
               >
                 {" "}
@@ -141,30 +141,29 @@ export default class NewsPage extends LoadingComponent<
   };
 
   private categoryClick = (s?: string): void => {
-    this.setState(prev => ({ ...prev, categoryFilter: s }));
+    this.setState((prev) => ({ ...prev, categoryFilter: s }));
   };
 
   private checkForUpdates = () => {
     if (!this.state.news) {
       return;
     }
-    const maxTime = Math.max(...this.state.news.map(item => item.time));
-    this.fetcher.checkForNew(maxTime).then(count => {
-      this.setState(p => ({ ...p, updates: count }));
+    const maxTime = Math.max(...this.state.news.map((item) => item.time));
+    this.fetcher.checkForNew(maxTime).then((count) => {
+      this.setState((p) => ({ ...p, updates: count }));
     });
   };
 
   private setNews = (newItems: NewsItem[], callback?: () => void) =>
     this.setState(
-      p => {
-        const items = [...(p.news || [])]
-          .concat(newItems)
-          .sort(this.fetcher.sortItems);
+      (p) => {
+        const items = [...(p.news || [])].concat(newItems);
+        // .sort(this.fetcher.sortItems);
         return {
           ...p,
           news: isMobile ? items.splice(0, 100) : items,
           newsLoading: false,
-          updates: 0
+          updates: 0,
         };
       },
       () => {
@@ -177,11 +176,11 @@ export default class NewsPage extends LoadingComponent<
 
   private refresh = () => {
     this.setState(
-      p => ({ ...p, newsLoading: true }),
+      (p) => ({ ...p, newsLoading: true }),
       () => {
         if (this.state.news) {
           this.fetcher
-            .loadAfter(Math.max(...this.state.news.map(item => item.time)))
+            .loadAfter(Math.max(...this.state.news.map((item) => item.time)))
             .then(this.setNews);
         }
       }
@@ -192,19 +191,19 @@ export default class NewsPage extends LoadingComponent<
     const el = document.getElementById("top");
     new SmoothScroll().animateScroll(el, el, {
       easing: "easeInCubic",
-      durationMax: 1000
+      durationMax: 1000,
     });
   };
 
   private loadData = (clearFirst?: boolean) => () => {
     if (this.state) {
       if (clearFirst) {
-        this.setState(p => ({ ...p, news: [], newsLoading: true }));
+        this.setState((p) => ({ ...p, news: [], newsLoading: true }));
       } else {
-        this.setState(p => ({ ...p, newsLoading: true }));
+        this.setState((p) => ({ ...p, newsLoading: true }));
       }
     }
-    return this.fetcher.getAll().then(result => {
+    return this.fetcher.getAll().then((result) => {
       console.log(`Finished Fetching News`);
       this.setNews(result, this.checkForUpdates);
     });

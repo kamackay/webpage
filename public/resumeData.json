@@ -109,7 +109,8 @@
       "Ambassador",
       "QA",
       "Logstash",
-      "Semantic-UI"
+      "Semantic-UI",
+      "CI/CD"
     ],
     "skills": [
       { "name": "JavaScript", "level": 90, "img": "images/js.svg" },

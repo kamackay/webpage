@@ -34,8 +34,8 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
-        - name: webpage
-          image: kamackay/webpage:latest
+        - name: server
+          image: registry.gitlab.com/kamackay/webpage:latest
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -58,6 +58,15 @@ spec:
           resources:
             limits:
               memory: 10M
+          volumeMounts:
+            - mountPath: /log
+              name: varlog
+        - name: prom-export
+          image: registry.gitlab.com/kamackay/nginx-prom-exporter:latest
+          imagePullPolicy: Always
+          env:
+            - name: PROM_URL
+              value: "http://metrics-prometheus-prometh-prometheus:9090/metrics"
           volumeMounts:
             - mountPath: /log
               name: varlog

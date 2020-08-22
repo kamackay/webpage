@@ -1,8 +1,4 @@
-import { Box, Button, Form, Grommet, grommet, TextInput } from "grommet";
-import { FormSearch } from "grommet-icons";
-import { deepMerge } from "grommet/utils";
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { LoadingState } from "src/model/LoadingModel";
 import WebFont from "webfontloader";
@@ -20,7 +16,7 @@ interface State extends LoadingState {
 }
 
 export default class SearchPage extends Page<Props, State> {
-  private form = React.createRef<HTMLFormElement>();
+  // private form = React.createRef<HTMLFormElement>();
 
   constructor(props: Props) {
     super(props);
@@ -29,7 +25,7 @@ export default class SearchPage extends Page<Props, State> {
       searchText: "",
       title: "Search",
       loadAfter: [this.loadFonts()],
-      faviconUrl: "/images/search.png"
+      faviconUrl: "/images/search.png",
     };
   }
 
@@ -37,7 +33,8 @@ export default class SearchPage extends Page<Props, State> {
     return (
       <>
         <AnimatedBackground />
-        <Grommet
+        //Todo: Fix Grommet Imports
+        {/* <Grommet
           themeMode="dark"
           theme={deepMerge(grommet, {
             global: {
@@ -46,16 +43,16 @@ export default class SearchPage extends Page<Props, State> {
                 active: "blue",
                 focus: "blue",
                 control: {
-                  dark: "#111"
+                  dark: "#111",
                 },
-                black: "#111"
+                black: "#111",
               },
               font: {
                 family: "Roboto",
                 size: "18px",
-                height: "20px"
-              }
-            }
+                height: "20px",
+              },
+            },
           })}
           children={
             <Box
@@ -74,7 +71,7 @@ export default class SearchPage extends Page<Props, State> {
                     style={{
                       fontSize: 50,
                       display: "inline-block",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   />
                   <Box
@@ -101,7 +98,7 @@ export default class SearchPage extends Page<Props, State> {
                         fill="horizontal"
                         alignSelf="center"
                         style={{ color: "white" }}
-                        icon={<FormSearch color="white" />}
+                        icon={<SearchIcon color="action" />}
                       />
                     }
                   />
@@ -117,34 +114,34 @@ export default class SearchPage extends Page<Props, State> {
               }
             />
           }
-        />
+        /> */}
       </>
     );
   };
 
-  private search = () => {
-    const { searchText } = this.state;
-    if (!!searchText && !!this.form.current) {
-      this.form.current.submit();
-    } else {
-      toast(`Please Enter something to search for!`, { type: "info" });
-    }
-  };
+  // private search = () => {
+  //   const { searchText } = this.state;
+  //   if (!!searchText && !!this.form.current) {
+  //     this.form.current.submit();
+  //   } else {
+  //     toast(`Please Enter something to search for!`, { type: "info" });
+  //   }
+  // };
 
-  private searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    this.setState(prev => ({ ...prev, searchText: value }));
-  };
+  // private searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = event.target;
+  //   this.setState((prev) => ({ ...prev, searchText: value }));
+  // };
 
   private loadFonts = () =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       WebFont.load({
         google: {
-          families: ["Roboto"]
+          families: ["Roboto"],
         },
         active: () => {
           resolve();
-        }
+        },
       });
     });
 }

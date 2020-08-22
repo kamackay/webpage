@@ -12,6 +12,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
+    "allowUnusedLabels": true,
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -21,7 +22,11 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "react",
+      "jest"
+    ]
   },
   "exclude": [
     "node_modules",

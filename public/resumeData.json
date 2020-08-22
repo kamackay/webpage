@@ -99,14 +99,25 @@
       {
         "company": "Cisco",
         "title": "Software Engineer",
-        "years": "April 2019 - Present",
+        "years": "April 2019 - July 2020",
         "img": "images/cisco.svg",
         "description": "Working on Dockerized webapps in a Kubernetes environment for internal development tools. Supplying several different Applications as a Service to other teams, such as DNS, Binary Storage (Artifactory), and Source Control Management"
+      },
+      {
+        "company": "Big Nerd Ranch",
+        "title": "Senior Software Engineer",
+        "years": "July 2020 - Present",
+        "img": "images/bnr.png",
+        "description": "Cloud Engineering Consultant"
       }
     ],
     "skillNames": [
       "Artifactory",
       "Ambassador",
+      "Spring",
+      "Prometheus",
+      "Golang",
+      "Helm",
       "QA",
       "Logstash",
       "Semantic-UI",

@@ -2,6 +2,7 @@ node_modules/
 .vscode/
 .git/
 .gitignore
+yarn.lock
 Dockerfile
 heroku.yml
 *.md

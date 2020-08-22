@@ -58,3 +58,9 @@ spec:
           resources:
             limits:
               memory: 10M
+          volumeMounts:
+            - mountPath: /log
+              name: varlog
+      volumes:
+        - name: varlog
+          emptyDir: {}

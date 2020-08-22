@@ -18,6 +18,9 @@ RUN yarn build
 
 FROM kamackay/nginx:latest
 
+WORKDIR /log
+WORKDIR /www
+
 COPY --from=builder /root/build /www/
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf

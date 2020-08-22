@@ -6,3 +6,4 @@ Dockerfile
 heroku.yml
 *.md
 docker-compose.yml
+build/

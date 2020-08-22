@@ -1,12 +1,12 @@
+import axios from "axios";
 import * as React from "react";
+import * as device from "react-device-detect";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
-import axios from "axios";
 import { getCurrentIp } from "./utils";
-import * as device from "react-device-detect";
 
 try {
   const element = document.getElementById("static-loading")!;
@@ -36,6 +36,8 @@ setTimeout(() => {
           mobileModel,
           browser: browserName,
           browserVersion: fullBrowserVersion,
+          screenSize: `${window.screen.width}:${window.screen.height}`,
+          windowSize: `${window.innerWidth}:${window.innerHeight}`,
         },
       })
       .catch(() => {

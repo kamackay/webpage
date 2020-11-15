@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as device from "react-device-detect";
 
 export const downloadBlob = (url: string) =>
   fetch(url)
@@ -27,7 +28,7 @@ export function remove<T>(list: T[], item: T): T[] {
 }
 
 export const getCurrentIp = () =>
-  new Promise<string>((resolve) => {
+  new Promise<string | undefined>((resolve) => {
     axios
       .get(`https://www.cloudflare.com/cdn-cgi/trace`)
       .then((r) => r.data)
@@ -52,3 +53,36 @@ export const getCurrentIp = () =>
         resolve(undefined);
       });
   });
+
+export const storePageLoad = () => {
+  setTimeout(() => {
+    const {
+      osName,
+      osVersion,
+      isMobile,
+      mobileModel,
+      browserName,
+      fullBrowserVersion,
+    } = device;
+    getCurrentIp().then((ip) =>
+      axios
+        .put(`https://api.keithm.io/page/`, {
+          ip,
+          additional: {
+            url: window.location.href,
+            mobile: isMobile,
+            os: osName,
+            osVersion,
+            mobileModel,
+            browser: browserName,
+            browserVersion: fullBrowserVersion,
+            screenSize: `${window.screen.width}:${window.screen.height}`,
+            windowSize: `${window.innerWidth}:${window.innerHeight}`,
+          },
+        })
+        .catch(() => {
+          // No-op
+        })
+    );
+  }, 10);
+};

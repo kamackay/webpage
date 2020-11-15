@@ -6,7 +6,7 @@
   "private": false,
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:css": "node-sass src/ -o src/ ",
+    "build:css": "sass src/:src/ ",
     "build:js": "react-scripts-ts build",
     "eject": "react-scripts-ts eject",
     "format": "prettier --write --check src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx src/**/*.css",
@@ -43,7 +43,6 @@
     "classnames": "^2.2.6",
     "d3": "^5.9.2",
     "jquery": "^3.4.1",
-    "node-sass": "^4.12.0",
     "qrcode": "^1.4.1",
     "react": "^16.8.6",
     "react-device-detect": "^1.11.14",
@@ -63,6 +62,7 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "sass": "^1.29.0",
     "@types/jest": "^24.0.13",
     "eslint": "^6.6.0",
     "npm-run-all": "^4.1.5",

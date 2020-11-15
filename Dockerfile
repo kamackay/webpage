@@ -2,8 +2,6 @@ FROM node:alpine AS builder
 
 WORKDIR /root
 
-# RUN yarn global add ufnr
-
 ADD ./package.json .
 
 RUN yarn install

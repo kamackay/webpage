@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as Scroll from "react-scroll";
+import { Popup } from "semantic-ui-react";
 import { getArticleFor } from "src/lib/IndefiniteArticle";
 import { HeaderProps, HeaderState } from "src/model/resume/HeaderModel";
 import KeithComponent from "../KeithComponent";
 import TypingComponent from "../TypingComponent";
-import { Popup } from "semantic-ui-react";
 
 export default class Header extends KeithComponent<
   HeaderProps,
@@ -133,8 +133,8 @@ export default class Header extends KeithComponent<
           <div className="banner-text header-cont-div">
             <h1 className="responsive-headline">{name}</h1>
             <h3>
-              I'm {getArticleFor(address.city)} {address.city}, {address.state}{" "}
-              based <span>{occupation}</span>. {description}.
+              I'm {getArticleFor(address.city)} {address.city} based{" "}
+              <span>{occupation}</span>. {description}.
             </h3>
             <h3 style={{ marginTop: 2 }}>
               Skilled with

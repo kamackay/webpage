@@ -2,7 +2,7 @@ FROM node:alpine AS builder
 
 WORKDIR /root
 
-ADD ./package.json .
+ADD ./package.json yarn.lock ./
 
 RUN yarn install
 

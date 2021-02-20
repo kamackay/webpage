@@ -9,8 +9,7 @@
     "email": "keith@keithmackay.com",
     "phone": "",
     "address": {
-      "city": "Durham",
-      "state": "NC"
+      "city": "Philly"
     },
     "additional": {
       "message": "Not currently available for hire or freelance, but feel free to get in contact with me! Enjoy a picture of my dog",
@@ -118,6 +117,7 @@
       "Prometheus",
       "Golang",
       "Helm",
+      "AWS",
       "QA",
       "Logstash",
       "Semantic-UI",

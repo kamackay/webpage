@@ -1,8 +1,8 @@
 import * as React from "react";
-import KeithComponent from "../KeithComponent";
-import Tracker from "../../../utils/Tracker";
-import { AboutProps, AboutState } from "src/model/resume/AboutModel";
 import { Element } from "react-scroll";
+import { AboutProps, AboutState } from "src/model/resume/AboutModel";
+import Tracker from "../../../utils/Tracker";
+import KeithComponent from "../KeithComponent";
 import "./About.css";
 
 export default class About extends KeithComponent<
@@ -20,7 +20,15 @@ export default class About extends KeithComponent<
     if (!this.props.data) {
       return <div />;
     }
-    const { image, bio, address, phone, email, additional } = this.props.data;
+    const {
+      image,
+      bio,
+      address,
+      phone,
+      email,
+      additional,
+      name,
+    } = this.props.data;
     const profilePic = `images/${image}`;
     return (
       <div>
@@ -51,9 +59,7 @@ export default class About extends KeithComponent<
                         <br />
                       </span>
                     ) : null}
-                    <span>
-                      {address.city}, {address.state}
-                    </span>
+                    <span>{address.city}</span>
                     <br />
                     <span>{phone}</span>
                     <br />
@@ -61,7 +67,7 @@ export default class About extends KeithComponent<
                       onClick={() =>
                         Tracker.send({
                           feature: "EmailClick",
-                          data: "Click on email link"
+                          data: "Click on email link",
                         })
                       }
                       href={`mailto:${email}`}

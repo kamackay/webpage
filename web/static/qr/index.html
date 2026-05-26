@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0f14" />
+  <meta name="description" content="QR Code generator — paste a URL or any text, get a scannable QR code." />
+  <title>QR Generator — Keith MacKay</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/qr/qr.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Home">
+        <span class="brand-bracket">[</span>
+        <span class="brand-name">keith.mackay</span>
+        <span class="brand-bracket">]</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="/#about">about</a></li>
+          <li><a href="/#experience">experience</a></li>
+          <li><a href="/#projects">projects</a></li>
+          <li><a href="/">← home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="qr-main">
+    <div class="container qr-container">
+      <header class="qr-head">
+        <p class="hero-eyebrow">$ qr-gen</p>
+        <h1 class="qr-title">QR Generator</h1>
+        <p class="qr-lede">
+          Paste a URL or any text. The code updates as you type and stays in
+          your browser — nothing is sent to a server.
+        </p>
+      </header>
+
+      <form class="qr-form" autocomplete="off" novalidate>
+        <label class="qr-field">
+          <span class="qr-field-label">input</span>
+          <textarea
+            id="qr-input"
+            name="qr-input"
+            rows="2"
+            placeholder="https://keithmackay.com"
+            autofocus
+            spellcheck="false"
+          ></textarea>
+        </label>
+
+        <div class="qr-canvas-wrap">
+          <div id="qr-canvas" class="qr-canvas" aria-live="polite">
+            <p class="qr-placeholder">Type something above to generate a QR code.</p>
+          </div>
+        </div>
+
+        <div class="qr-actions">
+          <button type="button" id="qr-download-png" class="btn btn-primary" disabled>download .png</button>
+          <span id="qr-status" class="qr-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>&copy; <span id="year"></span> Keith MacKay</span>
+      <span class="footer-meta">
+        <a href="/">home</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="/qr/vendor/qrcode-generator.min.js"></script>
+  <script src="/qr/qr.js" defer></script>
+</body>
+</html>

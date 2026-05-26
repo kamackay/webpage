@@ -1,9 +1,10 @@
-node_modules/
-.vscode/
-.git/
+.git
 .gitignore
-Dockerfile
-heroku.yml
+.dockerignore
+.idea
+.vscode
 *.md
-docker-compose.yml
-build/
+!README.md
+LICENSE.md
+tmp/
+node_modules/

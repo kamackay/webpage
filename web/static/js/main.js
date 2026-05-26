@@ -5,9 +5,17 @@
   const data = {
     experience: [
       {
+        company: "ImagineX",
+        title: "Solution Architect",
+        years: "June 2024 - Present",
+        img: "/images/ix.jpeg",
+        description:
+          "Cloud Engineering / Software Leadership Consultant. Consulted with FanDuel on their Responsible Gaming tools, and led an engineering team to build new features for customer protection. Now consulting with Chick-fil-A.",
+      },
+      {
         company: "Big Nerd Ranch",
         title: "Senior Software Engineer",
-        years: "July 2020 — Present",
+        years: "July 2020 — June 2024",
         img: "/images/bnr.png",
         description:
           "Cloud engineering consultant. Designing platforms and shipping production systems for clients across industries.",
@@ -64,6 +72,7 @@
       { name: "Go", img: "/images/golang.svg" },
       { name: "React", img: "/images/react.png" },
       { name: "MongoDB", img: "/images/mongodb.png" },
+      { name: "AWS", img: "/images/aws.svg" },
       { name: "Python", img: "/images/python.png" },
       { name: "SQL", img: "/images/sql.png" },
       { name: "Android", img: "/images/android.png" },
@@ -75,10 +84,6 @@
       "Spring",
       "Prometheus",
       "Helm",
-      "AWS",
-      "QA",
-      "Logstash",
-      "Semantic-UI",
       "CI/CD",
     ],
     projects: [

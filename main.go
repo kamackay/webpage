@@ -91,8 +91,12 @@ func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 
 	// Long-cache hashed-looking asset paths; the index.html stays uncached.
 	if clean != "index.html" && (strings.HasPrefix(clean, "css/") ||
-		strings.HasPrefix(clean, "js/") || strings.HasPrefix(clean, "images/")) {
+		strings.HasPrefix(clean, "js/")) {
+		// Cache static content for a bit just to debounce requests, but long caches get annoying while I'm debugging the site
 		c.Header("Cache-Control", "public, max-age=180")
+	} else if strings.HasPrefix(clean, "images/") {
+		// Cache images for a really long time, they're not likely to change
+		c.Header("Cache-Control", "public, max-age=360000")
 	} else {
 		c.Header("Cache-Control", "no-cache")
 	}

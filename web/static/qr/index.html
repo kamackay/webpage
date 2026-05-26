@@ -7,7 +7,7 @@
   <meta name="description" content="QR Code generator — paste a URL or any text, get a scannable QR code." />
   <title>QR Generator — Keith MacKay</title>
   <link rel="icon" href="/favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/fonts/Hack-Regular.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/qr/qr.css" />
 </head>
@@ -35,11 +35,10 @@
   <main id="main" class="qr-main">
     <div class="container qr-container">
       <header class="qr-head">
-        <p class="hero-eyebrow">$ qr-gen</p>
         <h1 class="qr-title">QR Generator</h1>
         <p class="qr-lede">
           Paste a URL or any text. The code updates as you type and stays in
-          your browser — nothing is sent to a server.
+          your browser. Fully locally processed, no trackers, no server calls.
         </p>
       </header>
 

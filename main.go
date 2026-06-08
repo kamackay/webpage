@@ -48,7 +48,7 @@ func main() {
 	quandServer := http.FileServer(http.FS(quandRoot))
 
 	r.NoRoute(func(c *gin.Context) {
-		if _, exists := c.GetQuery("quand"); c.Request.URL.Host == "quand.org" || exists {
+		if _, exists := c.GetQuery("quand"); c.Request.Host == "quand.org" || exists {
 			serveStatic(c, quandRoot, quandServer)
 		} else {
 			serveStatic(c, staticRoot, staticServer)
@@ -90,12 +90,13 @@ func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 		return
 	}
 
-	if _, err := fs.Stat(root, clean); err != nil {
+	/*if _, err := fs.Stat(root, clean); err != nil {
 		// Fallback to index.html for unknown routes.
+		logger.Printf("rewriting %s to be 404", clean)
 		c.Request.URL.Path = "/404"
 		server.ServeHTTP(c.Writer, c.Request)
 		return
-	}
+	}/**/
 
 	// Long-cache hashed-looking asset paths; the index.html stays uncached.
 	if clean != "index.html" && (strings.HasPrefix(clean, "css/") ||

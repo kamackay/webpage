@@ -18,6 +18,7 @@ var staticFS embed.FS
 
 var (
 	startedAt = time.Now()
+	logger    = log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC)
 )
 
 func main() {
@@ -40,8 +41,18 @@ func main() {
 	}
 	staticServer := http.FileServer(http.FS(staticRoot))
 
+	quandRoot, err := fs.Sub(staticFS, "web/static/quand")
+	if err != nil {
+		log.Fatalf("failed to mount static FS: %v", err)
+	}
+	quandServer := http.FileServer(http.FS(quandRoot))
+
 	r.NoRoute(func(c *gin.Context) {
-		serveStatic(c, staticRoot, staticServer)
+		if _, exists := c.GetQuery("quand"); c.Request.URL.Host == "quand.org" || exists {
+			serveStatic(c, quandRoot, quandServer)
+		} else {
+			serveStatic(c, staticRoot, staticServer)
+		}
 	})
 
 	port := os.Getenv("PORT")
@@ -72,11 +83,8 @@ func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 		return
 	}
 
-	reqPath := strings.TrimPrefix(c.Request.URL.Path, "/")
-	if reqPath == "" {
-		reqPath = "index.html"
-	}
-	clean := path.Clean(reqPath)
+	clean := getCleanPath(c.Request.URL.Path)
+
 	if strings.HasPrefix(clean, "..") || strings.Contains(clean, "/../") {
 		c.Status(http.StatusBadRequest)
 		return
@@ -84,7 +92,7 @@ func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 
 	if _, err := fs.Stat(root, clean); err != nil {
 		// Fallback to index.html for unknown routes.
-		c.Request.URL.Path = "/"
+		c.Request.URL.Path = "/404"
 		server.ServeHTTP(c.Writer, c.Request)
 		return
 	}
@@ -102,6 +110,14 @@ func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 	}
 
 	server.ServeHTTP(c.Writer, c.Request)
+}
+
+func getCleanPath(originalPath string) string {
+	reqPath := strings.TrimPrefix(originalPath, "/")
+	if reqPath == "" {
+		reqPath = "index.html"
+	}
+	return path.Clean(reqPath)
 }
 
 func requestLogger() gin.HandlerFunc {

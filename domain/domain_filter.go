@@ -9,6 +9,8 @@ import (
 const (
 	Quand        = "quand.org"
 	DigitalOcean = "webpage-o87x7.ondigitalocean.app"
+	KeithMacKay  = "keithmackay.com"
+	KeithSh      = "keith.sh"
 )
 
 func DefaultRejection(c *gin.Context) { c.Status(http.StatusNotFound) }

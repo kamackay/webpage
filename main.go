@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/domain"
+	"github.com/kamackay/webpage/util"
 )
 
 //go:embed all:web/static
@@ -21,6 +22,7 @@ var staticFS embed.FS
 var (
 	startedAt = time.Now()
 	logger    = log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC)
+	verbose   = os.Getenv("VERBOSE") == "true"
 )
 
 func main() {
@@ -54,12 +56,16 @@ func main() {
 	quandServer := http.FileServer(http.FS(quandRoot))
 
 	r.NoRoute(func(c *gin.Context) {
+		if verbose {
+			logger.Printf("%s %s %s", c.Request.Method, c.Request.URL.Path, c.Request.RemoteAddr)
+		}
 		switch c.Request.Host {
-		case "localhost:9999", "127.0.0.1:9999", "keith.sh", "keithmackay.com":
+		default:
+			fallthrough
+		case domain.KeithSh, domain.KeithMacKay:
 			serveStatic(c, staticRoot, staticServer)
 			return
-		default:
-		case domain.Quand:
+		case domain.Quand, domain.DigitalOcean:
 			serveStatic(c, quandRoot, quandServer)
 			return
 		}
@@ -90,25 +96,31 @@ func healthHandler(c *gin.Context) {
 // back to index.html so client-side routing works for unknown paths.
 // Unknown /api/* paths return JSON 404 instead of the SPA shell.
 func serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
-	if strings.HasPrefix(c.Request.URL.Path, "/api/") || c.Request.URL.Path == "/api" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+	clean := getCleanPath(c.Request.URL.Path)
+	//logger.Printf("serving %s %s", clean, c.Request.URL.Path)
+	if util.HasAnyPrefix([]string{"/api", "/hidden"}, c) {
+		if verbose {
+			logger.Printf("%s contains rejected prefix, denying access", clean)
+		}
+		domain.DefaultRejection(c)
 		return
 	}
 
-	clean := getCleanPath(c.Request.URL.Path)
-
 	if strings.HasPrefix(clean, "..") || strings.Contains(clean, "/../") {
+		if verbose {
+			logger.Printf("%s has '..', rejecting hack attempt", clean)
+		}
 		c.Status(http.StatusBadRequest)
 		return
 	}
 
-	/*if _, err := fs.Stat(root, clean); err != nil {
-		// Fallback to index.html for unknown routes.
-		logger.Printf("rewriting %s to be 404", clean)
-		c.Request.URL.Path = "/404"
-		server.ServeHTTP(c.Writer, c.Request)
+	if a, err := fs.Stat(root, clean); err != nil || a.IsDir() {
+		if verbose {
+			logger.Printf("%s is not a file, rejecting request", clean)
+		}
+		domain.DefaultRejection(c)
 		return
-	}/**/
+	}
 
 	// Long-cache hashed-looking asset paths; the index.html stays uncached.
 	if clean != "index.html" && (strings.HasPrefix(clean, "css/") ||
@@ -137,7 +149,7 @@ func requestLogger() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		c.Next()
-		log.Printf("%s: %s %s%s -> %d (%s)",
+		logger.Printf("%s: %s %s%s -> %d (%s)",
 			c.ClientIP(),
 			c.Request.Method,
 			c.Request.Host,

@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/kamackay/webpage/util"
 )
 
 //go:embed all:web/static
@@ -19,6 +20,11 @@ var staticFS embed.FS
 var (
 	startedAt = time.Now()
 	logger    = log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC)
+)
+
+const (
+	QuandDomain        = "quand.org"
+	DigitalOceanDomain = "webpage-o87x7.ondigitalocean.app"
 )
 
 func main() {
@@ -48,16 +54,20 @@ func main() {
 	quandServer := http.FileServer(http.FS(quandRoot))
 
 	r.NoRoute(func(c *gin.Context) {
-		if _, exists := c.GetQuery("quand"); c.Request.Host == "quand.org" || exists {
-			serveStatic(c, quandRoot, quandServer)
-		} else {
+		switch c.Request.Host {
+		case "localhost:9999", "127.0.0.1:9999", "keith.sh", "keithmackay.com":
 			serveStatic(c, staticRoot, staticServer)
+			return
+		default:
+		case QuandDomain:
+			serveStatic(c, quandRoot, quandServer)
+			return
 		}
 	})
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "9999"
 	}
 	addr := ":" + port
 	log.Printf("listening on %s", addr)
@@ -67,10 +77,12 @@ func main() {
 }
 
 func healthHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status":  "ok",
-		"uptime":  time.Since(startedAt).Round(time.Second).String(),
-		"started": startedAt.UTC().Format(time.RFC3339),
+	util.ExcludeForDomains([]string{QuandDomain, DigitalOceanDomain}, c, func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  "ok",
+			"uptime":  time.Since(startedAt).Round(time.Second).String(),
+			"started": startedAt.UTC().Format(time.RFC3339),
+		})
 	})
 }
 
@@ -125,12 +137,13 @@ func requestLogger() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		c.Next()
-		log.Printf("%s: %s %s -> %d (%s)",
+		log.Printf("%s: %s %s%s -> %d (%s)",
 			c.ClientIP(),
 			c.Request.Method,
+			c.Request.Host,
 			c.Request.URL.Path,
 			c.Writer.Status(),
-			time.Since(start).Round(time.Microsecond),
+			time.Since(start),
 		)
 	}
 }

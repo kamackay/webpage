@@ -10,7 +10,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Source + embedded assets.
-COPY main.go ./
+COPY ./ ./
 COPY web ./web
 
 # Static, stripped binary. CGO off so we can run on a scratch base.

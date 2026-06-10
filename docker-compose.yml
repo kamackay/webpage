@@ -8,9 +8,9 @@ services:
     container_name: keith-webpage
     restart: unless-stopped
     ports:
-      - "${HOST_PORT:-9999}:8080"
+      - "${HOST_PORT:-9999}:9999"
     environment:
-      PORT: "8080"
+      PORT: "9999"
       GIN_MODE: release
       APP_VERSION: ${APP_VERSION:-dev}
     read_only: true

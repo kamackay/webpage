@@ -1,0 +1,23 @@
+# Keith MacKay
+
+> Personal site for Keith MacKay, a Software Engineer and Solution Architect based in Philadelphia. Currently consulting through ImagineX, with prior engineering work at Big Nerd Ranch, Cisco, Q-Free, Honeywell, and iPipeline. Focus areas: cloud-native backends, internal platforms, and developer tools across Go, TypeScript, Java, and Kotlin.
+
+Keith is not currently available for hire or freelance work. The site is a single-page resume with a small set of self-contained tools as side projects.
+
+## Site
+
+- [Home](https://keith.sh/): Single-page overview containing About, Experience (ImagineX, Big Nerd Ranch, Cisco, Q-Free, Honeywell, iPipeline), Skills (JavaScript, TypeScript, Java, Kotlin, Docker, Kubernetes, Git, Go, React, MongoDB, AWS, Python, SQL, Android, C#/.NET), Education (BS Computer Science, NC State, December 2016), Projects, and Connect sections.
+
+## Projects
+
+- [QR Code Generator](https://keith.sh/qr): Paste a URL or any text to generate a scannable QR code. Runs entirely in the browser — no server calls, no trackers — and can download the result as a PNG.
+
+## Connect
+
+- [LinkedIn](https://www.linkedin.com/in/keith-mackay-047b9387/): Professional profile and work history.
+- [GitHub](http://github.com/kamackay): Personal open-source projects and experiments.
+- [GitLab](https://gitlab.com/kamackay): Additional repositories hosted on GitLab.
+
+## Optional
+
+- [Site source (GitHub)](http://github.com/kamackay): The site is a static frontend (HTML/CSS/vanilla JS) served by a Go + gin-gonic backend, packaged into a single distroless Docker image

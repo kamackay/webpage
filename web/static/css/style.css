@@ -674,10 +674,13 @@ button { font: inherit; cursor: pointer; }
   color: var(--accent);
   transform: translateY(-2px);
 }
-.social-list svg {
+.social-list .social-icon {
+  display: inline-block;
   width: 14px;
   height: 14px;
-  fill: currentColor;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
 
 /* -------- Footer -------- */

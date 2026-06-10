@@ -11,7 +11,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kamackay/webpage/util"
+	"github.com/kamackay/webpage/api"
+	"github.com/kamackay/webpage/domain"
 )
 
 //go:embed all:web/static
@@ -20,11 +21,6 @@ var staticFS embed.FS
 var (
 	startedAt = time.Now()
 	logger    = log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC)
-)
-
-const (
-	QuandDomain        = "quand.org"
-	DigitalOceanDomain = "webpage-o87x7.ondigitalocean.app"
 )
 
 func main() {
@@ -36,9 +32,13 @@ func main() {
 	r.Use(gin.Recovery())
 	r.Use(requestLogger())
 
-	api := r.Group("/api")
+	apiGroup := r.Group("/api")
 	{
-		api.GET("/health", healthHandler)
+		apiGroup.GET("/health", healthHandler)
+		apiGroup.GET("/experience", api.GetExperience)
+		apiGroup.GET("/skills", api.GetSkills)
+		apiGroup.GET("/projects", api.GetProjects)
+		apiGroup.GET("/socials", api.GetSocials)
 	}
 
 	staticRoot, err := fs.Sub(staticFS, "web/static")
@@ -59,7 +59,7 @@ func main() {
 			serveStatic(c, staticRoot, staticServer)
 			return
 		default:
-		case QuandDomain:
+		case domain.Quand:
 			serveStatic(c, quandRoot, quandServer)
 			return
 		}
@@ -77,7 +77,7 @@ func main() {
 }
 
 func healthHandler(c *gin.Context) {
-	util.ExcludeForDomains([]string{QuandDomain, DigitalOceanDomain}, c, func(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"status":  "ok",
 			"uptime":  time.Since(startedAt).Round(time.Second).String(),

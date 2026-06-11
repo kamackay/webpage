@@ -1,4 +1,16 @@
 services:
+  db:
+    image: postgres:18
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=db
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql
+
   web:
     build:
       context: .
@@ -13,8 +25,11 @@ services:
       PORT: "9999"
       GIN_MODE: release
       APP_VERSION: ${APP_VERSION:-dev}
+      DATABASE_URL: postgresql://user:pass@db:5432/db
     read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
+volumes:
+  postgres:

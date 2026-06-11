@@ -7,8 +7,6 @@ type AccessLogDatabase struct {
 }
 
 type AccessLogDatum struct {
-	Datum
-
 	Ip        string `pg:"ip,pk"`
 	UserAgent string
 	Hits      int64
@@ -24,4 +22,10 @@ func (db AccessLogDatabase) Insert(access AccessLogDatum) error {
 		OnConflict("(ip) DO UPDATE SET hits = ?TableAlias.hits + 1").
 		Insert()
 	return err
+}
+
+func (db AccessLogDatabase) GetAll() ([]AccessLogDatum, error) {
+	var results []AccessLogDatum
+	err := db.db.Model(&results).Select()
+	return results, err
 }

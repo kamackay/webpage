@@ -1,9 +1,8 @@
 package db
 
 import (
-	"net/url"
+	"net"
 	"os"
-	"strings"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
@@ -13,18 +12,18 @@ var rootDatabase *pg.DB
 
 func GetDb() *pg.DB {
 	if rootDatabase == nil {
-		connectionString := os.Getenv("DATABASE_URL")
-		u, err := url.Parse(connectionString)
+		opts, err := pg.ParseURL(os.Getenv("DATABASE_URL"))
 		if err != nil {
 			panic(err)
 		}
-		password, _ := u.User.Password()
-		rootDatabase = pg.Connect(&pg.Options{
-			Addr:     u.Host,
-			User:     u.User.Username(),
-			Password: password,
-			Database: strings.Replace(u.Path, "/", "", -1),
-		})
+		if opts.TLSConfig != nil && !opts.TLSConfig.InsecureSkipVerify {
+			// go-pg passes this config straight to tls.Client without
+			// setting ServerName, so cert verification needs it set here.
+			if host, _, err := net.SplitHostPort(opts.Addr); err == nil {
+				opts.TLSConfig.ServerName = host
+			}
+		}
+		rootDatabase = pg.Connect(opts)
 	}
 	return rootDatabase
 }

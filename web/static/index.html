@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0f14" />
+    <meta
+      name="description"
+      content="Keith MacKay — Software Engineer. Cloud, backend, and tooling work across Go, TypeScript, Java, Kotlin."
+    />
+    <title>Keith MacKay — Software Engineer</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preload" href="/fonts/Hack-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="brand-bracket">[</span>
+          <span class="brand-name">keith.mackay</span>
+          <span class="brand-bracket">]</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <button
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="nav-list"
+            aria-label="Toggle menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+          <ul class="nav-list" id="nav-list">
+            <li><a href="#about">about</a></li>
+            <li><a href="#experience">experience</a></li>
+            <li><a href="#skills">skills</a></li>
+            <li><a href="#education">education</a></li>
+            <li><a href="#projects">projects</a></li>
+            <li><a href="#connect">connect</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="container hero-inner">
+          <h1 class="hero-title">
+            <span class="line">Keith MacKay.</span>
+            <span class="line muted">Software Engineer.</span>
+          </h1>
+          <p class="hero-tagline">
+            I build cloud-native backends, internal platforms, and developer tools. I've spent the last decade learning an extensive number of technologies and engineering strategies.
+          </p>
+          <div class="hero-meta">
+            <span class="meta-item"></span>📍 Philly</span>
+            <span class="meta-item"
+              >Solution Architect @ ImagineX</span
+            >
+          </div>
+        </div>
+        <div class="hero-grid" aria-hidden="true"></div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title">About</h2>
+          </header>
+          <div class="about-grid">
+            <div class="about-copy">
+              <p>
+                I'm a dedicated developer with a passion for learning new
+                things. I've taught myself most of the technologies I use,
+                mostly because I really enjoy finding new ways to do things.
+              </p>
+              <dl class="about-facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Solution Architect</dd>
+                </div>
+                <div>
+                  <dt>Focus</dt>
+                  <dd>Cloud platforms, backend, devtools</dd>
+                </div>
+                <div>
+                  <dt>Based in</dt>
+                  <dd>Philly</dd>
+                </div>
+                <div>
+                  <dt>Currently</dt>
+                  <dd>Not available for hire</dd>
+                </div>
+              </dl>
+            </div>
+            <figure class="about-photo">
+              <img
+                src="/images/pepper_horizontal.jpg"
+                alt="Pepper, my dog, looking very pleased with herself"
+                loading="lazy"
+              />
+              <figcaption>Enjoy a picture of my dog.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="section section-alt">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title">Experience</h2>
+          </header>
+          <ol class="timeline" id="timeline"></ol>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title">Skills</h2>
+          </header>
+          <p class="section-lede">
+            The tools I reach for most.
+          </p>
+          <ul class="skills-grid" id="skills-grid"></ul>
+          <h3 class="subhead">also in the toolbox</h3>
+          <ul class="tag-cloud" id="tag-cloud"></ul>
+        </div>
+      </section>
+
+      <section id="education" class="section section-alt">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title">Education</h2>
+          </header>
+          <article class="edu-card">
+            <header>
+              <h3>North Carolina State University</h3>
+              <p class="edu-meta">BS in Computer Science · December 2016</p>
+            </header>
+            <p>
+              Studying CS at NC State is what gave me the drive to teach myself
+              every technology and language I could get my hands on. I left with
+              a solid core understanding of operating systems and the general
+              shape of programming languages.
+            </p>
+            <ul class="chip-list">
+              <li>Network Security</li>
+              <li>Operating Systems</li>
+              <li>Human-Computer Interaction</li>
+              <li>Computer Graphics</li>
+              <li>Intro to AI</li>
+              <li>Database Management</li>
+              <li>Interactive Video Game Design</li>
+              <li>Numerical Methods</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title">Projects</h2>
+          </header>
+          <ul class="project-grid" id="project-grid"></ul>
+        </div>
+      </section>
+
+      <section id="connect" class="section section-alt">
+        <div class="container connect-inner">
+          <header class="section-head">
+            <h2 class="section-title">Connect</h2>
+          </header>
+          <p class="connect-lede">
+            Not currently available for hire or freelance.
+          </p>
+          <!-- <a class="email-link" href="mailto:keith@keithmackay.com">
+            keith@keithmackay.com
+          </a> -->
+          <ul class="social-list" id="social-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>&copy; <span id="year"></span> Keith MacKay</span>
+        <span class="footer-meta">
+          <!-- <span>built with Go &amp; vanilla JS</span> -->
+        </span>
+      </div>
+    </footer>
+
+    <script src="/js/main.js" defer></script>
+  </body>
+</html>

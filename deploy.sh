@@ -1,7 +1,1 @@
-IMAGE=docker.keith.sh/webpage:$1
-
-docker build . -t $IMAGE &&
-    # docker-squash "$IMAGE" --tag "$IMAGE" && \
-    docker push $IMAGE &&
-    kubectl --context do-nyc3-keithmackay-cluster -n webpage \
-        set image ds/webpage server=$IMAGE
+docker buildx build --tag registry.digitalocean.com/keith/webpage:latest --platform linux/arm64/v8,linux/amd64 --builder container --push .

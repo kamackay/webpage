@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# AI/LLM discovery
+# https://llmstxt.org
+# https://keith.sh/llms.txt

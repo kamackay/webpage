@@ -106,7 +106,7 @@ func (s *Server) bitchFilter() gin.HandlerFunc {
 				c.Request.Method,
 				c.Request.Host,
 				c.Request.URL.Path,
-				c.Request.RemoteAddr)
+				c.ClientIP())
 			domain.BitchRejection(c)
 			return
 		}
@@ -230,7 +230,7 @@ func isHackAttempt(c *gin.Context) bool {
 	if match {
 		return true
 	}
-	return strings.Contains(reqPath, "secret")
+	return strings.Contains(reqPath, "secret") || strings.Contains(reqPath, "credential")
 }
 
 func getCleanPath(originalPath string) string {

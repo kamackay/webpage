@@ -14,6 +14,7 @@ const (
 )
 
 func DefaultRejection(c *gin.Context) { c.Status(http.StatusNotFound) }
+func BitchRejection(c *gin.Context)   { c.AbortWithStatus(http.StatusTooManyRequests) }
 
 func ExcludeAnd(domains []string, c *gin.Context, route func(*gin.Context), rejection func(*gin.Context)) {
 	for _, domain := range domains {

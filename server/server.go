@@ -49,10 +49,16 @@ func (s *Server) Start() {
 	r.Use(s.bitchFilter())
 	r.Use(s.requestLogger())
 
+	apis := []api.Api{
+		api.NewAccessApi(s.accessDb),
+	}
+
 	apiGroup := r.Group("/api")
 	{
+		for _, a := range apis {
+			a.RegisterRoutes(apiGroup)
+		}
 		apiGroup.GET("/health", s.healthHandler)
-		apiGroup.GET("/traffic/hits", s.getTrafficHits)
 		apiGroup.GET("/experience", api.GetExperience)
 		apiGroup.GET("/skills", api.GetSkills)
 		apiGroup.GET("/projects", api.GetProjects)
@@ -147,17 +153,6 @@ func (s *Server) requestLogger() gin.HandlerFunc {
 			time.Since(start),
 		)
 	}
-}
-
-func (s *Server) getTrafficHits(c *gin.Context) {
-	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
-		results, err := s.accessDb.GetAll()
-		if err != nil {
-			c.Status(http.StatusInternalServerError)
-			return
-		}
-		c.JSON(http.StatusOK, results)
-	})
 }
 
 func (s *Server) healthHandler(c *gin.Context) {

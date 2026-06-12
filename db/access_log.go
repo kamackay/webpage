@@ -48,6 +48,12 @@ func (db *AccessLogDatabase) Insert(access AccessLogDatum) error {
 	return err
 }
 
+func (db *AccessLogDatabase) GetBitches() ([]AccessLogDatum, error) {
+	var results []AccessLogDatum
+	err := db.db.Model(&results).Where("bitch is true").Select()
+	return results, err
+}
+
 func (db *AccessLogDatabase) GetAll() ([]AccessLogDatum, error) {
 	var results []AccessLogDatum
 	err := db.db.Model(&results).Select()

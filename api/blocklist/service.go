@@ -1,0 +1,117 @@
+package blocklist
+
+import (
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"regexp"
+	"strings"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/kamackay/webpage/api"
+	"github.com/kamackay/webpage/db"
+	"github.com/robfig/cron/v3"
+)
+
+var ipRegex *regexp.Regexp = regexp.MustCompile("^([0-9]{1,3}\\.){3}[0-9]{1,3}$")
+
+type Service struct {
+	api.Api
+
+	db     *db.BlocklistDatabase
+	logger *log.Logger
+	lists  []Blocklist
+}
+
+func NewBlocklistService(db *db.BlocklistDatabase) *Service {
+	service := &Service{
+		db:     db,
+		logger: log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC),
+		lists: []Blocklist{
+			{Url: "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0", Name: "Yoyo"},
+			{Url: "https://someonewhocares.org/hosts/zero/hosts", Name: "SomeoneWhoCares"},
+			{Url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts", Name: "StevenBlack"},
+			{Url: "https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt", Name: "DevDanHate"},
+			{Url: "https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt", Name: "DevDanAds"},
+			{Url: "https://www.github.developerdan.com/hosts/lists/amp-hosts-extended.txt", Name: "DevDanAmp"},
+			{Url: "https://hole.cert.pl/domains/domains_hosts.txt", Name: "cert.pl"},
+			{Url: "https://badmojr.github.io/1Hosts/Lite/hosts.txt", Name: "1Hosts Pro"},
+		},
+	}
+	service.Init()
+	return service
+}
+
+func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
+	apiGroup := group.Group("/block")
+	{
+		apiGroup.GET("/list.json")
+	}
+}
+
+func (s *Service) Init() {
+	_, _ = cron.New().AddFunc("@daily", func() {
+		defer func() {
+			if err := recover(); err != nil {
+				s.logger.Printf("Recovered error in daily scan task: %+v", err)
+			}
+		}()
+		if err := s.doScan(); err != nil {
+			s.logger.Printf("Error in daily scan task: %+v", err)
+		}
+	})
+}
+
+func (s *Service) doScan() error {
+	start := time.Now()
+	client := &http.Client{}
+	total := 0
+	for _, list := range s.lists {
+		resp, err := client.Get(list.Url)
+		if err != nil {
+			s.logger.Printf("Error pulling list %s: %+v", list.Name, err)
+			continue
+		}
+		defer resp.Body.Close()
+		bodyBytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			s.logger.Printf("Error pulling list %s: %+v", list.Name, err)
+			continue
+		}
+		body := string(bodyBytes)
+		count := 0
+		for _, line := range strings.Split(body, "\n") {
+			trimmedLine := strings.TrimSpace(line)
+			split := strings.Fields(trimmedLine)
+			if len(split) != 2 {
+				continue
+			}
+			// Check to make sure String #1 is an IP address for filtering reasons
+			if !ipRegex.MatchString(split[0]) {
+				continue
+			}
+			if err := s.db.AddDomain(split[1], list.Name); err != nil {
+				s.logger.Printf("Error adding domain %s from %s: %+v", split[1], list.Name, err)
+				continue
+			} else {
+				count++
+			}
+		}
+		s.logger.Printf("Added %d domains from Blocklist %s", count, list.Name)
+		total += count
+	}
+	s.logger.Printf("Processed %d domains from %d lists in %s", total, len(s.lists), time.Since(start))
+	return nil
+}
+
+func (s *Service) getAll(c *gin.Context) {
+	list, err := s.db.GetAll()
+	if err != nil {
+		s.logger.Printf("Error getting all blocklists: %+v", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, list)
+}

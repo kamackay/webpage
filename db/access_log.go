@@ -12,10 +12,10 @@ type AccessLogDatabase struct {
 }
 
 type AccessLogDatum struct {
-	Ip        string `pg:"ip,pk"`
-	UserAgent string
-	Hits      int64
-	Bitch     bool
+	Ip        string `pg:"ip,pk" json:"ip"`
+	UserAgent string `json:"userAgent"`
+	Hits      int64  `json:"hits"`
+	Bitch     bool   `json:"bitch"`
 }
 
 func NewAccessLogDb() (*AccessLogDatabase, error) {

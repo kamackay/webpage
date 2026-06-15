@@ -13,6 +13,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
+	"github.com/kamackay/webpage/api/blocklist"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
 	"github.com/kamackay/webpage/util"
@@ -49,9 +50,15 @@ func (s *Server) Start() {
 	r.Use(s.bitchFilter())
 	r.Use(s.requestLogger())
 
+	blocklistDb, err := db.NewBlocklistDatabase()
+	if err != nil {
+		panic(err)
+	}
+
 	apis := []api.Api{
 		api.NewAccessApi(s.accessDb),
 		api.NewResumeApi(),
+		blocklist.NewBlocklistService(blocklistDb),
 	}
 
 	apiGroup := r.Group("/api")

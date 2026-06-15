@@ -51,6 +51,7 @@ func (s *Server) Start() {
 
 	apis := []api.Api{
 		api.NewAccessApi(s.accessDb),
+		api.NewResumeApi(),
 	}
 
 	apiGroup := r.Group("/api")
@@ -59,10 +60,6 @@ func (s *Server) Start() {
 			a.RegisterRoutes(apiGroup)
 		}
 		apiGroup.GET("/health", s.healthHandler)
-		apiGroup.GET("/experience", api.GetExperience)
-		apiGroup.GET("/skills", api.GetSkills)
-		apiGroup.GET("/projects", api.GetProjects)
-		apiGroup.GET("/socials", api.GetSocials)
 	}
 
 	staticRoot, err := fs.Sub(s.fs, "web/static")
@@ -107,12 +104,19 @@ func (s *Server) Start() {
 func (s *Server) bitchFilter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if bitch, err := s.accessDb.IsBitch(c.ClientIP()); err == nil && bitch {
+			ip := c.ClientIP()
+			go func() {
+				// Increment hit count for this bitch
+				if err := s.accessDb.Insert(db.AccessLogDatum{Ip: ip}); err != nil {
+					s.logger.Printf("failed to bitch access log: %v", err)
+				}
+			}()
 			// This user's IP has tried to hack the site in the past, filter their requests
 			s.logger.Printf("Rejecting request from bitch: %s %s%s %s",
 				c.Request.Method,
 				c.Request.Host,
 				c.Request.URL.Path,
-				c.ClientIP())
+				ip)
 			domain.BitchRejection(c)
 			return
 		}

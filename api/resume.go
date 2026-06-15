@@ -7,15 +7,58 @@ import (
 	"github.com/kamackay/webpage/domain"
 )
 
-type Experience struct {
-	Company     string `json:"company"`
-	Title       string `json:"title"`
-	Years       string `json:"years"`
-	Img         string `json:"img"`
-	Description string `json:"description"`
+type ResumeApi struct {
+	Api
 }
 
-func GetExperience(c *gin.Context) {
+func NewResumeApi() *ResumeApi {
+	return &ResumeApi{}
+}
+
+func (r *ResumeApi) RegisterRoutes(group *gin.RouterGroup) {
+	group.GET("/skills", r.GetSkills)
+	group.GET("/experience", r.GetExperience)
+	group.GET("/projects", r.GetProjects)
+	group.GET("/socials", r.GetSocials)
+}
+
+func (r *ResumeApi) GetSkills(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		c.JSON(http.StatusOK, SkillsResponse{
+			Skills: []Skill{
+				{Name: "Java", Img: "/images/java.svg"},
+				{Name: "Go", Img: "/images/golang.svg"},
+				{Name: "Docker", Img: "/images/docker.png"},
+				{Name: "Kotlin", Img: "/images/kotlin.png"},
+				{Name: "Kubernetes", Img: "/images/k8s.svg"},
+				{Name: "TypeScript", Img: "/images/ts.png"},
+				{Name: "JavaScript", Img: "/images/js.svg"},
+				{Name: "Git", Img: "/images/git.png"},
+				{Name: "React", Img: "/images/react.png"},
+				{Name: "MongoDB", Img: "/images/mongodb.png"},
+				{Name: "AWS", Img: "/images/aws.svg"},
+				{Name: "Python", Img: "/images/python.png"},
+				{Name: "SQL", Img: "/images/sql.png"},
+				{Name: "Android", Img: "/images/android.png"},
+				{Name: "C# / .NET", Img: "/images/csharp.png"},
+			},
+			Tags: []string{
+				"Datadog",
+				"Artifactory",
+				"Ambassador",
+				"Spring",
+				"Prometheus",
+				"Helm",
+				"CI/CD",
+				"Argo",
+				"GitOps",
+				"Gin-gonic",
+			},
+		})
+	})
+}
+
+func (r *ResumeApi) GetExperience(c *gin.Context) {
 	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
 		c.JSON(http.StatusOK, []Experience{
 			{
@@ -69,5 +112,27 @@ func GetExperience(c *gin.Context) {
 			},
 		})
 	})
+}
 
+func (r *ResumeApi) GetProjects(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		c.JSON(http.StatusOK, []Project{
+			{
+				Title:     "QR Code Generator",
+				Subheader: "Convert URLs and text into a scannable QR code",
+				URL:       "./qr",
+				Img:       "/images/qr.png",
+			},
+		})
+	})
+}
+
+func (r *ResumeApi) GetSocials(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		c.JSON(http.StatusOK, []Social{
+			{Name: "LinkedIn", URL: "https://www.linkedin.com/in/keith-mackay-047b9387/", Icon: "linkedin"},
+			{Name: "GitLab", URL: "https://gitlab.com/kamackay", Icon: "gitlab"},
+			{Name: "GitHub", URL: "https://github.com/kamackay", Icon: "github"},
+		})
+	})
 }

@@ -48,6 +48,13 @@ func (db *AccessLogDatabase) Insert(access AccessLogDatum) error {
 	return err
 }
 
+func (db *AccessLogDatabase) IncrementHits(ip string) error {
+	release := db.getIpLock(ip)
+	defer release()
+	_, err := db.db.Query(&AccessLogDatum{Ip: ip}, "UPDATE ?TableAlias SET hits = ?TableAlias.hits + 1 where ip = ?", ip)
+	return err
+}
+
 func (db *AccessLogDatabase) GetBitches() ([]AccessLogDatum, error) {
 	var results []AccessLogDatum
 	err := db.db.Model(&results).Where("bitch is true").Select()

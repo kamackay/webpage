@@ -33,6 +33,6 @@ func (bd *BlocklistDatabase) AddDomain(domain string, source string) error {
 
 func (bd *BlocklistDatabase) GetAll() ([]BlockedDomain, error) {
 	var list []BlockedDomain
-	err := bd.db.Model(&BlockedDomain{}).Select()
+	err := bd.db.Model(&list).Select()
 	return list, err
 }

@@ -12,10 +12,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/db"
+	"github.com/kamackay/webpage/domain"
 	"github.com/robfig/cron/v3"
 )
 
-var ipRegex *regexp.Regexp = regexp.MustCompile("^([0-9]{1,3}\\.){3}[0-9]{1,3}$")
+var ipRegex = regexp.MustCompile("^([0-9]{1,3}\\.){3}[0-9]{1,3}$")
+
+const DoParsePW = "giant-yurt-motorolla-cartilage"
 
 type Service struct {
 	api.Api
@@ -47,7 +50,21 @@ func NewBlocklistService(db *db.BlocklistDatabase) *Service {
 func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/block")
 	{
-		apiGroup.GET("/list.json")
+		apiGroup.GET("/list.json", s.getAll)
+		apiGroup.GET("/list", s.list)
+		apiGroup.PUT("/do", func(c *gin.Context) {
+			body, err := io.ReadAll(c.Request.Body)
+			if err == nil && strings.EqualFold(string(body), DoParsePW) {
+				go func() {
+					_ = s.doScan()
+				}()
+				c.AbortWithStatus(http.StatusCreated)
+				return
+			} else if err != nil {
+				s.logger.Printf("Error parsing body: %v", err)
+			}
+			c.AbortWithStatus(http.StatusNotFound)
+		})
 	}
 }
 
@@ -106,12 +123,35 @@ func (s *Service) doScan() error {
 	return nil
 }
 
+func (s *Service) list(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		list, err := s.db.GetAll()
+		if err != nil {
+			s.logger.Printf("Error fetching lists: %+v", err)
+			c.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+		builder := strings.Builder{}
+
+		builder.WriteString("#Title: Keith MacKay's Blocklist\n")
+
+		for _, d := range list {
+			builder.WriteString("0.0.0.0 ")
+			builder.WriteString(d.Domain + "\n")
+		}
+
+		c.String(http.StatusOK, builder.String())
+	})
+}
+
 func (s *Service) getAll(c *gin.Context) {
-	list, err := s.db.GetAll()
-	if err != nil {
-		s.logger.Printf("Error getting all blocklists: %+v", err)
-		c.AbortWithStatus(http.StatusInternalServerError)
-		return
-	}
-	c.JSON(http.StatusOK, list)
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		list, err := s.db.GetAll()
+		if err != nil {
+			s.logger.Printf("Error getting all blocklists: %+v", err)
+			c.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+		c.JSON(http.StatusOK, list)
+	})
 }

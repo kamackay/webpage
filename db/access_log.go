@@ -33,10 +33,7 @@ func (db *AccessLogDatabase) getIpLock(ip string) func() {
 		lock = v.(*sync.Mutex)
 	}
 	lock.Lock()
-
-	return func() {
-		lock.Unlock()
-	}
+	return func() { lock.Unlock() }
 }
 
 func (db *AccessLogDatabase) Insert(access AccessLogDatum) error {

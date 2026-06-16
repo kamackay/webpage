@@ -13,6 +13,7 @@ import (
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
+	"github.com/kamackay/webpage/model"
 	"github.com/robfig/cron/v3"
 )
 
@@ -25,14 +26,14 @@ type Service struct {
 
 	db     *db.BlocklistDatabase
 	logger *log.Logger
-	lists  []Blocklist
+	lists  []model.Blocklist
 }
 
 func NewBlocklistService(db *db.BlocklistDatabase) *Service {
 	service := &Service{
 		db:     db,
 		logger: log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC),
-		lists: []Blocklist{
+		lists: []model.Blocklist{
 			{Url: "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts;showintro=0", Name: "Yoyo"},
 			{Url: "https://someonewhocares.org/hosts/zero/hosts", Name: "SomeoneWhoCares"},
 			{Url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts", Name: "StevenBlack"},
@@ -50,22 +51,25 @@ func NewBlocklistService(db *db.BlocklistDatabase) *Service {
 func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/block")
 	{
+		//apiGroup.GET("/")
 		apiGroup.GET("/list.json", s.getAll)
 		apiGroup.GET("/list", s.list)
-		apiGroup.PUT("/do", func(c *gin.Context) {
-			body, err := io.ReadAll(c.Request.Body)
-			if err == nil && strings.EqualFold(string(body), DoParsePW) {
-				go func() {
-					_ = s.doScan()
-				}()
-				c.AbortWithStatus(http.StatusCreated)
-				return
-			} else if err != nil {
-				s.logger.Printf("Error parsing body: %v", err)
-			}
-			c.AbortWithStatus(http.StatusNotFound)
-		})
+		apiGroup.PUT("/do", s.invokeViaRest)
 	}
+}
+
+func (s *Service) invokeViaRest(c *gin.Context) {
+	body, err := io.ReadAll(c.Request.Body)
+	if err == nil && strings.EqualFold(string(body), DoParsePW) {
+		go func() {
+			_ = s.doScan()
+		}()
+		c.AbortWithStatus(http.StatusCreated)
+		return
+	} else if err != nil {
+		s.logger.Printf("Error parsing body: %v", err)
+	}
+	c.AbortWithStatus(http.StatusNotFound)
 }
 
 func (s *Service) Init() {

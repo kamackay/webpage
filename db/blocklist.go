@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/go-pg/pg/v10"
+	"github.com/kamackay/webpage/model"
 )
 
 type BlocklistDatabase struct {
@@ -35,4 +36,8 @@ func (bd *BlocklistDatabase) GetAll() ([]BlockedDomain, error) {
 	var list []BlockedDomain
 	err := bd.db.Model(&list).Select()
 	return list, err
+}
+
+func (bd *BlocklistDatabase) GetStats() (*model.StatsQueryResult, error) {
+	return nil, nil
 }

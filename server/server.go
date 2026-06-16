@@ -16,6 +16,7 @@ import (
 	"github.com/kamackay/webpage/api/blocklist"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
+	"github.com/kamackay/webpage/model"
 	"github.com/kamackay/webpage/util"
 )
 
@@ -114,7 +115,7 @@ func (s *Server) bitchFilter() gin.HandlerFunc {
 			ip := c.ClientIP()
 			go func() {
 				// Increment hit count for this bitch
-				if err := s.accessDb.Insert(db.AccessLogDatum{Ip: ip}); err != nil {
+				if err := s.accessDb.Insert(model.AccessLogDatum{Ip: ip}); err != nil {
 					s.logger.Printf("failed to bitch access log: %v", err)
 				}
 			}()
@@ -149,7 +150,7 @@ func (s *Server) requestLogger() gin.HandlerFunc {
 			return
 		}
 		go func() {
-			if err := s.accessDb.Insert(db.AccessLogDatum{Ip: ip, UserAgent: userAgent, Hits: 1, Bitch: false}); err != nil {
+			if err := s.accessDb.Insert(model.AccessLogDatum{Ip: ip, UserAgent: userAgent, Hits: 1, Bitch: false}); err != nil {
 				s.logger.Printf("failed to insert access log: %v", err)
 			}
 		}()

@@ -51,7 +51,7 @@ func NewBlocklistService(db *db.BlocklistDatabase) *Service {
 func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/block")
 	{
-		//apiGroup.GET("/")
+		apiGroup.GET("/stats", s.getStats)
 		apiGroup.GET("/list.json", s.getAll)
 		apiGroup.GET("/list", s.list)
 		apiGroup.PUT("/do", s.invokeViaRest)
@@ -157,5 +157,17 @@ func (s *Service) getAll(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, list)
+	})
+}
+
+func (s *Service) getStats(c *gin.Context) {
+	domain.ExcludeDomains([]string{domain.Quand}, c, func(c *gin.Context) {
+		stats, err := s.db.GetStats()
+		if err != nil {
+			s.logger.Printf("Error getting stats: %+v", err)
+			c.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+		c.JSON(http.StatusOK, stats)
 	})
 }

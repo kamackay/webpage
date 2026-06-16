@@ -1,21 +1,24 @@
 package db
 
 import (
+	"context"
 	"time"
 
-	"github.com/go-pg/pg/v10"
 	"github.com/kamackay/webpage/model"
+	"github.com/uptrace/bun"
 )
 
 type BlocklistDatabase struct {
-	db *pg.DB
+	db *bun.DB
 }
 
 type BlockedDomain struct {
-	Domain         string `pg:"domain,pk" json:"domain"`
-	Source         string `pg:"source" json:"source"`
-	Added          int64  `json:"added"`
-	UploadedToNext bool   `json:"uploadedToNext"`
+	bun.BaseModel `bun:"table:blocked_domains"`
+
+	Domain         string `bun:"domain,pk" json:"domain"`
+	Source         string `bun:"source,nullzero" json:"source"`
+	Added          int64  `bun:",nullzero" json:"added"`
+	UploadedToNext bool   `bun:",nullzero" json:"uploadedToNext"`
 }
 
 func NewBlocklistDatabase() (*BlocklistDatabase, error) {
@@ -23,21 +26,27 @@ func NewBlocklistDatabase() (*BlocklistDatabase, error) {
 }
 
 func (bd *BlocklistDatabase) AddDomain(domain string, source string) error {
-	_, err := bd.db.Model(&BlockedDomain{
+	_, err := bd.db.NewInsert().Model(&BlockedDomain{
 		Domain:         domain,
 		Source:         source,
 		UploadedToNext: false,
 		Added:          time.Now().UnixMilli(),
-	}).OnConflict("DO NOTHING").Insert()
+	}).On("CONFLICT DO NOTHING").Exec(context.Background())
 	return err
 }
 
 func (bd *BlocklistDatabase) GetAll() ([]BlockedDomain, error) {
 	var list []BlockedDomain
-	err := bd.db.Model(&list).Select()
+	err := bd.db.NewSelect().Model(&list).Scan(context.Background())
 	return list, err
 }
 
 func (bd *BlocklistDatabase) GetStats() (*model.StatsQueryResult, error) {
-	return nil, nil
+	var stats model.StatsQueryResult
+	err := bd.db.NewRaw(
+		`SELECT count(*) AS "count", `+
+			`count(*) FILTER (WHERE uploaded_to_next IS TRUE) AS "uploaded" `+
+			`FROM blocked_domains`,
+	).Scan(context.Background(), &stats)
+	return &stats, err
 }

@@ -1,26 +1,21 @@
 package db
 
 import (
+	"context"
 	"sync"
 
-	"github.com/go-pg/pg/v10"
+	"github.com/kamackay/webpage/model"
+	"github.com/uptrace/bun"
 )
 
 type AccessLogDatabase struct {
-	db    *pg.DB
+	db    *bun.DB
 	locks sync.Map
-}
-
-type AccessLogDatum struct {
-	Ip        string `pg:"ip,pk" json:"ip"`
-	UserAgent string `json:"userAgent"`
-	Hits      int64  `json:"hits"`
-	Bitch     bool   `json:"bitch"`
 }
 
 func NewAccessLogDb() (*AccessLogDatabase, error) {
 	db := &AccessLogDatabase{db: GetDb()}
-	return db, CreateSchema((*AccessLogDatum)(nil))
+	return db, CreateSchema((*model.AccessLogDatum)(nil))
 }
 
 func (db *AccessLogDatabase) getIpLock(ip string) func() {
@@ -36,45 +31,53 @@ func (db *AccessLogDatabase) getIpLock(ip string) func() {
 	return func() { lock.Unlock() }
 }
 
-func (db *AccessLogDatabase) Insert(access AccessLogDatum) error {
+func (db *AccessLogDatabase) Insert(access model.AccessLogDatum) error {
 	release := db.getIpLock(access.Ip)
 	defer release()
-	_, err := db.db.Model(&access).
-		OnConflict("(ip) DO UPDATE SET hits = ?TableAlias.hits + 1").
-		Insert()
+	_, err := db.db.NewInsert().
+		Model(&access).
+		On("CONFLICT (ip) DO UPDATE").
+		Set("hits = ?TableAlias.hits + 1").
+		Exec(context.Background())
 	return err
 }
 
 func (db *AccessLogDatabase) IncrementHits(ip string) error {
 	release := db.getIpLock(ip)
 	defer release()
-	_, err := db.db.Query(&AccessLogDatum{Ip: ip}, "UPDATE ?TableAlias SET hits = ?TableAlias.hits + 1 where ip = ?", ip)
+	_, err := db.db.NewUpdate().
+		Model((*model.AccessLogDatum)(nil)).
+		Set("hits = ?TableAlias.hits + 1").
+		Where("ip = ?", ip).
+		Exec(context.Background())
 	return err
 }
 
-func (db *AccessLogDatabase) GetBitches() ([]AccessLogDatum, error) {
-	var results []AccessLogDatum
-	err := db.db.Model(&results).Where("bitch is true").Select()
+func (db *AccessLogDatabase) GetBitches() ([]model.AccessLogDatum, error) {
+	var results []model.AccessLogDatum
+	err := db.db.NewSelect().Model(&results).Where("bitch is true").Scan(context.Background())
 	return results, err
 }
 
-func (db *AccessLogDatabase) GetAll() ([]AccessLogDatum, error) {
-	var results []AccessLogDatum
-	err := db.db.Model(&results).Select()
+func (db *AccessLogDatabase) GetAll() ([]model.AccessLogDatum, error) {
+	var results []model.AccessLogDatum
+	err := db.db.NewSelect().Model(&results).Scan(context.Background())
 	return results, err
 }
 
 func (db *AccessLogDatabase) IsBitch(ip string) (bool, error) {
-	record := &AccessLogDatum{Ip: ip}
-	err := db.db.Model(record).WherePK().Select()
+	record := &model.AccessLogDatum{Ip: ip}
+	err := db.db.NewSelect().Model(record).WherePK().Scan(context.Background())
 	return record.Bitch, err
 }
 
 func (db *AccessLogDatabase) SetBitchStatus(ip string, bitch bool) error {
 	release := db.getIpLock(ip)
 	defer release()
-	_, err := db.db.Model(&AccessLogDatum{Ip: ip, Bitch: bitch}).
-		OnConflict("(ip) DO UPDATE SET bitch = EXCLUDED.bitch").
-		Insert()
+	_, err := db.db.NewInsert().
+		Model(&model.AccessLogDatum{Ip: ip, Bitch: bitch}).
+		On("CONFLICT (ip) DO UPDATE").
+		Set("bitch = EXCLUDED.bitch").
+		Exec(context.Background())
 	return err
 }

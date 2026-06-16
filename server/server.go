@@ -87,6 +87,11 @@ func (s *Server) Start() {
 		if s.verbose {
 			s.logger.Printf("%s %s %s", c.Request.Method, c.Request.URL.Path, c.Request.RemoteAddr)
 		}
+		if c.Request.Method != http.MethodGet {
+			// Blocking anything but a GET on the static urls
+			domain.DefaultRejection(c)
+			return
+		}
 		switch c.Request.Host {
 		default:
 			fallthrough

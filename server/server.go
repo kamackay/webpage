@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/api/blocklist"
@@ -47,7 +48,7 @@ func (s *Server) Start() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
-	r.Use(gin.Recovery())
+	r.Use(gin.Recovery(), gzip.Gzip(gzip.DefaultCompression))
 	r.Use(s.bitchFilter())
 	r.Use(s.requestLogger())
 

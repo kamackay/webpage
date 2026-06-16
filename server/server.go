@@ -197,6 +197,11 @@ func (s *Server) serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 		return
 	}
 
+	if strings.HasPrefix(clean, "/quand") && c.Request.Host != domain.Quand {
+		domain.DefaultRejection(c)
+		return
+	}
+
 	if strings.HasPrefix(clean, "..") || strings.Contains(clean, "/../") {
 		if s.verbose {
 			s.logger.Printf("%s has '..', rejecting hack attempt", clean)

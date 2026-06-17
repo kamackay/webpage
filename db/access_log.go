@@ -2,20 +2,48 @@ package db
 
 import (
 	"context"
+	"database/sql"
+	"fmt"
+	"os"
 	"sync"
+	"time"
 
 	"github.com/kamackay/webpage/model"
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/uptrace/bun"
 )
 
+// In-memory by default: no disk write, so a read-only root FS needs no volume.
+// Override SQLITE_PATH with a file on a writable volume for durability.
+const defaultSqliteDSN = "file::memory:?cache=shared"
+
 type AccessLogDatabase struct {
-	db    *bun.DB
-	locks sync.Map
+	db     *bun.DB
+	sqlite *sql.DB
+	locks  sync.Map
 }
 
 func NewAccessLogDb() (*AccessLogDatabase, error) {
-	db := &AccessLogDatabase{db: GetDb()}
+	dsn := os.Getenv("SQLITE_PATH")
+	if dsn == "" {
+		dsn = defaultSqliteDSN
+	}
+	sqlite, err := sql.Open("sqlite3", dsn)
+	if err != nil {
+		panic(err)
+	}
+	// Pin to one connection so the in-memory DB and its schema persist.
+	sqlite.SetMaxOpenConns(1)
+	db := &AccessLogDatabase{db: GetDb(), sqlite: sqlite}
+	if err := db.InitSqlite(); err != nil {
+		panic(err)
+	}
 	return db, CreateSchema((*model.AccessLogDatum)(nil))
+}
+
+func (db *AccessLogDatabase) InitSqlite() error {
+	_, err := db.sqlite.Exec(`create table if not exists request_log (url text, ip text, method text, status int, userAgent text, time integer);`)
+	return err
 }
 
 func (db *AccessLogDatabase) getIpLock(ip string) func() {
@@ -29,6 +57,44 @@ func (db *AccessLogDatabase) getIpLock(ip string) func() {
 	}
 	lock.Lock()
 	return func() { lock.Unlock() }
+}
+
+func (db *AccessLogDatabase) StoreRequestLog(l *model.RequestLog) error {
+	tx, err := db.sqlite.Begin()
+	if err != nil {
+		return err
+	}
+	stmt, err := tx.Prepare("insert into request_log(url, ip, method, status, userAgent, time) values(?, ?, ?, ?, ?, ?)")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(l.Url, l.Ip, l.Method, l.Status, l.UserAgent, l.Time.UnixMilli())
+	if err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+
+func (db *AccessLogDatabase) GetRequestLogs() ([]model.RequestLog, error) {
+	logs := make([]model.RequestLog, 0)
+	rows, err := db.sqlite.Query("select url, ip, method, status, userAgent, time from request_log")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var l model.RequestLog
+		var t int64
+		err = rows.Scan(&l.Url, &l.Ip, &l.Method, &l.Status, &l.UserAgent, &t)
+		if err != nil {
+			fmt.Printf("error reading row: %+v", err)
+			continue
+		}
+		l.Time = time.UnixMilli(t)
+		logs = append(logs, l)
+	}
+	return logs, rows.Err()
 }
 
 func (db *AccessLogDatabase) Insert(access model.AccessLogDatum) error {

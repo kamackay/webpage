@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"regexp"
 	"strings"
 	"time"
 
@@ -17,13 +16,12 @@ import (
 	"github.com/kamackay/webpage/api/blocklist"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
-	"github.com/kamackay/webpage/model"
 	"github.com/kamackay/webpage/util"
 )
 
 type Server struct {
 	startedAt time.Time
-	accessDb  *db.AccessLogDatabase
+	access    *api.AccessApi
 	logger    *log.Logger
 	verbose   bool
 	fs        embed.FS
@@ -34,11 +32,13 @@ func NewServer(fs embed.FS) *Server {
 	if err != nil {
 		panic(err)
 	}
+	access := api.NewAccessApi(accessLogDb)
+
 	return &Server{
-		accessDb: accessLogDb,
-		logger:   log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC),
-		verbose:  os.Getenv("VERBOSE") == "true",
-		fs:       fs,
+		access:  access,
+		logger:  log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC),
+		verbose: os.Getenv("VERBOSE") == "true",
+		fs:      fs,
 	}
 }
 
@@ -48,9 +48,9 @@ func (s *Server) Start() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
+	r.Use(s.access.BitchFilter())
 	r.Use(gin.Recovery(), gzip.Gzip(gzip.DefaultCompression))
-	r.Use(s.bitchFilter())
-	r.Use(s.requestLogger())
+	r.Use(s.access.RequestLogger())
 
 	blocklistDb, err := db.NewBlocklistDatabase()
 	if err != nil {
@@ -58,7 +58,7 @@ func (s *Server) Start() {
 	}
 
 	apis := []api.Api{
-		api.NewAccessApi(s.accessDb),
+		s.access,
 		api.NewResumeApi(),
 		blocklist.NewBlocklistService(blocklistDb),
 	}
@@ -112,64 +112,6 @@ func (s *Server) Start() {
 	log.Printf("listening on %s", addr)
 	if err := r.Run(addr); err != nil {
 		log.Fatalf("server error: %v", err)
-	}
-}
-
-func (s *Server) bitchFilter() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if bitch, err := s.accessDb.IsBitch(c.ClientIP()); err == nil && bitch {
-			ip := c.ClientIP()
-			go func() {
-				// Increment hit count for this bitch
-				if err := s.accessDb.Insert(model.AccessLogDatum{Ip: ip}); err != nil {
-					s.logger.Printf("failed to bitch access log: %v", err)
-				}
-			}()
-			// This user's IP has tried to hack the site in the past, filter their requests
-			s.logger.Printf("Rejecting request from bitch: %s %s%s %s",
-				c.Request.Method,
-				c.Request.Host,
-				c.Request.URL.Path,
-				ip)
-			domain.BitchRejection(c)
-			return
-		}
-		if isHackAttempt(c) {
-			domain.BitchRejection(c)
-			err := s.accessDb.SetBitchStatus(c.ClientIP(), true)
-			if err != nil {
-				s.logger.Printf("Error Setting user to bitch: %+v", err)
-			}
-			return
-		}
-		c.Next()
-	}
-}
-
-func (s *Server) requestLogger() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		// store for goroutine
-		ip := c.ClientIP()
-		userAgent := c.Request.UserAgent()
-		if strings.HasSuffix(c.Request.URL.Path, "api/health") {
-			// This is just too noisy
-			return
-		}
-		go func() {
-			if err := s.accessDb.Insert(model.AccessLogDatum{Ip: ip, UserAgent: userAgent, Hits: 1, Bitch: false}); err != nil {
-				s.logger.Printf("failed to insert access log: %v", err)
-			}
-		}()
-		start := time.Now()
-		c.Next()
-		s.logger.Printf("%s: %s %s%s -> %d (%s)",
-			ip,
-			c.Request.Method,
-			c.Request.Host,
-			c.Request.URL.Path,
-			c.Writer.Status(),
-			time.Since(start),
-		)
 	}
 }
 
@@ -240,15 +182,6 @@ func (s *Server) serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 	}
 
 	server.ServeHTTP(c.Writer, c.Request)
-}
-
-func isHackAttempt(c *gin.Context) bool {
-	reqPath := c.Request.URL.Path
-	match, _ := regexp.MatchString("^/?((wp-content)|(wp-includes))?.*(\\.php)|(\\.env)$", reqPath)
-	if match {
-		return true
-	}
-	return strings.Contains(reqPath, "secret") || strings.Contains(reqPath, "credential")
 }
 
 func getCleanPath(originalPath string) string {

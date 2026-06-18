@@ -99,6 +99,18 @@ func (a *AccessApi) handleRequest(c *gin.Context) {
 	}()
 }
 
+func (a *AccessApi) UserAgentFilter() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userAgent := c.Request.UserAgent()
+		if match, err := regexp.MatchString("^.*((GPTBot)|(OAI-SearchBot)|(ChatGPT-User)|(ClaudeBot)|(anthropic-ai)|(PerplexityBot)|(AIWebIndex)).*$", userAgent); err == nil && match {
+			// This request is coming from an AI bot or scraper. Fuck em.
+			c.AbortWithStatus(http.StatusForbidden)
+			return
+		}
+		c.Next()
+	}
+}
+
 func (a *AccessApi) cacheRequest(c *gin.Context) {
 	l := &model.RequestLog{
 		Url:       c.Request.Host + c.Request.URL.String(),
@@ -153,6 +165,8 @@ func (a *AccessApi) BitchFilter() gin.HandlerFunc {
 				c.Request.URL.Path,
 				ip)
 			domain.BitchRejection(c)
+			// Still send this request to the cache
+			a.cacheRequest(c)
 			return
 		}
 		if isHackAttempt(c) {

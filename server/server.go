@@ -48,7 +48,7 @@ func (s *Server) Start() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
-	r.Use(s.access.BitchFilter())
+	r.Use(s.access.BitchFilter(), s.access.UserAgentFilter())
 	r.Use(gin.Recovery(), gzip.Gzip(gzip.DefaultCompression))
 	r.Use(s.access.RequestLogger())
 

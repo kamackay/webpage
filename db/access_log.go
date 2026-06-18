@@ -13,8 +13,6 @@ import (
 	"github.com/uptrace/bun"
 )
 
-// In-memory by default: no disk write, so a read-only root FS needs no volume.
-// Override SQLITE_PATH with a file on a writable volume for durability.
 const defaultSqliteDSN = "file::memory:?cache=shared"
 
 type AccessLogDatabase struct {

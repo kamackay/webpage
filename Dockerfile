@@ -3,7 +3,6 @@
 # ---- Build stage ---------------------------------------------------------
 FROM golang:1.26-alpine AS build
 
-# CGO (needed by github.com/mattn/go-sqlite3) requires a C toolchain.
 RUN apk add --no-cache gcc musl-dev
 
 WORKDIR /src
@@ -26,7 +25,6 @@ RUN go build \
     ./
 
 # ---- Runtime stage -------------------------------------------------------
-# Alpine provides musl libc for the dynamically-linked CGO binary (~7 MB base).
 FROM alpine:3.21 AS runtime
 
 RUN apk add --no-cache ca-certificates \

@@ -15,27 +15,23 @@ RUN go mod download
 COPY ./ ./
 COPY web ./web
 
-# CGO on, so the binary links dynamically against musl (hence the Alpine runtime).
+# Static CGO build (musl folded in, pure-Go net/user) so it runs on distroless/static.
 ARG APP_VERSION=dev
 ENV CGO_ENABLED=1 GOOS=linux
 RUN go build \
     -trimpath \
-    -ldflags="-s -w -X main.versionFromBuild=${APP_VERSION}" \
+    -tags "osusergo netgo" \
+    -ldflags="-s -w -linkmode external -extldflags '-static' -X main.versionFromBuild=${APP_VERSION}" \
     -o /out/server \
     ./
 
 # ---- Runtime stage -------------------------------------------------------
-FROM alpine:3.21 AS runtime
+FROM gcr.io/distroless/static-debian12:nonroot AS runtime
 
-RUN apk add --no-cache ca-certificates \
-    && addgroup -S app \
-    && adduser -S -G app -u 65532 app
-
-WORKDIR /app
 COPY --from=build /out/server /app/server
 
 EXPOSE 8080
 ENV PORT=8080 GIN_MODE=release
 
-USER app
+USER nonroot:nonroot
 ENTRYPOINT ["/app/server"]

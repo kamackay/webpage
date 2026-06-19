@@ -52,9 +52,9 @@ func (a *AccessApi) getRecent(c *gin.Context) {
 	})
 	for _, l := range logs {
 		sb.WriteString(l.Time.Format("2006-01-02 15:04:05"))
-		sb.WriteString("\t")
+		sb.WriteString(" ")
 		sb.WriteString(l.Method)
-		sb.WriteString("\t")
+		sb.WriteString(" ")
 		sb.WriteString(l.Ip)
 		sb.WriteString("\t")
 		sb.WriteString(fmt.Sprintf("%d", l.Status))

@@ -47,7 +47,7 @@ func (a *AccessApi) getRecent(c *gin.Context) {
 		return
 	}
 	sort.Slice(logs, func(i, j int) bool {
-		return logs[i].Time.Before(logs[j].Time)
+		return logs[i].Time.After(logs[j].Time)
 	})
 	tw := table.NewWriter()
 	tw.AppendHeader(table.Row{"Time", "Method", "Ip", "Status", "Url", "UserAgent"})

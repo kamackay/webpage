@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -11,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
 	"github.com/kamackay/webpage/model"
@@ -46,25 +46,16 @@ func (a *AccessApi) getRecent(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
-	var sb strings.Builder
 	sort.Slice(logs, func(i, j int) bool {
 		return logs[i].Time.Before(logs[j].Time)
 	})
+	tw := table.NewWriter()
+	tw.AppendHeader(table.Row{"Time", "Method", "Ip", "Status", "Url", "UserAgent"})
+	tw.SetTitle("Recent Access Logs")
 	for _, l := range logs {
-		sb.WriteString(l.Time.Format("2006-01-02 15:04:05"))
-		sb.WriteString(" ")
-		sb.WriteString(l.Method)
-		sb.WriteString(" ")
-		sb.WriteString(l.Ip)
-		sb.WriteString("\t")
-		sb.WriteString(fmt.Sprintf("%d", l.Status))
-		sb.WriteString("\t")
-		sb.WriteString(l.Url)
-		sb.WriteString("\t")
-		sb.WriteString(l.UserAgent)
-		sb.WriteString("\n")
+		tw.AppendRow(table.Row{l.Time.Format("2006-01-02 15:04:05"), l.Method, l.Ip, l.Status, l.Url, l.UserAgent})
 	}
-	c.String(http.StatusOK, sb.String())
+	c.String(http.StatusOK, tw.Render())
 }
 
 func (a *AccessApi) getBitches(c *gin.Context) {

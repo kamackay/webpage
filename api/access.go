@@ -177,7 +177,7 @@ func isHackAttempt(c *gin.Context) bool {
 	if len(c.Request.UserAgent()) == 0 {
 		return true
 	}
-	match, _ := regexp.MatchString("^/?.*((wp-content)|(wp-admin)|(wp-includes)|(\\.aws)|(\\.vscode)|(\\.git)|(\\.config)|(\\.anthropic)|(\\.openai)|(\\.kube)|(\\.docker))?.*((\\.php)|(\\.env))?$", reqPath)
+	match, _ := regexp.MatchString("^/?(.*((wp-content)|(wp-admin)|(wp-includes)|(\\.aws)|(\\.vscode)|(\\.git)|(\\.config)|(\\.anthropic)|(\\.openai)|(\\.kube)|(\\.docker)).*)|(.*(\\.php)|(\\.env))$", reqPath)
 	if match {
 		return true
 	}

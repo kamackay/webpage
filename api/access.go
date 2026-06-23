@@ -142,6 +142,7 @@ func (a *AccessApi) RequestLogger() gin.HandlerFunc {
 
 func (a *AccessApi) BitchFilter() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		start := time.Now()
 		if bitch, err := a.accessDb.IsBitch(c.ClientIP()); err == nil && bitch {
 			ip := c.ClientIP()
 			go func() {
@@ -158,7 +159,7 @@ func (a *AccessApi) BitchFilter() gin.HandlerFunc {
 				ip)
 			domain.BitchRejection(c)
 			// Still send this request to the cache
-			a.cacheRequest(c)
+			a.cacheRequest(c, time.Since(start).String())
 			return
 		}
 		if isHackAttempt(c) {

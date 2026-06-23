@@ -102,7 +102,7 @@ func (a *AccessApi) UserAgentFilter() gin.HandlerFunc {
 	}
 }
 
-func (a *AccessApi) cacheRequest(c *gin.Context) {
+func (a *AccessApi) cacheRequest(c *gin.Context, latency string) {
 	l := &model.RequestLog{
 		Url:       c.Request.Host + c.Request.URL.String(),
 		Ip:        c.ClientIP(),
@@ -110,6 +110,7 @@ func (a *AccessApi) cacheRequest(c *gin.Context) {
 		Status:    c.Writer.Status(),
 		UserAgent: c.Request.UserAgent(),
 		Time:      time.Now(),
+		Latency:   latency,
 	}
 	go func() {
 		if err := a.accessDb.StoreRequestLog(l); err != nil {
@@ -135,7 +136,7 @@ func (a *AccessApi) RequestLogger() gin.HandlerFunc {
 			c.Writer.Status(),
 			time.Since(start),
 		)
-		a.cacheRequest(c)
+		a.cacheRequest(c, time.Since(start).String())
 	}
 }
 

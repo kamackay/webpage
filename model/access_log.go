@@ -8,5 +8,6 @@ type RequestLog struct {
 	Method    string
 	Status    int
 	UserAgent string
+	Latency   string
 	Time      time.Time
 }

@@ -40,7 +40,7 @@ func NewAccessLogDb() (*AccessLogDatabase, error) {
 }
 
 func (db *AccessLogDatabase) InitSqlite() error {
-	_, err := db.sqlite.Exec(`create table if not exists request_log (url text, ip text, method text, status int, userAgent text, time integer);`)
+	_, err := db.sqlite.Exec(`create table if not exists request_log (url text, ip text, method text, status int, userAgent text, time integer, latency text);`)
 	return err
 }
 
@@ -62,12 +62,12 @@ func (db *AccessLogDatabase) StoreRequestLog(l *model.RequestLog) error {
 	if err != nil {
 		return err
 	}
-	stmt, err := tx.Prepare("insert into request_log(url, ip, method, status, userAgent, time) values(?, ?, ?, ?, ?, ?)")
+	stmt, err := tx.Prepare("insert into request_log(url, ip, method, status, userAgent, time, latency) values(?, ?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(l.Url, l.Ip, l.Method, l.Status, l.UserAgent, l.Time.UnixMilli())
+	_, err = stmt.Exec(l.Url, l.Ip, l.Method, l.Status, l.UserAgent, l.Time.UnixMilli(), l.Latency)
 	if err != nil {
 		return err
 	}
@@ -76,7 +76,7 @@ func (db *AccessLogDatabase) StoreRequestLog(l *model.RequestLog) error {
 
 func (db *AccessLogDatabase) GetRequestLogs() ([]model.RequestLog, error) {
 	logs := make([]model.RequestLog, 0)
-	rows, err := db.sqlite.Query("select url, ip, method, status, userAgent, time from request_log")
+	rows, err := db.sqlite.Query("select url, ip, method, status, userAgent, time, latency from request_log")
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (db *AccessLogDatabase) GetRequestLogs() ([]model.RequestLog, error) {
 	for rows.Next() {
 		var l model.RequestLog
 		var t int64
-		err = rows.Scan(&l.Url, &l.Ip, &l.Method, &l.Status, &l.UserAgent, &t)
+		err = rows.Scan(&l.Url, &l.Ip, &l.Method, &l.Status, &l.UserAgent, &t, &l.Latency)
 		if err != nil {
 			fmt.Printf("error reading row: %+v", err)
 			continue

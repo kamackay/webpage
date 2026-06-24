@@ -50,10 +50,10 @@ func (a *AccessApi) getRecent(c *gin.Context) {
 		return logs[i].Time.Before(logs[j].Time)
 	})
 	tw := table.NewWriter()
-	tw.AppendHeader(table.Row{"Time", "Method", "Ip", "Status", "Url", "UserAgent"})
+	tw.AppendHeader(table.Row{"Time", "Method", "Ip", "Status", "Url", "UserAgent", "Latency"})
 	tw.SetTitle("Recent Access Logs")
 	for _, l := range logs {
-		tw.AppendRow(table.Row{l.Time.Format("2006-01-02 15:04:05"), l.Method, l.Ip, l.Status, l.Url, l.UserAgent})
+		tw.AppendRow(table.Row{l.Time.Format("2006-01-02 15:04:05"), l.Method, l.Ip, l.Status, l.Url, l.UserAgent, l.Latency})
 	}
 	c.String(http.StatusOK, tw.Render())
 }

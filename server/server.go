@@ -48,9 +48,9 @@ func (s *Server) Start() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
-	if err := r.SetTrustedProxies([]string{"127.0.0.1"}); err != nil {
+	/*if err := r.SetTrustedProxies([]string{"127.0.0.1"}); err != nil {
 		panic(err)
-	}
+	}/**/
 	r.Use(s.access.BitchFilter(), s.access.UserAgentFilter())
 	r.Use(gin.Recovery(), gzip.Gzip(gzip.DefaultCompression))
 	r.Use(s.access.RequestLogger())

@@ -14,6 +14,7 @@ import (
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
 	"github.com/kamackay/webpage/model"
+	"github.com/kamackay/webpage/util"
 )
 
 type AccessApi struct {
@@ -81,7 +82,7 @@ func (a *AccessApi) getTrafficHits(c *gin.Context) {
 }
 
 func (a *AccessApi) handleRequest(c *gin.Context) {
-	ip := c.ClientIP()
+	ip := util.GetIp(c)
 	userAgent := c.Request.UserAgent()
 	go func() {
 		if err := a.accessDb.Insert(model.AccessLogDatum{Ip: ip, UserAgent: userAgent, Hits: 1, Bitch: false}); err != nil {
@@ -105,7 +106,7 @@ func (a *AccessApi) UserAgentFilter() gin.HandlerFunc {
 func (a *AccessApi) cacheRequest(c *gin.Context, latency string) {
 	l := &model.RequestLog{
 		Url:       c.Request.Host + c.Request.URL.String(),
-		Ip:        c.ClientIP(),
+		Ip:        util.GetIp(c),
 		Method:    c.Request.Method,
 		Status:    c.Writer.Status(),
 		UserAgent: c.Request.UserAgent(),
@@ -129,7 +130,7 @@ func (a *AccessApi) RequestLogger() gin.HandlerFunc {
 		a.handleRequest(c)
 		c.Next()
 		a.logger.Printf("%s: %s %s%s -> %d (%s)",
-			c.ClientIP(),
+			util.GetIp(c),
 			c.Request.Method,
 			c.Request.Host,
 			c.Request.URL.Path,
@@ -143,8 +144,8 @@ func (a *AccessApi) RequestLogger() gin.HandlerFunc {
 func (a *AccessApi) BitchFilter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
-		if bitch, err := a.accessDb.IsBitch(c.ClientIP()); err == nil && bitch {
-			ip := c.ClientIP()
+		ip := util.GetIp(c)
+		if bitch, err := a.accessDb.IsBitch(ip); err == nil && bitch {
 			go func() {
 				// Increment hit count for this bitch
 				if err := a.accessDb.Insert(model.AccessLogDatum{Ip: ip}); err != nil {
@@ -164,7 +165,7 @@ func (a *AccessApi) BitchFilter() gin.HandlerFunc {
 		}
 		if isHackAttempt(c) {
 			domain.BitchRejection(c)
-			err := a.accessDb.SetBitchStatus(c.ClientIP(), true)
+			err := a.accessDb.SetBitchStatus(ip, true)
 			if err != nil {
 				a.logger.Printf("Error Setting user to bitch: %+v", err)
 			}

@@ -14,12 +14,13 @@ type PicsDatabase struct {
 type Pic struct {
 	bun.BaseModel `bun:"table:pics"`
 
-	Id       int64  `bun:",pk,autoincrement" json:"id"`
-	Title    string `bun:",notnull" json:"title"`
-	Image    []byte `bun:",notnull" json:"-"` // raw image bytes
-	Hidden   bool   `bun:",nullzero,notnull,default:false" json:"hidden"`
-	Taken    int64  `bun:",nullzero" json:"taken"`    // unix millis, when photo was shot
-	Uploaded int64  `bun:",nullzero" json:"uploaded"` // unix millis, when row was inserted
+	Id         int64  `bun:",pk,autoincrement" json:"id"`
+	Title      string `bun:",notnull" json:"title"`
+	Image      []byte `bun:",notnull" json:"-"` // raw image bytes
+	Hidden     bool   `bun:",nullzero,notnull,default:false" json:"hidden"`
+	Collection string `bun:",nullzero" json:"collection"` // e.g. "Iceland 2026"
+	Taken      int64  `bun:",nullzero" json:"taken"`      // unix millis, when photo was shot
+	Uploaded   int64  `bun:",nullzero" json:"uploaded"`   // unix millis, when row was inserted
 
 	// Metadata / EXIF
 	Camera       string  `bun:",nullzero" json:"camera"`       // e.g. "Fujifilm X-T4"

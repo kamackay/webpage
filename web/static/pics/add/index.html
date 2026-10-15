@@ -208,6 +208,10 @@
         <fieldset>
           <legend>Photos</legend>
           <label>
+            Collection
+            <input type="text" id="collection-input" placeholder="e.g. Iceland 2026" />
+          </label>
+          <label>
             Image files (JPG, select multiple)
             <input type="file" id="image-input" accept="image/jpeg" multiple required />
           </label>
@@ -238,6 +242,7 @@
       const form = document.getElementById("upload-form");
       const imageInput = document.getElementById("image-input");
       const fileList = document.getElementById("file-list");
+      const collectionInput = document.getElementById("collection-input");
       const passwordInput = document.getElementById("password-input");
       const status = document.getElementById("status");
       const submitBtn = document.getElementById("submit-btn");
@@ -294,7 +299,7 @@
         fileList.replaceChildren(...selectedFiles.map(buildFileRow));
       });
 
-      async function uploadOne(file, row, password) {
+      async function uploadOne(file, row, password, collection) {
         const fileStatus = row.querySelector('[data-role="status"]');
         const titleInput = row.querySelector('[data-role="title"]');
         const hiddenInput = row.querySelector('[data-role="hidden"]');
@@ -306,6 +311,7 @@
         formData.set("image", file);
         formData.set("title", titleInput.value);
         formData.set("hidden", hiddenInput.checked ? "true" : "false");
+        formData.set("collection", collection);
         formData.set("password", password);
 
         const response = await fetch("/api/pics/upload", {
@@ -346,9 +352,10 @@
 
         const rows = Array.from(fileList.children);
         const password = passwordInput.value;
+        const collection = collectionInput.value;
 
         const results = await Promise.allSettled(
-          selectedFiles.map((file, index) => uploadOne(file, rows[index], password)),
+          selectedFiles.map((file, index) => uploadOne(file, rows[index], password, collection)),
         );
 
         const succeeded = results.filter((r) => r.status === "fulfilled").length;

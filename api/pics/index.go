@@ -147,6 +147,7 @@ func (s *Service) uploadPicture(c *gin.Context) {
 		Title:        c.PostForm("title"),
 		Image:        imageBytes,
 		Hidden:       hidden,
+		Collection:   c.PostForm("collection"),
 		Taken:        taken.UnixMilli(),
 		Uploaded:     time.Now().UnixMilli(),
 		Camera:       meta.Camera,

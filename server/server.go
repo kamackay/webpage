@@ -90,7 +90,7 @@ func (s *Server) Start() {
 	if err != nil {
 		log.Fatalf("failed to mount static FS: %v", err)
 	}
-	picsServer := http.FileServer(http.FS(staticRoot))
+	picsServer := http.FileServer(http.FS(picsRoot))
 
 	quandRoot, err := fs.Sub(s.fs, "web/static/quand")
 	if err != nil {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"os"
+	"time"
 
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
@@ -11,6 +12,7 @@ import (
 )
 
 var rootDatabase *bun.DB
+var picsDatabase *bun.DB
 
 func GetDb() *bun.DB {
 	if rootDatabase == nil {
@@ -21,6 +23,17 @@ func GetDb() *bun.DB {
 		rootDatabase = bun.NewDB(sqldb, pgdialect.New())
 	}
 	return rootDatabase
+}
+
+func GetPicsDb() *bun.DB {
+	if picsDatabase == nil {
+		sqldb := sql.OpenDB(pgdriver.NewConnector(
+			pgdriver.WithDSN(os.Getenv("DATABASE_URL")),
+			pgdriver.WithWriteTimeout(30*time.Second),
+		))
+		picsDatabase = bun.NewDB(sqldb, pgdialect.New())
+	}
+	return picsDatabase
 }
 
 func CreateSchema[T any](model T) error {

@@ -33,7 +33,7 @@ type Pic struct {
 }
 
 func NewPicsDatabase() (*PicsDatabase, error) {
-	return &PicsDatabase{db: GetDb()}, CreateSchema((*Pic)(nil))
+	return &PicsDatabase{db: GetPicsDb()}, CreateSchema((*Pic)(nil))
 }
 
 func (pd *PicsDatabase) Create(pic *Pic) error {
@@ -56,16 +56,12 @@ func (pd *PicsDatabase) GetIds() ([]int64, error) {
 	return ids, err
 }
 
-// GetAll returns every pic's metadata, ordered by id, without the image bytes.
 func (pd *PicsDatabase) GetAll() ([]Pic, error) {
 	list := make([]Pic, 0)
 	err := pd.db.NewSelect().Model(&list).ExcludeColumn("image").Order("id").Scan(context.Background())
 	return list, err
 }
 
-// GetVisible returns metadata (no image bytes) for every non-hidden pic,
-// most recently taken first. Treats a NULL hidden column (from rows written
-// before it had a default) the same as false.
 func (pd *PicsDatabase) GetVisible() ([]Pic, error) {
 	list := make([]Pic, 0)
 	err := pd.db.NewSelect().Model(&list).

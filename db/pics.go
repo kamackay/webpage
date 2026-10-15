@@ -33,7 +33,14 @@ type Pic struct {
 }
 
 func NewPicsDatabase() (*PicsDatabase, error) {
-	return &PicsDatabase{db: GetPicsDb()}, CreateSchema((*Pic)(nil))
+	db := GetPicsDb()
+	if err := CreateSchema((*Pic)(nil)); err != nil {
+		return nil, err
+	}
+	if _, err := db.ExecContext(context.Background(), "ALTER TABLE pics ALTER COLUMN image SET STORAGE EXTERNAL"); err != nil {
+		return nil, err
+	}
+	return &PicsDatabase{db: db}, nil
 }
 
 func (pd *PicsDatabase) Create(pic *Pic) error {

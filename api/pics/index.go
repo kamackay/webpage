@@ -36,6 +36,7 @@ func NewPicsService(db *db.PicsDatabase) *Service {
 		uploadPassword: os.Getenv(uploadPasswordEnv),
 		cache: diskv.New(diskv.Options{
 			BasePath:     "image-cache",
+			Compression:  diskv.NewGzipCompression(),
 			CacheSizeMax: 5 * 1024 * 1024 * 1024,
 		}),
 	}

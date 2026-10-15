@@ -14,6 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/api/blocklist"
+	"github.com/kamackay/webpage/api/pics"
 	"github.com/kamackay/webpage/db"
 	"github.com/kamackay/webpage/domain"
 	"github.com/kamackay/webpage/util"
@@ -59,11 +60,16 @@ func (s *Server) Start() {
 	if err != nil {
 		panic(err)
 	}
+	picsDb, err := db.NewPicsDatabase()
+	if err != nil {
+		panic(err)
+	}
 
 	apis := []api.Api{
 		s.access,
 		api.NewResumeApi(),
 		blocklist.NewBlocklistService(blocklistDb),
+		pics.NewPicsService(picsDb),
 	}
 
 	apiGroup := r.Group("/api")
@@ -79,6 +85,12 @@ func (s *Server) Start() {
 		log.Fatalf("failed to mount static FS: %v", err)
 	}
 	staticServer := http.FileServer(http.FS(staticRoot))
+
+	picsRoot, err := fs.Sub(s.fs, "web/static/pics")
+	if err != nil {
+		log.Fatalf("failed to mount static FS: %v", err)
+	}
+	picsServer := http.FileServer(http.FS(staticRoot))
 
 	quandRoot, err := fs.Sub(s.fs, "web/static/quand")
 	if err != nil {
@@ -103,6 +115,9 @@ func (s *Server) Start() {
 			return
 		case domain.Quand, domain.DigitalOcean:
 			s.serveStatic(c, quandRoot, quandServer)
+			return
+		case domain.PicsSh:
+			s.serveStatic(c, picsRoot, picsServer)
 			return
 		}
 	})

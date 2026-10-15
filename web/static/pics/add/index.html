@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0f14" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Add Photos — Keith MacKay Photography</title>
+    <style>
+      :root {
+        --bg: #0a0f14;
+        --bg-elev: #131c28;
+        --text: #d7e0ea;
+        --text-dim: #8a97a8;
+        --accent: #7cf0c0;
+        --danger: #ff6b6b;
+        --border: #1f2a38;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        padding: 2.5rem 1.5rem 1rem;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        letter-spacing: 0.02em;
+      }
+
+      .hint {
+        margin: 0.5rem 0 0;
+        color: var(--text-dim);
+        font-size: 0.85rem;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        padding: 1rem 1.5rem 3rem;
+      }
+
+      form {
+        width: 100%;
+        max-width: 560px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      fieldset {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      legend {
+        padding: 0 0.4rem;
+        color: var(--text-dim);
+        font-size: 0.85rem;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        font-size: 0.85rem;
+        color: var(--text-dim);
+      }
+
+      .row {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .row label {
+        flex: 1;
+      }
+
+      .checkbox-row {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="file"] {
+        font-family: inherit;
+        font-size: 0.95rem;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--text);
+        padding: 0.5rem 0.6rem;
+      }
+
+      input:focus {
+        outline: 1px solid var(--accent);
+      }
+
+      button {
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        border-radius: 6px;
+        padding: 0.7rem 1rem;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      #file-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .file-row {
+        border: 1px solid var(--border-soft, var(--border));
+        border-radius: 6px;
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .file-row-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+
+      .file-name {
+        font-size: 0.85rem;
+        overflow-wrap: anywhere;
+      }
+
+      .file-status {
+        font-size: 0.8rem;
+        color: var(--text-dim);
+        white-space: nowrap;
+      }
+
+      .file-status.success {
+        color: var(--accent);
+      }
+
+      .file-status.error {
+        color: var(--danger);
+      }
+
+      .status {
+        min-height: 1.2rem;
+        font-size: 0.9rem;
+      }
+
+      .status.error {
+        color: var(--danger);
+      }
+
+      .status.success {
+        color: var(--accent);
+      }
+
+      footer {
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Add Photos</h1>
+      <p class="hint">Camera, lens, exposure, and dimensions are read from each image's EXIF data.</p>
+    </header>
+
+    <main>
+      <form id="upload-form">
+        <fieldset>
+          <legend>Photos</legend>
+          <label>
+            Image files (JPG, select multiple)
+            <input type="file" id="image-input" accept="image/jpeg" multiple required />
+          </label>
+          <div id="file-list"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Authorization</legend>
+          <label>
+            Password
+            <input type="password" id="password-input" required autocomplete="current-password" />
+          </label>
+        </fieldset>
+
+        <p class="status" id="status"></p>
+
+        <button type="submit" id="submit-btn">Upload</button>
+      </form>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="year"></span> Keith MacKay</span>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = `${new Date().getFullYear()}`;
+
+      const form = document.getElementById("upload-form");
+      const imageInput = document.getElementById("image-input");
+      const fileList = document.getElementById("file-list");
+      const passwordInput = document.getElementById("password-input");
+      const status = document.getElementById("status");
+      const submitBtn = document.getElementById("submit-btn");
+
+      let selectedFiles = [];
+
+      function defaultTitle(filename) {
+        return filename.replace(/\.[^/.]+$/, "");
+      }
+
+      function buildFileRow(file) {
+        const row = document.createElement("div");
+        row.className = "file-row";
+
+        const header = document.createElement("div");
+        header.className = "file-row-header";
+
+        const name = document.createElement("span");
+        name.className = "file-name";
+        name.textContent = file.name;
+
+        const fileStatus = document.createElement("span");
+        fileStatus.className = "file-status";
+        fileStatus.dataset.role = "status";
+
+        header.append(name, fileStatus);
+
+        const fields = document.createElement("div");
+        fields.className = "row";
+
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = "Title";
+        const titleInput = document.createElement("input");
+        titleInput.type = "text";
+        titleInput.dataset.role = "title";
+        titleInput.value = defaultTitle(file.name);
+        titleInput.required = true;
+        titleLabel.appendChild(titleInput);
+
+        const hiddenLabel = document.createElement("label");
+        hiddenLabel.className = "checkbox-row";
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "checkbox";
+        hiddenInput.dataset.role = "hidden";
+        hiddenLabel.append(hiddenInput, document.createTextNode("Hidden"));
+
+        fields.append(titleLabel, hiddenLabel);
+        row.append(header, fields);
+        return row;
+      }
+
+      imageInput.addEventListener("change", () => {
+        selectedFiles = Array.from(imageInput.files);
+        fileList.replaceChildren(...selectedFiles.map(buildFileRow));
+      });
+
+      async function uploadOne(file, row, password) {
+        const fileStatus = row.querySelector('[data-role="status"]');
+        const titleInput = row.querySelector('[data-role="title"]');
+        const hiddenInput = row.querySelector('[data-role="hidden"]');
+
+        fileStatus.textContent = "Uploading...";
+        fileStatus.className = "file-status";
+
+        const formData = new FormData();
+        formData.set("image", file);
+        formData.set("title", titleInput.value);
+        formData.set("hidden", hiddenInput.checked ? "true" : "false");
+        formData.set("password", password);
+
+        const response = await fetch("/api/pics/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.status === 401) {
+          fileStatus.textContent = "Incorrect password";
+          fileStatus.className = "file-status error";
+          throw new Error("unauthorized");
+        }
+
+        if (!response.ok) {
+          fileStatus.textContent = `Failed (${response.status})`;
+          fileStatus.className = "file-status error";
+          throw new Error(`upload failed: ${response.status}`);
+        }
+
+        const pic = await response.json();
+        fileStatus.textContent = `Uploaded as #${pic.id}${pic.camera ? ` — ${pic.camera}` : ""}`;
+        fileStatus.className = "file-status success";
+        return pic;
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (selectedFiles.length === 0) {
+          status.textContent = "Select at least one image.";
+          status.className = "status error";
+          return;
+        }
+
+        submitBtn.disabled = true;
+        status.textContent = `Uploading ${selectedFiles.length} photo(s)...`;
+        status.className = "status";
+
+        const rows = Array.from(fileList.children);
+        const password = passwordInput.value;
+
+        const results = await Promise.allSettled(
+          selectedFiles.map((file, index) => uploadOne(file, rows[index], password)),
+        );
+
+        const succeeded = results.filter((r) => r.status === "fulfilled").length;
+        const failed = results.length - succeeded;
+
+        status.textContent = `Done: ${succeeded} succeeded, ${failed} failed.`;
+        status.className = failed === 0 ? "status success" : "status error";
+        submitBtn.disabled = false;
+
+        if (failed === 0) {
+          selectedFiles = [];
+          imageInput.value = "";
+          fileList.replaceChildren();
+          passwordInput.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>

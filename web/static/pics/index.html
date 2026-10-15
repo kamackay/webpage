@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b0a" />
+    <meta name="description" content="Photography portfolio of Keith MacKay." />
+    <title>Keith MacKay — Photography</title>
+    <style>
+      :root {
+        --bg: #0b0b0a;
+        --text: #ece7df;
+        --text-dim: #958e82;
+        --text-faint: #68635a;
+        --hairline: rgba(255, 255, 255, 0.09);
+        --danger: #cf9183;
+        --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        --sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        background: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        font-family: var(--sans);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .top {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.65rem;
+        padding: 2.5rem 1.5rem 0;
+      }
+
+      .wordmark {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        letter-spacing: 0.01em;
+      }
+
+      .top .sep {
+        width: 1px;
+        height: 0.8em;
+        background: var(--hairline);
+      }
+
+      .kicker {
+        font-size: 0.65rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2.5rem 1.5rem 3.5rem;
+      }
+
+      .message {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--text-dim);
+        text-align: center;
+      }
+
+      .message.error {
+        font-style: normal;
+        color: var(--danger);
+      }
+
+      .viewer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.85rem;
+      }
+
+      .frame {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.1rem;
+        width: 100%;
+      }
+
+      .frame img {
+        display: block;
+        max-width: min(100%, 980px);
+        max-height: 64vh;
+        object-fit: contain;
+        opacity: 0;
+        box-shadow: 0 50px 80px -40px rgba(0, 0, 0, 0.75);
+        transition: opacity 0.6s ease;
+      }
+
+      .frame img.visible {
+        opacity: 1;
+      }
+
+      .caption {
+        max-width: 34rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .caption h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 1.3rem;
+        color: var(--text);
+      }
+
+      .when {
+        margin: 0;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+
+      .specs {
+        margin: 0;
+        font-size: 0.74rem;
+        letter-spacing: 0.02em;
+        line-height: 1.7;
+        color: var(--text-dim);
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .controls .tick {
+        color: var(--hairline);
+      }
+
+      .controls button {
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0 0 0.2rem;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        color: inherit;
+        border-bottom: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .controls button:hover:not(:disabled) {
+        color: var(--text);
+        border-bottom-color: currentColor;
+      }
+
+      .controls button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .counter {
+        color: var(--text-faint);
+        letter-spacing: 0.08em;
+      }
+
+      footer {
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        color: var(--text-faint);
+        border-top: 1px solid var(--hairline);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <span class="wordmark">Keith MacKay</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="kicker">Photography</span>
+    </header>
+
+    <main>
+      <p class="message" id="message">Loading the gallery&hellip;</p>
+
+      <div class="viewer" id="viewer" hidden>
+        <figure class="frame">
+          <img id="photo" alt="" hidden />
+          <figcaption class="caption">
+            <h2 id="meta-title"></h2>
+            <p class="when" id="meta-when"></p>
+            <p class="specs" id="meta-specs"></p>
+          </figcaption>
+        </figure>
+
+        <nav class="controls" aria-label="Photo navigation">
+          <button id="prev-btn" type="button">Prev</button>
+          <span class="tick" aria-hidden="true">/</span>
+          <button id="pause-btn" type="button">Pause</button>
+          <span class="tick" aria-hidden="true">/</span>
+          <button id="next-btn" type="button">Next</button>
+          <span class="counter" id="counter"></span>
+        </nav>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; <span id="year"></span> Keith MacKay</span>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = `${new Date().getFullYear()}`;
+
+      const ROTATE_INTERVAL_MS = 30000;
+
+      const messageEl = document.getElementById("message");
+      const viewerEl = document.getElementById("viewer");
+      const photoEl = document.getElementById("photo");
+      const titleEl = document.getElementById("meta-title");
+      const whenEl = document.getElementById("meta-when");
+      const specsEl = document.getElementById("meta-specs");
+      const counterEl = document.getElementById("counter");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+      const pauseBtn = document.getElementById("pause-btn");
+
+      let photos = [];
+      let currentIndex = 0;
+      let timer = null;
+      let paused = false;
+
+      function trimNumber(value, decimals) {
+        return parseFloat(value.toFixed(decimals)).toString();
+      }
+
+      function formatDate(unixMillis) {
+        if (!unixMillis) return "";
+        return new Date(unixMillis).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      function buildSpecs(pic) {
+        const parts = [];
+        if (pic.camera) parts.push(pic.camera);
+        if (pic.lens) parts.push(pic.lens);
+        if (pic.focalLength) parts.push(`${trimNumber(pic.focalLength, 1)}mm`);
+        if (pic.aperture) parts.push(`f/${trimNumber(pic.aperture, 1)}`);
+        if (pic.shutterSpeed) parts.push(`${pic.shutterSpeed}s`);
+        if (pic.iso) parts.push(`ISO ${pic.iso}`);
+        return parts.join(" · ");
+      }
+
+      function showPhoto(index) {
+        const pic = photos[index];
+
+        photoEl.classList.remove("visible");
+        const onLoad = () => {
+          photoEl.hidden = false;
+          photoEl.classList.add("visible");
+          photoEl.removeEventListener("load", onLoad);
+        };
+        photoEl.addEventListener("load", onLoad);
+        photoEl.src = `/api/pics/${pic.id}`;
+        photoEl.alt = pic.title || "";
+
+        titleEl.textContent = pic.title || "Untitled";
+        whenEl.textContent = formatDate(pic.taken);
+        specsEl.textContent = buildSpecs(pic);
+        counterEl.textContent = `${index + 1} / ${photos.length}`;
+      }
+
+      function advance(delta) {
+        currentIndex = (currentIndex + delta + photos.length) % photos.length;
+        showPhoto(currentIndex);
+      }
+
+      function startTimer() {
+        stopTimer();
+        timer = setInterval(() => advance(1), ROTATE_INTERVAL_MS);
+      }
+
+      function stopTimer() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function restartTimerIfRunning() {
+        if (!paused) startTimer();
+      }
+
+      function togglePause() {
+        paused = !paused;
+        pauseBtn.textContent = paused ? "Play" : "Pause";
+        if (paused) {
+          stopTimer();
+        } else {
+          startTimer();
+        }
+      }
+
+      prevBtn.addEventListener("click", () => {
+        advance(-1);
+        restartTimerIfRunning();
+      });
+      nextBtn.addEventListener("click", () => {
+        advance(1);
+        restartTimerIfRunning();
+      });
+      pauseBtn.addEventListener("click", togglePause);
+
+      document.addEventListener("keydown", (event) => {
+        if (photos.length < 2) return;
+        if (event.key === "ArrowRight") {
+          advance(1);
+          restartTimerIfRunning();
+        } else if (event.key === "ArrowLeft") {
+          advance(-1);
+          restartTimerIfRunning();
+        } else if (event.code === "Space" && event.target === document.body) {
+          event.preventDefault();
+          togglePause();
+        }
+      });
+
+      async function init() {
+        try {
+          const response = await fetch("/api/pics/list");
+          if (!response.ok) throw new Error(`status ${response.status}`);
+          photos = await response.json();
+        } catch (err) {
+          messageEl.textContent = "Couldn't load the photos — try refreshing.";
+          messageEl.className = "message error";
+          return;
+        }
+
+        if (!photos || photos.length === 0) {
+          messageEl.textContent = "The gallery is still being curated.";
+          viewerEl.hidden = true;
+          photoEl.hidden = true;
+          return;
+        }
+
+        messageEl.hidden = true;
+        viewerEl.hidden = false;
+
+        if (photos.length === 1) {
+          prevBtn.disabled = true;
+          nextBtn.disabled = true;
+          pauseBtn.disabled = true;
+        } else {
+          startTimer();
+        }
+
+        showPhoto(0);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

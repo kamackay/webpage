@@ -52,7 +52,7 @@ func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/pics")
 	{
 		apiGroup.GET("/list", s.listPictures)
-		apiGroup.GET("/:id.jpg", s.getPicture)
+		apiGroup.GET("/jpg/:id", s.getPicture)
 		apiGroup.POST("/upload", s.uploadPicture)
 	}
 }

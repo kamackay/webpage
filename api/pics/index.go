@@ -4,6 +4,7 @@ import (
 	"crypto/subtle"
 	"database/sql"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -14,6 +15,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/db"
+	"github.com/peterbourgon/diskv/v3"
 )
 
 const uploadPasswordEnv = "PICS_UPLOAD_PASSWORD"
@@ -24,6 +26,7 @@ type Service struct {
 	db             *db.PicsDatabase
 	logger         *log.Logger
 	uploadPassword string
+	cache          *diskv.Diskv
 }
 
 func NewPicsService(db *db.PicsDatabase) *Service {
@@ -31,6 +34,10 @@ func NewPicsService(db *db.PicsDatabase) *Service {
 		db:             db,
 		logger:         log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile|log.LUTC),
 		uploadPassword: os.Getenv(uploadPasswordEnv),
+		cache: diskv.New(diskv.Options{
+			BasePath:     "image-cache",
+			CacheSizeMax: 5 * 1024 * 1024 * 1024,
+		}),
 	}
 
 	service.Init()
@@ -45,7 +52,7 @@ func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/pics")
 	{
 		apiGroup.GET("/list", s.listPictures)
-		apiGroup.GET("/:id", s.getPicture)
+		apiGroup.GET("/:id.jpg", s.getPicture)
 		apiGroup.POST("/upload", s.uploadPicture)
 	}
 }
@@ -66,6 +73,16 @@ func (s *Service) getPicture(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
+	cacheKey := fmt.Sprintf("image-%d", id)
+	if s.cache.Has(cacheKey) {
+		data, err := s.cache.Read(cacheKey)
+		if err != nil {
+			s.logger.Printf("Error reading picture: %+v", err)
+		} else {
+			c.Data(http.StatusOK, "image/jpeg", data)
+			s.logger.Printf("Successfully fetched cached picture: %s", cacheKey)
+		}
+	}
 	pic, err := s.db.GetById(id)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -80,6 +97,9 @@ func (s *Service) getPicture(c *gin.Context) {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
+	go func() {
+		_ = s.cache.Write(cacheKey, pic.Image)
+	}()
 	c.Data(http.StatusOK, "image/jpeg", pic.Image)
 }
 

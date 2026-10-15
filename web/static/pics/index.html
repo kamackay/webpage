@@ -293,7 +293,7 @@
           photoEl.removeEventListener("load", onLoad);
         };
         photoEl.addEventListener("load", onLoad);
-        photoEl.src = `/api/pics/${pic.id}`;
+        photoEl.src = `/api/pics/${pic.id}.jpg`;
         photoEl.alt = pic.title || "";
 
         titleEl.textContent = pic.title || "Untitled";

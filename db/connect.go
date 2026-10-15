@@ -29,7 +29,7 @@ func GetPicsDb() *bun.DB {
 	if picsDatabase == nil {
 		sqldb := sql.OpenDB(pgdriver.NewConnector(
 			pgdriver.WithDSN(os.Getenv("DATABASE_URL")),
-			pgdriver.WithWriteTimeout(30*time.Second),
+			pgdriver.WithWriteTimeout(60*time.Second),
 		))
 		picsDatabase = bun.NewDB(sqldb, pgdialect.New())
 	}

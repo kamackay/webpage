@@ -16,6 +16,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kamackay/webpage/api"
 	"github.com/kamackay/webpage/db"
+	"github.com/kamackay/webpage/util"
 	"github.com/peterbourgon/diskv/v3"
 )
 
@@ -47,13 +48,36 @@ func NewPicsService(db *db.PicsDatabase) *Service {
 }
 
 func (s *Service) Init() {
-	// Nothing for now
+	// After init, wait a few seconds and then pre-load images into the cache
+	go func() {
+		time.Sleep(5 * time.Second)
+		list, err := s.db.GetVisible()
+		if err != nil {
+			s.logger.Println(err)
+			return
+		}
+		for _, pic := range list {
+			time.Sleep(1 * time.Second)
+			data, err := s.db.GetById(pic.Id)
+			if err != nil {
+				s.logger.Println(err)
+				continue
+			}
+			err = s.cache.Write(fmt.Sprintf("image-%d", pic.Id), data.Image)
+			if err != nil {
+				s.logger.Println(err)
+			} else {
+				s.logger.Printf("Loaded image %d into cache", pic.Id)
+			}
+		}
+	}()
 }
 
 func (s *Service) RegisterRoutes(group *gin.RouterGroup) {
 	apiGroup := group.Group("/pics")
 	{
 		apiGroup.GET("/list", s.listPictures)
+		apiGroup.GET("/list/collection/:collection", s.listPicturesByCollection)
 		apiGroup.GET("/jpg/:id", s.getPicture)
 		apiGroup.POST("/upload", s.uploadPicture)
 	}
@@ -63,6 +87,17 @@ func (s *Service) listPictures(c *gin.Context) {
 	list, err := s.db.GetVisible()
 	if err != nil {
 		s.logger.Printf("Error listing pictures: %+v", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, list)
+}
+
+func (s *Service) listPicturesByCollection(c *gin.Context) {
+	collection := c.Param("collection")
+	list, err := s.db.GetVisibleByCollection(collection)
+	if err != nil {
+		s.logger.Printf("Error listing pictures for collection %s: %+v", collection, err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
@@ -150,7 +185,7 @@ func (s *Service) uploadPicture(c *gin.Context) {
 		Title:        strings.TrimSpace(c.PostForm("title")),
 		Image:        imageBytes,
 		Hidden:       hidden,
-		Collection:   strings.TrimSpace(c.PostForm("collection")),
+		Collection:   util.Slugify(strings.TrimSpace(c.PostForm("collection"))),
 		Taken:        taken.UnixMilli(),
 		Uploaded:     time.Now().UnixMilli(),
 		Camera:       meta.Camera,

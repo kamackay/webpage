@@ -100,6 +100,25 @@ func (s *Server) Start() {
 	}
 	quandServer := http.FileServer(http.FS(quandRoot))
 
+	// Collection pages reuse the main photo gallery page; the client-side
+	// script reads the collection slug out of the URL itself.
+	r.GET("/pics/collection/:collection", func(c *gin.Context) {
+		switch c.Request.Host {
+		case domain.Quand, domain.DigitalOcean, domain.PicsSh:
+			domain.DefaultRejection(c)
+			return
+		default:
+			s.serveFile(c, staticRoot, "pics/index.html")
+		}
+	})
+	r.GET("/collection/:collection", func(c *gin.Context) {
+		if c.Request.Host != domain.PicsSh {
+			domain.DefaultRejection(c)
+			return
+		}
+		s.serveFile(c, picsRoot, "index.html")
+	})
+
 	r.NoRoute(func(c *gin.Context) {
 		if s.verbose {
 			s.logger.Printf("%s %s %s", c.Request.Method, c.Request.URL.Path, c.Request.RemoteAddr)
@@ -202,6 +221,23 @@ func (s *Server) serveStatic(c *gin.Context, root fs.FS, server http.Handler) {
 	}
 
 	server.ServeHTTP(c.Writer, c.Request)
+}
+
+// serveFile serves a single known file from the embedded FS verbatim,
+// bypassing the path-derived lookup in serveStatic. Used for routes with a
+// dynamic path segment (e.g. a collection slug) that doesn't map to a real
+// file on disk.
+func (s *Server) serveFile(c *gin.Context, root fs.FS, filePath string) {
+	data, err := fs.ReadFile(root, filePath)
+	if err != nil {
+		if s.verbose {
+			s.logger.Printf("failed to read %s: %v", filePath, err)
+		}
+		domain.DefaultRejection(c)
+		return
+	}
+	c.Header("Cache-Control", "no-cache")
+	c.Data(http.StatusOK, "text/html; charset=utf-8", data)
 }
 
 func getCleanPath(originalPath string) string {

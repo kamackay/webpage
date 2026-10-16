@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/kamackay/webpage/util"
 	"github.com/uptrace/bun"
 )
 
@@ -78,6 +79,22 @@ func (pd *PicsDatabase) GetVisible() ([]Pic, error) {
 		Order("taken DESC").
 		Scan(context.Background())
 	return list, err
+}
+
+func (pd *PicsDatabase) GetVisibleByCollection(collectionSlug string) ([]Pic, error) {
+	all, err := pd.GetVisible()
+	if err != nil {
+		return nil, err
+	}
+
+	slug := util.Slugify(collectionSlug)
+	list := make([]Pic, 0, len(all))
+	for _, pic := range all {
+		if util.Slugify(pic.Collection) == slug {
+			list = append(list, pic)
+		}
+	}
+	return list, nil
 }
 
 func (pd *PicsDatabase) Delete(id string) error {

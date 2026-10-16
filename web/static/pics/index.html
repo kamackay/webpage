@@ -215,7 +215,7 @@
     <header class="top">
       <span class="wordmark">Keith MacKay</span>
       <span class="sep" aria-hidden="true"></span>
-      <span class="kicker">Photography</span>
+      <span class="kicker" id="kicker">Photography</span>
     </header>
 
     <main>
@@ -254,6 +254,7 @@
       const messageEl = document.getElementById("message");
       const viewerEl = document.getElementById("viewer");
       const frameEl = document.getElementById("frame");
+      const kickerEl = document.getElementById("kicker");
       const photoEl = document.getElementById("photo");
       const titleEl = document.getElementById("meta-title");
       const whenEl = document.getElementById("meta-when");
@@ -267,6 +268,15 @@
       let currentIndex = 0;
       let timer = null;
       let paused = false;
+
+      function getCollectionSlug() {
+        const segments = location.pathname.split("/").filter(Boolean);
+        const index = segments.indexOf("collection");
+        if (index === -1 || index === segments.length - 1) return null;
+        return decodeURIComponent(segments[index + 1]);
+      }
+
+      const collectionSlug = getCollectionSlug();
 
       function trimNumber(value, decimals) {
         return parseFloat(value.toFixed(decimals)).toString();
@@ -395,8 +405,12 @@
       });
 
       async function init() {
+        const listUrl = collectionSlug
+          ? `/api/pics/list/collection/${encodeURIComponent(collectionSlug)}`
+          : "/api/pics/list";
+
         try {
-          const response = await fetch("/api/pics/list");
+          const response = await fetch(listUrl);
           if (!response.ok) throw new Error(`status ${response.status}`);
           photos = await response.json();
         } catch (err) {
@@ -406,10 +420,17 @@
         }
 
         if (!photos || photos.length === 0) {
-          messageEl.textContent = "The gallery is still being curated.";
+          messageEl.textContent = collectionSlug
+            ? "No photos found in this collection."
+            : "The gallery is still being curated.";
           viewerEl.hidden = true;
           photoEl.hidden = true;
           return;
+        }
+
+        if (collectionSlug && photos[0].collection) {
+          kickerEl.textContent = photos[0].collection;
+          document.title = `${photos[0].collection} — Keith MacKay Photography`;
         }
 
         messageEl.hidden = true;

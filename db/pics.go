@@ -79,3 +79,8 @@ func (pd *PicsDatabase) GetVisible() ([]Pic, error) {
 		Scan(context.Background())
 	return list, err
 }
+
+func (pd *PicsDatabase) Delete(id string) error {
+	_, err := pd.db.NewDelete().Model(&Pic{}).Where("id = ?", id).Exec(context.Background())
+	return err
+}

@@ -247,6 +247,15 @@
       const status = document.getElementById("status");
       const submitBtn = document.getElementById("submit-btn");
 
+      const PASSWORD_STORAGE_KEY = "pics-upload-password";
+
+      try {
+        const savedPassword = localStorage.getItem(PASSWORD_STORAGE_KEY);
+        if (savedPassword) passwordInput.value = savedPassword;
+      } catch (err) {
+        // localStorage unavailable (private browsing, blocked, etc.) — ignore
+      }
+
       let selectedFiles = [];
 
       function defaultTitle(filename) {
@@ -360,6 +369,19 @@
 
         const succeeded = results.filter((r) => r.status === "fulfilled").length;
         const failed = results.length - succeeded;
+        const passwordRejected = results.some(
+          (r) => r.status === "rejected" && r.reason?.message === "unauthorized",
+        );
+
+        try {
+          if (passwordRejected) {
+            localStorage.removeItem(PASSWORD_STORAGE_KEY);
+          } else {
+            localStorage.setItem(PASSWORD_STORAGE_KEY, password);
+          }
+        } catch (err) {
+          // localStorage unavailable (private browsing, blocked, etc.) — ignore
+        }
 
         status.textContent = `Done: ${succeeded} succeeded, ${failed} failed.`;
         status.className = failed === 0 ? "status success" : "status error";
@@ -369,7 +391,6 @@
           selectedFiles = [];
           imageInput.value = "";
           fileList.replaceChildren();
-          passwordInput.value = "";
         }
       });
     </script>

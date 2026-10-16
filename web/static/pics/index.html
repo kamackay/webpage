@@ -110,6 +110,7 @@
         align-items: center;
         gap: 1.1rem;
         width: 100%;
+        touch-action: pan-y;
       }
 
       .frame img {
@@ -221,7 +222,7 @@
       <p class="message" id="message">Loading the gallery&hellip;</p>
 
       <div class="viewer" id="viewer" hidden>
-        <figure class="frame">
+        <figure class="frame" id="frame">
           <img id="photo" alt="" hidden />
           <figcaption class="caption">
             <h2 id="meta-title"></h2>
@@ -252,6 +253,7 @@
 
       const messageEl = document.getElementById("message");
       const viewerEl = document.getElementById("viewer");
+      const frameEl = document.getElementById("frame");
       const photoEl = document.getElementById("photo");
       const titleEl = document.getElementById("meta-title");
       const whenEl = document.getElementById("meta-when");
@@ -362,6 +364,34 @@
           event.preventDefault();
           togglePause();
         }
+      });
+
+      const SWIPE_THRESHOLD_PX = 40;
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      frameEl.addEventListener(
+        "touchstart",
+        (event) => {
+          const touch = event.changedTouches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        },
+        { passive: true },
+      );
+
+      frameEl.addEventListener("touchend", (event) => {
+        if (photos.length < 2) return;
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < SWIPE_THRESHOLD_PX || Math.abs(deltaX) < Math.abs(deltaY)) {
+          return;
+        }
+
+        advance(deltaX < 0 ? 1 : -1);
+        restartTimerIfRunning();
       });
 
       async function init() {

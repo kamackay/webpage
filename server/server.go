@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"runtime"
 	"strings"
 	"time"
 
@@ -44,6 +45,7 @@ func NewServer(fs embed.FS) *Server {
 }
 
 func (s *Server) Start() {
+	s.logger.Printf("Starting on %s - %s", runtime.GOARCH, runtime.GOOS)
 	s.startedAt = time.Now()
 	if os.Getenv("GIN_MODE") == "" {
 		gin.SetMode(gin.ReleaseMode)

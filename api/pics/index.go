@@ -80,6 +80,7 @@ func (s *Service) getPicture(c *gin.Context) {
 		if err != nil {
 			s.logger.Printf("Error reading picture: %+v", err)
 		} else {
+			c.Header("Cache-Control", "max-age=31536000, immutable")
 			c.Data(http.StatusOK, "image/jpeg", data)
 			s.logger.Printf("Successfully fetched cached picture: %s", cacheKey)
 		}

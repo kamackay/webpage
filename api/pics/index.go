@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -146,10 +147,10 @@ func (s *Service) uploadPicture(c *gin.Context) {
 	hidden := c.PostForm("hidden") == "true" || c.PostForm("hidden") == "on"
 
 	pic := &db.Pic{
-		Title:        c.PostForm("title"),
+		Title:        strings.TrimSpace(c.PostForm("title")),
 		Image:        imageBytes,
 		Hidden:       hidden,
-		Collection:   c.PostForm("collection"),
+		Collection:   strings.TrimSpace(c.PostForm("collection")),
 		Taken:        taken.UnixMilli(),
 		Uploaded:     time.Now().UnixMilli(),
 		Camera:       meta.Camera,

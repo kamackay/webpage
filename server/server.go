@@ -55,7 +55,26 @@ func (s *Server) Start() {
 		panic(err)
 	}/**/
 	r.Use(s.access.BitchFilter(), s.access.UserAgentFilter())
-	r.Use(gin.Recovery(), gzip.Gzip(gzip.DefaultCompression))
+	r.Use(gin.Recovery(), func(c *gin.Context) {
+		encodings := strings.Split(strings.Join(c.Request.Header.Values("Accept-Encoding"), ","), ",")
+		filtered := encodings[:0]
+		removedBrotli := false
+		for _, encoding := range encodings {
+			if strings.EqualFold(strings.TrimSpace(strings.SplitN(encoding, ";", 2)[0]), "br") {
+				removedBrotli = true
+				continue
+			}
+			filtered = append(filtered, strings.TrimSpace(encoding))
+		}
+		if removedBrotli {
+			if acceptEncoding := strings.Join(filtered, ", "); acceptEncoding == "" {
+				c.Request.Header.Del("Accept-Encoding")
+			} else {
+				c.Request.Header.Set("Accept-Encoding", acceptEncoding)
+			}
+		}
+		c.Next()
+	}, gzip.Gzip(gzip.DefaultCompression))
 	r.Use(s.access.RequestLogger())
 
 	blocklistDb, err := db.NewBlocklistDatabase()
